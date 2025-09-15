@@ -1,0 +1,80 @@
+// // Breadpoints
+
+
+// // $breakpoints-up:("medium":"40em", "large":"64em", "xlarge":"87.5em");
+
+// // 640px, 1024px (HD), 1400px (HD+), 1900px (Full HD).
+// $breakpoints-up:("medium":"40em", "large":"64em", "xlarge":"87.5em","xxlarge":"118.75em");
+
+// // 639px, 1023px, 1399px
+// $breakpoints-down:("small":"39.9375em", "medium":"63.9375em", "large":"87.4375em");
+
+// @mixin breakpoint-up($size){
+//     @media (min-width: map-get($breakpoints-up, $size)){
+//         @content;
+//     }
+// }
+
+// @mixin breakpoint-down($size){
+//     @media(max-width: map-get($breakpoints-down,$size)){
+//         @content;
+//     }
+// } 
+
+
+// Custom breakpoints (Bootstrap-like)
+$grid-breakpoints: (
+  xs: 0,
+  sm: 40em,       // 640px
+  md: 64em,       // 1024px (HD)
+  lg: 87.5em,     // 1400px (HD+)
+  xl: 118.75em,   // 1900px (Full HD)
+);
+
+// Mixin: media-breakpoint-up
+@mixin media-breakpoint-up($name) {
+  $min: map-get($grid-breakpoints, $name);
+
+  @if $min != 0 {
+    @media (min-width: $min) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+// Mixin: media-breakpoint-down
+@mixin media-breakpoint-down($name) {
+  $max: map-get($grid-breakpoints, $name) - 0.02em; // prevent overlap
+  @media (max-width: $max) {
+    @content;
+  }
+}
+
+// Mixin: media-breakpoint-between
+@mixin media-breakpoint-between($lower, $upper) {
+  $min: map-get($grid-breakpoints, $lower);
+  $max: map-get($grid-breakpoints, $upper) - 0.02em;
+
+  @media (min-width: $min) and (max-width: $max) {
+    @content;
+  }
+}
+
+// Mixin: media-breakpoint-only
+@mixin media-breakpoint-only($name) {
+  $keys: map-keys($grid-breakpoints);
+  $n: index($keys, $name);
+  $next: if($n < length($keys), nth($keys, $n + 1), null);
+
+  @if $next {
+    @include media-breakpoint-between($name, $next) {
+      @content;
+    }
+  } @else {
+    @include media-breakpoint-up($name) {
+      @content;
+    }
+  }
+}
