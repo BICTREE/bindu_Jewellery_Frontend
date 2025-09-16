@@ -4,12 +4,12 @@ import JewelleryCard from "../common/collectioncard/JewelleryCard";
 
 const CollectionJewellery = () => {
   const collections = [
-    { image: "/card.jpg", title: "STUDS AND DROPS" },
-    { image: "/card.jpg", title: "BANGLES" },
-    { image: "/card.jpg", title: "NECKLACES" },
-    { image: "/card.jpg", title: "RINGS" },
-    { image: "/card.jpg", title: "CHAINS" },
-    { image: "/card.jpg", title: "PENDANTS" },
+    { image: "/assets/images/catmod-08.jpg", title: "STUDS AND DROPS" },
+    { image: "/assets/images/catmod-08.jpg", title: "BANGLES" },
+    { image: "/assets/images/catmod-08.jpg", title: "NECKLACES" },
+    { image: "/assets/images/catmod-08.jpg", title: "RINGS" },
+    { image: "/assets/images/catmod-08.jpg", title: "CHAINS" },
+    { image: "/assets/images/catmod-08.jpg", title: "PENDANTS" },
   ];
 
   return (

@@ -24,7 +24,7 @@ const JewelleryCard: React.FC<JewelleryCardProps> = ({ image, title }) => {
       </div>
 
       {/* Title */}
-      <p className="text-center text-gray-800 font-semibold mt-3">{title}</p>
+      <p className="text-center absolute text-gray-800 font-semibold mt-3  content-center">{title}</p>
     </div>
   );
 };
