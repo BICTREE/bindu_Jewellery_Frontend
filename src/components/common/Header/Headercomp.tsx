@@ -51,7 +51,7 @@ const Header: React.FC = () => {
         <div className="news">
           <ul>
             <li className="flex justify-center items-center gap-2">
-              TODAY'S GOLD RATE
+              {"TODAY'S GOLD RATE"}
               <button className="btn23 bg-black text-yellow-400 px-3 py-1 rounded-full text-sm font-bold">
                 10000/gm
               </button>
