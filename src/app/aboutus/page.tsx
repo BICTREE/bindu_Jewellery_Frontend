@@ -11,7 +11,9 @@ export default function AboutUs() {
   return (
 
     <><>
-      <Banner />
+      <Banner
+      Title="About Us"
+      />
 
 
     </>
