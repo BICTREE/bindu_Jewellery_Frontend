@@ -73,7 +73,9 @@ const Footer = () => {
       </div>
 
       {/* Bottom bar */}
-      <div className="bg-gray-900 py-4 px-4">
+
+      </div>
+            <div className="bg-gray-900 py-4 px-4">
         <div className="container mx-auto flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
           <p>Copyright © 2025 All Rights Reserved | Bictreeindia.Com.</p>
           <div className="flex gap-3 mt-3 md:mt-0">
@@ -83,7 +85,6 @@ const Footer = () => {
             <img src="/assets/logo/master.png" alt="Mastercard" className="h-6" />
           </div>
         </div>
-      </div>
       </div>
     </footer>
   )
