@@ -78,7 +78,9 @@ const products = [
 const Collections = () => {
   return (
     <>
-      <Banner />
+      <Banner
+      Title="Title"
+      />
       <ProductFilter />
       <ProductListComp products={products} />
       <CollectionBanners/>
