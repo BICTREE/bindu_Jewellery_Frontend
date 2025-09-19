@@ -68,7 +68,7 @@ const Header: React.FC = () => {
               <li>
                 <a href="#" className="text-gray-700 flex items-center gap-1">
                   <i className="fa-solid fa-envelope text-amber-600"></i>
-                  contact@bindujewellery.co.in
+                 {"contact@bindujewellery.co.in"}
                 </a>
               </li>
               <li>

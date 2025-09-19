@@ -9,7 +9,9 @@ const SubscribeNewsletter = () => {
       <div className="container mx-auto text-center px-4">
         {/* Heading */}
         <h2 className="text-2xl md:text-3xl font-bold text-white mb-6">
-          Get the newest and best designs <br /> to your inbox weekly.
+         
+
+          Exclusive jewellery updates, crafted just for you — <br /> straight to your inbox.
         </h2>
 
         {/* Email Form */}
