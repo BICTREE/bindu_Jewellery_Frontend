@@ -1,7 +1,11 @@
 "use client";
 import React from "react";
 
-const Banner = () => {
+type BannerProps = {
+  Title: string;
+};
+
+const Banner :React.FC<BannerProps> = ({Title}) => {
   return (
     <section className="relative w-full">
       {/* Background image */}
@@ -38,7 +42,7 @@ const Banner = () => {
         {/* Title - middle left */}
         <div className="flex-1 flex items-center">
           <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white">
-            Gold Collections
+            {Title}
           </h1>
         </div>
 

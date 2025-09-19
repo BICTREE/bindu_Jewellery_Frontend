@@ -6,7 +6,9 @@ import React from "react";
 const Collections = () => {
   return (
     <>
-      <Banner />
+      <Banner 
+      Title="Gold Collections"
+      />
       <CollectionJewellery />
     </>
   );

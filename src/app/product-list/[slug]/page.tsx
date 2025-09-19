@@ -119,7 +119,9 @@ const ProductPage = () => {
 
   return (
 
-    <><Banner />
+    <><Banner
+    Title="Title"
+    />
 
 
     <div className="container">
