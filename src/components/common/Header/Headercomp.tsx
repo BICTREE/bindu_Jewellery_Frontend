@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useScrollAnimation, useScrollLogo } from "./header";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import Link from "next/link";
 
 const Header: React.FC = () => {
   // ✅ Hooks auto-disable on mobile
@@ -137,12 +138,12 @@ const Header: React.FC = () => {
                 </a>
               </li>
               <li className="liclass">
-                <a
-                  href="#"
+                <Link
+                  href="/aboutus"
                   className="text-gray-800 hover:text-amber-600 font-semibold block py-2 px-4 lg:py-0"
                 >
                   ABOUT US
-                </a>
+                </Link>
               </li>
 
               <li
@@ -165,12 +166,12 @@ const Header: React.FC = () => {
               </li>
 
               <li className="liclass">
-                <a
-                  href="#"
+                <Link
+                  href="/product-list"
                   className="text-gray-800 hover:text-amber-600 font-semibold block py-2 px-4 lg:py-0"
                 >
                   SHOP ONLINE
-                </a>
+                </Link>
               </li>
               <li className="liclass">
                 <a
@@ -210,12 +211,12 @@ const Header: React.FC = () => {
                 </a>
               </li>
               <li className="liclass">
-                <a
-                  href="#"
+                <Link
+                  href="/contact-us"
                   className="text-gray-800 hover:text-amber-600 font-semibold block py-2 px-4 lg:py-0"
                 >
                   CONTACT US
-                </a>
+                </Link>
               </li>
             </ul>
 
