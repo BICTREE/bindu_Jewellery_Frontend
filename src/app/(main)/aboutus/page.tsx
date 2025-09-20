@@ -36,7 +36,7 @@ export default function AboutUs() {
     {/* Text second on mobile */}
     <div className="lg:col-span-7 order-2 lg:order-1 flex">
       <div className="flex flex-col justify-center p-4 lg:p-6 flex-1">
-        <p className="text-xs sm:text-sm text-yellow-600 font-semibold uppercase mb-3">
+        <p className="text-xs sm:text-sm text-[#d4b262] font-semibold uppercase mb-3">
           About Us
         </p>
 
