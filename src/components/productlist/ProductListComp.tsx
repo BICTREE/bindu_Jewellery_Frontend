@@ -2,6 +2,7 @@
 import React from "react";
 import ProductCard from "../common/productcard/ProductCard";
 
+
 interface Product {
     id: number;
   image: string;
