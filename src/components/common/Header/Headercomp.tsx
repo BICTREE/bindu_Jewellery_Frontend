@@ -16,6 +16,8 @@ const Header: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [galleryOpen, setGalleryOpen] = useState(false);
+    const [openScheme, setOpenScheme] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLLIElement>(null);
   const navRef = useRef<HTMLUListElement>(null);
@@ -82,26 +84,29 @@ const Header: React.FC = () => {
           </div>
           <div className="do-top-right">
             <ul className="navbar-top-right flex items-center gap-4 text-sm">
-              <li>
+                <li>
                 <a href="#" className="text-gray-700">
-                  dfcs
+                 Event
                 </a>
               </li>
+
               <li>
-                <div className="social-test">
-                  <ul className="social flex gap-3 text-gray-700">
-                    <li>
-                      <i className="fa-brands fa-facebook"></i>
-                    </li>
-                    <li>
-                      <i className="fa-brands fa-twitter"></i>
-                    </li>
-                    <li>
-                      <i className="fa-brands fa-instagram"></i>
-                    </li>
-                  </ul>
-                </div>
+                <a href="#" className="text-gray-700">
+                 Blog
+                </a>
               </li>
+
+
+   <li>
+                <a href="/login" className="text-gray-700">
+                 Login
+                </a>
+              </li>
+
+ <li>
+            
+              </li>
+             
             </ul>
           </div>
         </div>
@@ -173,14 +178,50 @@ const Header: React.FC = () => {
                   SHOP ONLINE
                 </Link>
               </li>
-              <li className="liclass">
-                <a
-                  href="#"
-                  className="text-gray-800 hover:text-amber-600 font-semibold block py-2 px-4 lg:py-0"
-                >
-                  CERTIFICATIONS
-                </a>
-              </li>
+<li
+  className="relative liclass"
+  onMouseEnter={() => !isMobile && setGalleryOpen(true)}
+  onMouseLeave={() => !isMobile && setGalleryOpen(false)}
+  onClick={() => isMobile && setGalleryOpen(!galleryOpen)}
+>
+  <button className="text-gray-800 hover:text-amber-600 font-semibold py-2 px-4 lg:py-0 w-full lg:w-auto flex items-center justify-between">
+    GALLERY
+ 
+  {isMobile ? (
+    <i
+      className={`fas ${galleryOpen ? "fa-chevron-up" : "fa-chevron-down"} ml-2`}
+    ></i>
+  ) : null}
+  </button>
+
+  {/* Button-style submenu */}
+  {galleryOpen && (
+  
+     
+       <ul className="absolute lg:absolute left-0 top-full bg-white shadow-lg rounded-md w-48 top-full py-2 z-50">
+        <li>
+          <a
+            href="#"
+            className="block px-4 py-2 text-gray-700 hover:bg-amber-100 hover:text-amber-600 font-medium"
+          >
+            Photos
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+            className="block px-4 py-2 text-gray-700 hover:bg-amber-100 hover:text-amber-600 font-medium"
+          >
+            Videos
+          </a>
+        </li>
+      </ul>
+   
+  )}
+</li>
+
+
+              
               <li className="liclass mobile-icon hidden lg:block" style={{ margin: 0 }}>
                 <a href="#" className="do-brand-logo margin-t">
                   <img src="/assets/logo/brand-logo.png" alt="Brand Logo" />
@@ -194,20 +235,59 @@ const Header: React.FC = () => {
                   CSR
                 </a>
               </li>
+            {/* Our Scheme with submenu */}
+<li
+  className="relative group liclass"
+  onMouseEnter={() => !isMobile && setOpenScheme(true)}
+  onMouseLeave={() => !isMobile && setOpenScheme(false)}
+  onClick={() => isMobile && setOpenScheme(!openScheme)}
+>
+  <button className="text-gray-800 hover:text-amber-600 font-semibold py-2 px-4 lg:py-0 w-full lg:w-auto flex items-center justify-between">
+    OUR SCHEME
+    {isMobile ? (
+      <i
+        className={`fas ${openScheme ? "fa-chevron-up" : "fa-chevron-down"} ml-2`}
+      ></i>
+    ) : null}
+  </button>
+
+  {/* Submenu */}
+  {openScheme && (
+    <ul className="absolute lg:absolute left-0 top-full bg-white shadow-lg rounded-md w-48 py-2 z-50">
+      <li>
+        <a
+          href="#"
+          className="block px-4 py-2 text-gray-700 hover:bg-amber-100"
+        >
+          Gold Saving Scheme
+        </a>
+      </li>
+      <li>
+        <a
+          href="#"
+          className="block px-4 py-2 text-gray-700 hover:bg-amber-100"
+        >
+          Silver Saving Scheme
+        </a>
+      </li>
+      <li>
+        <a
+          href="#"
+          className="block px-4 py-2 text-gray-700 hover:bg-amber-100"
+        >
+          Diamond Plan
+        </a>
+      </li>
+    </ul>
+  )}
+</li>
+
               <li className="liclass">
                 <a
                   href="#"
                   className="text-gray-800 hover:text-amber-600 font-semibold block py-2 px-4 lg:py-0"
                 >
-                  Our Scheme
-                </a>
-              </li>
-              <li className="liclass">
-                <a
-                  href="#"
-                  className="text-gray-800 hover:text-amber-600 font-semibold block py-2 px-4 lg:py-0"
-                >
-                  Our Branches
+                  OUR BRANCHES
                 </a>
               </li>
               <li className="liclass">
@@ -252,7 +332,7 @@ const Header: React.FC = () => {
               <div className=" bg-white grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 shadow-lg ">
               {/* Column 1 */}
               <div className="lg:pl-12">
-                <h4 className="font-bold text-amber-600  pb-2 mb-3 text-lg">
+                <h4 className="font-bold text-[#d4b262] border-b border-amber-200 pb-2 mb-3 text-lg">
                   JEWELLERY
                 </h4>
                 <ul className="space-y-2">
@@ -269,7 +349,7 @@ const Header: React.FC = () => {
                   ].map((item) => (
                     <li key={item}>
                       <a
-                        href="#"
+                        href="/collections"
                         className="text-gray-700 hover:text-amber-600 block py-1 transition-colors duration-200"
                       >
                         {item}
@@ -281,7 +361,7 @@ const Header: React.FC = () => {
 
               {/* Column 2 */}
               <div>
-                <h4 className="font-bold text-amber-600 border-b border-amber-200 pb-2 mb-3 text-lg">
+                <h4 className="font-bold text-[#d4b262] border-b border-amber-200 pb-2 mb-3 text-lg">
                   PROMISE COLLECTIONS
                 </h4>
                 <ul className="space-y-2 mb-6">
@@ -303,7 +383,7 @@ const Header: React.FC = () => {
                   ))}
                 </ul>
 
-                <h4 className="font-bold text-amber-600 border-b border-amber-200 pb-2 mb-3 text-lg mt-8">
+                <h4 className="font-bold text-[#d4b262] border-b border-amber-200 pb-2 mb-3 text-lg mt-8">
                   DIAMOND
                 </h4>
                 <ul className="space-y-2">
@@ -322,7 +402,7 @@ const Header: React.FC = () => {
 
               {/* Column 3 */}
               <div>
-                <h4 className="font-bold text-amber-600 border-b border-amber-200 pb-2 mb-3 text-lg">
+                <h4 className="font-bold text-[#d4b262] border-b border-amber-200 pb-2 mb-3 text-lg">
                   PURITY
                 </h4>
                 <ul className="space-y-2">
@@ -342,7 +422,7 @@ const Header: React.FC = () => {
               </div>
 
               {/* Column 4 - Promotion */}
-              <div className="bg-gradient-to-r from-amber-400 to-yellow-400 p-6 rounded-lg text-center text-black flex flex-col justify-center items-center">
+              <div className="bg-[#d4b262] p-6  text-center text-black flex flex-col justify-center items-center">
                 <h3 className="font-bold text-xl mb-3">BRIDAL COLLECTIONS</h3>
                 <div className="bg-black text-yellow-400 inline-block px-6 py-2 rounded-full text-base font-bold my-3">
                   DISCOUNT UP TO 5%
