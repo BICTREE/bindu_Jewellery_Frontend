@@ -1,5 +1,6 @@
+// import { Link } from "lucide-react";
 import React from "react";
-
+import Link from "next/link";
 type ProductCardProps = {
   image: string;
   hoverImg: string;
@@ -17,7 +18,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 }) => {
   return (
     <>
-      <a href="/product-list/ring" className="cardBlock sm:justify-center mx-auto ">
+      <Link href="/product-list/ring" className="cardBlock sm:justify-center mx-auto ">
         <div className="card">
           <img src={image} alt={name} className="img img1" />
           <img src={hoverImg} alt={name} className="img img2" />
@@ -51,7 +52,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
             <button className="textCart">Add to Cart</button>
           </div>
         </div>
-      </a>
+      </Link>
 
       {/* ✅ Scoped styles */}
       <style jsx>{`

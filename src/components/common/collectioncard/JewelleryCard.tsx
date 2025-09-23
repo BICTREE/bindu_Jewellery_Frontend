@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import React from "react";
 
 interface JewelleryCardProps {
@@ -21,9 +22,9 @@ const JewelleryCard: React.FC<JewelleryCardProps> = ({ image, title }) => {
                       flex flex-col items-center justify-center 
                       transition-opacity duration-500 rounded-lg">
         <p className="text-white font-semibold mb-4 text-lg">{title}</p>
-        <a href="/product-list" className="px-5 py-2 bg-white text-black font-semibold rounded-full shadow-md hover:bg-gray-200 transition">
+        <Link href="/product-list" className="px-5 py-2 bg-white text-black font-semibold rounded-full shadow-md hover:bg-gray-200 transition">
           View More
-        </a>
+        </Link>
       </div>
 
       {/* Title (default) */}

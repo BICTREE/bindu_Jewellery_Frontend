@@ -6,6 +6,7 @@ import MayLikethis from "@/components/maylikethis/MayLikethis";
 import React, { useState, useRef } from "react";
 
 
+
 // 🔍 Zoom Lens Component
 const ProductImageWithLens = ({ src }: { src: string }) => {
   const containerRef = useRef<HTMLDivElement>(null);
