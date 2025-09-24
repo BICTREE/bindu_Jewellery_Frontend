@@ -11,6 +11,7 @@ import {
   Settings,
   LogOut,
 } from 'lucide-react';
+import { signOut } from 'next-auth/react';
 
 export default function ProfileLayout({
   children,
@@ -52,7 +53,7 @@ export default function ProfileLayout({
             );
           })}
 
-          <button className="flex items-center justify-center md:justify-start gap-2 px-3 py-2 text-red-500 hover:bg-red-100 rounded-md">
+          <button  onClick={() => signOut({ callbackUrl: "/login" })} className="flex items-center justify-center md:justify-start gap-2 px-3 py-2 text-red-500 hover:bg-red-100 rounded-md">
             <LogOut size={20} />
             <span className="hidden md:inline">Logout</span>
           </button>
