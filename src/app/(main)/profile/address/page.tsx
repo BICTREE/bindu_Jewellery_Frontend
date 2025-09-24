@@ -1,59 +1,76 @@
 "use client";
-import { useState } from "react";
+import { AddAddress, deleteAddress, GetMyAddress, UpdateAddress } from "@/services/profileService/addressSerice";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 interface Address {
-  id: number;
-  name: string;
-  phone: string;
+  _id?: string;
+  fullName: string;
+  phoneNumber: string;
   street: string;
   city: string;
   state: string;
-  zip: string;
+  pincode: string;
+  country: string;
 }
 
 export default function ManageAddresses() {
-  const [addresses, setAddresses] = useState<Address[]>([
-    {
-      id: 1,
-      name: "Abeesh Kumar",
-      phone: "+91 95441 21555",
-      street: "123 MG Road",
-      city: "Kochi",
-      state: "Kerala",
-      zip: "682001",
-    },
-  ]);
-
+  const [addresses, setAddresses] = useState<Address[]>([]);
   const [editing, setEditing] = useState<Address | null>(null);
   const [formData, setFormData] = useState<Address>({
-    id: 0,
-    name: "",
-    phone: "",
+    fullName: "",
+    phoneNumber: "",
     street: "",
     city: "",
     state: "",
-    zip: "",
+    pincode: "",
+    country: "",
   });
+  const [loading, setLoading] = useState(false);
+  const [actionLoading, setActionLoading] = useState(false);
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  // Fetch addresses on mount
+  useEffect(() => {
+    fetchAddresses();
+  }, []);
+
+  const fetchAddresses = async () => {
+    try {
+      setLoading(true);
+      const res = await GetMyAddress();
+      setAddresses(res || []);
+    } catch (err) {
+      toast.error("Failed to fetch addresses");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSave = () => {
-    if (editing) {
-      setAddresses(
-        addresses.map((addr) =>
-          addr.id === editing.id ? { ...formData, id: editing.id } : addr
-        )
-      );
-    } else {
-      setAddresses([...addresses, { ...formData, id: Date.now() }]);
+  const handleSave = async () => {
+    try {
+      setActionLoading(true);
+      if (editing?._id) {
+        await UpdateAddress({ id: editing._id, body: formData });
+        toast.success("Address updated successfully");
+      } else {
+        await AddAddress(formData);
+        toast.success("Address added successfully");
+      }
+      fetchAddresses();
+      setEditing(null);
+      resetForm();
+    } catch (err) {
+      toast.error("Failed to save address");
+      console.error(err);
+    } finally {
+      setActionLoading(false);
     }
-    setEditing(null);
-    setFormData({ id: 0, name: "", phone: "", street: "", city: "", state: "", zip: "" });
   };
 
   const handleEdit = (addr: Address) => {
@@ -61,9 +78,41 @@ export default function ManageAddresses() {
     setFormData(addr);
   };
 
-  const handleDelete = (id: number) => {
-    setAddresses(addresses.filter((a) => a.id !== id));
+  const handleDelete = async (id?: string) => {
+    if (!id) return;
+    try {
+      setActionLoading(true);
+      await deleteAddress(id);
+      toast.success("Address deleted successfully");
+      fetchAddresses();
+    } catch (err) {
+      toast.error("Failed to delete address");
+      console.error(err);
+    } finally {
+      setActionLoading(false);
+    }
   };
+
+  const resetForm = () => {
+    setFormData({
+      fullName: "",
+      phoneNumber: "",
+      street: "",
+      city: "",
+      state: "",
+      pincode: "",
+      country: "",
+    });
+  };
+
+  // Skeleton loader for address cards
+  const SkeletonCard = () => (
+    <div className="border p-4 rounded-md animate-pulse">
+      <div className="h-4 bg-gray-200 rounded w-1/3 mb-2"></div>
+      <div className="h-3 bg-gray-200 rounded w-1/2 mb-2"></div>
+      <div className="h-3 bg-gray-200 rounded w-2/3"></div>
+    </div>
+  );
 
   return (
     <div className="bg-white shadow-md rounded-lg p-6">
@@ -73,13 +122,13 @@ export default function ManageAddresses() {
           <button
             onClick={() =>
               setEditing({
-                id: 0,
-                name: "",
-                phone: "",
+                fullName: "",
+                phoneNumber: "",
                 street: "",
                 city: "",
                 state: "",
-                zip: "",
+                pincode: "",
+                country: "",
               })
             }
             className="bg-gray-900 text-white px-4 py-2 rounded-md"
@@ -89,43 +138,50 @@ export default function ManageAddresses() {
         )}
       </div>
 
-      <p className="text-gray-500 mb-6">
-        Add / edit your shipping addresses here.
-      </p>
+      <p className="text-gray-500 mb-6">Add / edit your shipping addresses here.</p>
 
       {/* Address List */}
       {!editing && (
         <div className="space-y-4">
-          {addresses.map((addr) => (
-            <div
-              key={addr.id}
-              className="border p-4 rounded-md flex justify-between items-start"
-            >
-              <div>
-                <p className="font-medium">{addr.name}</p>
-                <p className="text-sm text-gray-600">{addr.phone}</p>
-                <p className="text-sm text-gray-600">
-                  {addr.street}, {addr.city}, {addr.state} - {addr.zip}
-                </p>
-              </div>
-              <div className="space-x-2">
-                <button
-                  onClick={() => handleEdit(addr)}
-                  className="text-blue-600 hover:underline"
+          {loading
+            ? [1, 2, 3,4,5].map((i) => <SkeletonCard key={i} />)
+            : addresses.map((addr) => (
+                <div
+                  key={addr._id}
+                  className="border p-4 rounded-md flex justify-between items-start"
                 >
-                  Edit
-                </button>
-                <button
-                  onClick={() => handleDelete(addr.id)}
-                  className="text-red-600 hover:underline"
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          ))}
+                  <div>
+                    <p className="font-medium">{addr.fullName}</p>
+                    <p className="text-sm text-gray-600">{addr.phoneNumber}</p>
+                    <p className="text-sm text-gray-600">
+                      {addr.street}, {addr.city}, {addr.state} - {addr.pincode},{" "}
+                      {addr.country}
+                    </p>
+                  </div>
+                  <div className="space-x-2">
+                    <button
+                      onClick={() => handleEdit(addr)}
+                      disabled={actionLoading}
+                      className={`${
+                        actionLoading ? "opacity-50 cursor-not-allowed" : ""
+                      } text-blue-600 hover:underline`}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDelete(addr._id)}
+                      disabled={actionLoading}
+                      className={`${
+                        actionLoading ? "opacity-50 cursor-not-allowed" : ""
+                      } text-red-600 hover:underline`}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              ))}
 
-          {addresses.length === 0 && (
+          {!loading && addresses.length === 0 && (
             <p className="text-gray-500">No addresses saved yet.</p>
           )}
         </div>
@@ -138,8 +194,8 @@ export default function ManageAddresses() {
             <label className="block text-sm font-medium">Full Name</label>
             <input
               type="text"
-              name="name"
-              value={formData.name}
+              name="fullName"
+              value={formData.fullName}
               onChange={handleChange}
               className="mt-1 w-full border rounded-md p-2"
             />
@@ -148,8 +204,8 @@ export default function ManageAddresses() {
             <label className="block text-sm font-medium">Phone</label>
             <input
               type="text"
-              name="phone"
-              value={formData.phone}
+              name="phoneNumber"
+              value={formData.phoneNumber}
               onChange={handleChange}
               className="mt-1 w-full border rounded-md p-2"
             />
@@ -186,27 +242,43 @@ export default function ManageAddresses() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium">Zip</label>
+              <label className="block text-sm font-medium">Pincode</label>
               <input
                 type="text"
-                name="zip"
-                value={formData.zip}
+                name="pincode"
+                value={formData.pincode}
                 onChange={handleChange}
                 className="mt-1 w-full border rounded-md p-2"
               />
             </div>
           </div>
+          <div>
+            <label className="block text-sm font-medium">Country</label>
+            <input
+              type="text"
+              name="country"
+              value={formData.country}
+              onChange={handleChange}
+              className="mt-1 w-full border rounded-md p-2"
+            />
+          </div>
 
           <div className="flex space-x-2">
             <button
               onClick={handleSave}
-              className="bg-green-600 text-white px-4 py-2 rounded-md"
+              disabled={actionLoading}
+              className={`${
+                actionLoading ? "opacity-50 cursor-not-allowed" : ""
+              } bg-green-600 text-white px-4 py-2 rounded-md`}
             >
-              Save
+              {actionLoading ? "Saving..." : "Save"}
             </button>
             <button
               onClick={() => setEditing(null)}
-              className="bg-gray-400 text-white px-4 py-2 rounded-md"
+              disabled={actionLoading}
+              className={`${
+                actionLoading ? "opacity-50 cursor-not-allowed" : ""
+              } bg-gray-400 text-white px-4 py-2 rounded-md`}
             >
               Cancel
             </button>

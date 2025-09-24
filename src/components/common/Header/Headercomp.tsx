@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useScrollAnimation, useScrollLogo } from "./header";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import Link from "next/link";
+import { signOut, useSession } from "next-auth/react";
 
 const Header: React.FC = () => {
   // ✅ Hooks auto-disable on mobile
@@ -25,6 +26,8 @@ const Header: React.FC = () => {
   const navRef = useRef<HTMLUListElement>(null);
   const [userOpen, setUserOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
+  const { data: session, status } = useSession();
+  const user = session?.user;
   // ✅ Detect screen size
   useEffect(() => {
     const checkScreenSize = () => {
@@ -53,8 +56,7 @@ const Header: React.FC = () => {
 
   return (
     <header>
-
-{/* <div className="hedder-wrap-sm">
+      {/* <div className="hedder-wrap-sm">
 
 <div className="flex w-full h-24">
  
@@ -78,545 +80,509 @@ const Header: React.FC = () => {
 
 </div> */}
 
-      
       <div className="hedder-wrap-lg">
-      <div className="bj_goldrate_sticky_bar py-2 font-semibold text-center">
-        <div className="news">
-          <ul>
-            <li className="flex justify-center items-center gap-2">
-              {"TODAY'S GOLD RATE"}
-              <button className="btn23 bg-black text-yellow-400 px-3 py-1 rounded-full text-sm font-bold">
-                10000/gm
-              </button>
-            </li>
-          </ul>
+        <div className="bj_goldrate_sticky_bar py-2 font-semibold text-center">
+          <div className="news">
+            <ul>
+              <li className="flex justify-center items-center gap-2">
+                {"TODAY'S GOLD RATE"}
+                <button className="btn23 bg-black text-yellow-400 px-3 py-1 rounded-full text-sm font-bold">
+                  10000/gm
+                </button>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
 
-      {/* Top header bar */}
-      <div className=" do-top-right  items-center ml-auto hidden md:flex    do-header-top py-2 transition-all duration-300 flex-col md:flex-row bg-gray-200 p-4">
-        <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between">
-          {/* Left section */}
-     {/* Left section - hide on mobile, show on md and above */}
-<div className="hidden md:flex">
-  <ul className="navbar-top-right flex flex-wrap gap-4 text-sm">
-    <li>
-      <a href="#" className="text-gray-700 flex items-center gap-1">
-        <i className="fa-solid fa-envelope text-amber-600"></i>
-        contact@bindujewellery.co.in
-      </a>
-    </li>
-    <li>
-      <a href="#" className="text-gray-700 flex items-center gap-1">
-        <i className="fa-solid fa-phone text-amber-600"></i>
-        04994 256888
-      </a>
-    </li>
-  </ul>
-</div>
+        {/* Top header bar */}
+        <div className=" do-top-right  items-center ml-auto hidden md:flex    do-header-top py-2 transition-all duration-300 flex-col md:flex-row bg-gray-200 p-4">
+          <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between">
+            {/* Left section */}
+            {/* Left section - hide on mobile, show on md and above */}
+            <div className="hidden md:flex">
+              <ul className="navbar-top-right flex flex-wrap gap-4 text-sm">
+                <li>
+                  <a href="#" className="text-gray-700 flex items-center gap-1">
+                    <i className="fa-solid fa-envelope text-amber-600"></i>
+                    contact@bindujewellery.co.in
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="text-gray-700 flex items-center gap-1">
+                    <i className="fa-solid fa-phone text-amber-600"></i>
+                    04994 256888
+                  </a>
+                </li>
+              </ul>
+            </div>
 
-
-
-        
-      {/* Right section */}
-<div className="p-2 do-top-right  items-center ml-auto hidden md:flex">
-  <ul className="navbar-top-right flex items-center gap-3 text-lg">
-    {/* User icon with badge + dropdown */}
-    <li className="relative">
-      <button
-        onClick={() => {
-          setUserOpen(!userOpen);
-          setCartOpen(false); // close cart if open
-        }}
-        className="text-gray-700 relative"
-      >
-        <i className="fa-regular fa-user text-xl"></i>
-        {/* <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
+            {/* Right section */}
+            <div className="p-2 do-top-right  items-center ml-auto hidden md:flex">
+              <ul className="navbar-top-right flex items-center gap-3 text-lg">
+                {/* User icon with badge + dropdown */}
+                <li className="relative">
+                  <button
+                    onClick={() => {
+                      setUserOpen(!userOpen);
+                      setCartOpen(false); // close cart if open
+                    }}
+                    className="text-gray-700 relative"
+                  >
+                    <i className="fa-regular fa-user text-xl"></i>
+                    {/* <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
           2
         </span> */}
-      </button>
+                  </button>
 
-      {userOpen && (
-        <div className="absolute left-0 top-[80px] mt-1 -translate-y-1/2 w-44 bg-white   rounded-lg shadow-lg p-2 z-80">
-          <ul className="text-[16px]">
-            <li>
-              <Link
-                href="/login"
-                className="block px-3 py-2 hover:bg-gray-100 "
-              >
-                Login
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/register"
-                className="block px-3 py-2 hover:bg-gray-100 rounded "
-              >
-                Register
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/profile"
-                className="block px-3 py-2 hover:bg-gray-100 rounded "
-              >
-                My Profile
-              </Link>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="block px-3 py-2 hover:bg-gray-100 rounded text-red-600"
-              >
-                Logout
-              </a>
-            </li>
-          </ul>
+                  {userOpen && (
+                    <div className="absolute left-0 top-[80px] mt-1 -translate-y-1/2 w-44 bg-white rounded-lg shadow-lg p-2 z-80">
+                      <ul className="text-[16px]">
+                        {/* Show when user is NOT logged in */}
+                        {!user && (
+                          <>
+                            <li>
+                              <Link
+                                href="/login"
+                                className="block px-3 py-2 hover:bg-gray-100"
+                              >
+                                Login
+                              </Link>
+                            </li>
+                            <li>
+                              <Link
+                                href="/register"
+                                className="block px-3 py-2 hover:bg-gray-100 rounded"
+                              >
+                                Register
+                              </Link>
+                            </li>
+                          </>
+                        )}
+
+                        {/* Show when user IS logged in */}
+                        {user && (
+                          <>
+                            <li>
+                              <Link
+                                href="/profile"
+                                className="block px-3 py-2 hover:bg-gray-100 rounded"
+                              >
+                                My Profile
+                              </Link>
+                            </li>
+                            <li>
+                              <button
+                                onClick={() => signOut({ callbackUrl: "/login" })}
+                                className="block w-full text-left px-3 py-2 hover:bg-gray-100 rounded text-red-600"
+                              >
+                                Logout
+                              </button>
+                            </li>
+                          </>
+                        )}
+                      </ul>
+                    </div>
+                  )}
+                </li>
+
+                {/* Wishlist */}
+                <li>
+                  <a href="#" className="text-gray-700">
+                    <i className="fa-regular fa-heart"></i>
+                  </a>
+                </li>
+
+                {/* Cart icon with dropdown */}
+                <li className="relative">
+                  <button className="text-gray-700 relative">
+                    <i className="fa-solid fa-cart-shopping text-xl"></i>
+                    <span className="absolute -top-2 -right-3 bg-amber-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
+                      3
+                    </span>
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
-      )}
-    </li>
+        {/* Main Navigation */}
+        <div className="header1 transition-all duration-300 bg-white shadow-md sticky top-0 z-50">
+          <nav className="relative">
+            <div className="container mx-auto px-4 flex items-center justify-between ">
+              {/* Mobile menu button */}
+              <div className="lg:hidden  w-1/3 h-24 ">
+                <button
+                  className="lg:hidden p-2 text-gray-700"
+                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                >
+                  <i
+                    className={`fas ${mobileMenuOpen ? "fa-times" : "fa-bars"}`}
+                  ></i>
+                </button>
+              </div>
+              {/* Menu items */}
+              <ul
+                ref={navRef}
+                className={`${mobileMenuOpen ? "flex" : "hidden"
+                  } lg:flex flex-col lg:flex-row w-full  absolute lg:static top-full left-0  bg-white lg:bg-transparent shadow-lg lg:shadow-none z-50`}
+              >
+                <li className="liclass logo-icon hidden lg:block">
+                  <a href="#">
+                    <img
+                      src="/assets/logo/icon-only.png"
+                      alt="Brand Logo"
+                      className="mt-3 h-8"
+                    />
+                  </a>
+                </li>
 
-    {/* Wishlist */}
-    <li>
-      <a href="#" className="text-gray-700">
-        <i className="fa-regular fa-heart"></i>
-      </a>
-    </li>
+                <li
+                  className="relative liclass"
+                  onMouseEnter={() => !isMobile && setaboutusOpen(true)}
+                  onMouseLeave={() => !isMobile && setaboutusOpen(false)}
+                  onClick={() => isMobile && setaboutusOpen(!aboutusOpen)}
+                >
+                  <button className="text-gray-800 hover:text-amber-600 font-semibold py-2 px-4 lg:py-0 w-full lg:w-auto flex items-center justify-between">
+                    ABOUT US
+                    {isMobile ? (
+                      <i
+                        className={`fas ${aboutusOpen ? "fa-chevron-up" : "fa-chevron-down"
+                          } ml-2`}
+                      ></i>
+                    ) : null}
+                  </button>
 
-    {/* Cart icon with dropdown */}
-    <li className="relative">
-      <button className="text-gray-700 relative"
-      >
-        <i className="fa-solid fa-cart-shopping text-xl"></i>
-        <span className="absolute -top-2 -right-3 bg-amber-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
-          3
-        </span>
-      </button>
+                  {/* Button-style submenu */}
+                  {aboutusOpen && (
+                    <ul className="absolute lg:absolute left-0  bg-white shadow-lg rounded-md w-48 top-full py-2 z-50">
+                      <li>
+                        <a
+                          href="#"
+                          className="block px-4 py-2 text-gray-700 hover:bg-amber-100 hover:text-amber-600 font-medium"
+                        >
+                          Story
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="#"
+                          className="block px-4 py-2 text-gray-700 hover:bg-amber-100 hover:text-amber-600 font-medium"
+                        >
+                          Mission & Vision
+                        </a>
+                      </li>
 
- 
-    </li>
-  </ul>
-</div>
+                      <li>
+                        <a
+                          href="#"
+                          className="block px-4 py-2 text-gray-700 hover:bg-amber-100 hover:text-amber-600 font-medium"
+                        >
+                          MD Message
+                        </a>
+                      </li>
+                    </ul>
+                  )}
+                </li>
 
-        </div>
-      </div>
-      {/* Main Navigation */}
-      <div className="header1 transition-all duration-300 bg-white shadow-md sticky top-0 z-50">
-        <nav className="relative">
-          <div className="container mx-auto px-4 flex items-center justify-between ">
-            
-            
-            {/* Mobile menu button */}
-            <div className="lg:hidden  w-1/3 h-24 "> 
-            <button
-              className="lg:hidden p-2 text-gray-700"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              <i
-                className={`fas ${mobileMenuOpen ? "fa-times" : "fa-bars"}`}
-              ></i>
-            </button>
-</div>
-            {/* Menu items */}
-            <ul
-              ref={navRef}
-              className={`${
-                mobileMenuOpen ? "flex" : "hidden"
-              } lg:flex flex-col lg:flex-row w-full  absolute lg:static top-full left-0  bg-white lg:bg-transparent shadow-lg lg:shadow-none z-50`}
-            >
-              <li className="liclass logo-icon hidden lg:block">
-                <a href="#">
+                <li
+                  className="relative group liclass"
+                  ref={triggerRef}
+                  onMouseEnter={() => !isMobile && setOpen(true)}
+                  onMouseLeave={() => !isMobile && setOpen(false)}
+                  onClick={() => isMobile && setOpen(!open)}
+                >
+                  <button className="text-gray-800 hover:text-amber-600 font-semibold  py-2 px-4 lg:py-0 w-full text-left lg:w-auto flex items-center">
+                    PRODUCTS{" "}
+                    {isMobile && (
+                      <i
+                        className={`fas ${open ? "fa-chevron-up" : "fa-chevron-down"
+                          } ml-2`}
+                      ></i>
+                    )}
+                  </button>
+                </li>
+
+                <li className="liclass">
+                  <Link
+                    href="/product-list"
+                    className="text-gray-800 hover:text-amber-600 font-semibold block py-2 px-4 lg:py-0"
+                  >
+                    SHOP ONLINE
+                  </Link>
+                </li>
+
+                <li
+                  className="relative liclass"
+                  onMouseEnter={() => !isMobile && setdiamondOpen(true)}
+                  onMouseLeave={() => !isMobile && setdiamondOpen(false)}
+                  onClick={() => isMobile && setdiamondOpen(!diamondOpen)}
+                >
+                  <button className="text-gray-800 hover:text-amber-600 font-semibold py-2 px-4 lg:py-0 w-full lg:w-auto flex items-center justify-between">
+                    DIAMOND
+                    {isMobile ? (
+                      <i
+                        className={`fas ${diamondOpen ? "fa-chevron-up" : "fa-chevron-down"
+                          } ml-2`}
+                      ></i>
+                    ) : null}
+                  </button>
+
+                  {/* Button-style submenu */}
+                  {diamondOpen && (
+                    <ul className="absolute lg:absolute left-0  bg-white shadow-lg rounded-md w-48 top-full py-2 z-50">
+                      <li>
+                        <a
+                          href="#"
+                          className="block px-4 py-2 text-gray-700 hover:bg-amber-100 hover:text-amber-600 font-medium"
+                        >
+                          Kisna
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="#"
+                          className="block px-4 py-2 text-gray-700 hover:bg-amber-100 hover:text-amber-600 font-medium"
+                        >
+                          My blue Diamond
+                        </a>
+                      </li>
+                    </ul>
+                  )}
+                </li>
+
+                <li
+                  className="liclass mobile-icon hidden lg:block"
+                  style={{ margin: 0 }}
+                >
+                  <a href="#" className="do-brand-logo margin-t">
+                    <img src="/assets/logo/brand-logo.png" alt="Brand Logo" />
+                  </a>
+                </li>
+                <li className="liclass">
+                  <a
+                    href="#"
+                    className="text-gray-800 hover:text-amber-600 font-semibold block py-2 px-4 lg:py-0"
+                  >
+                    CSR
+                  </a>
+                </li>
+                {/* Our Scheme with submenu */}
+                <li
+                  className="relative group liclass"
+                  onMouseEnter={() => !isMobile && setOpenScheme(true)}
+                  onMouseLeave={() => !isMobile && setOpenScheme(false)}
+                  onClick={() => isMobile && setOpenScheme(!openScheme)}
+                >
+                  <button className="text-gray-800 hover:text-amber-600 font-semibold py-2 px-4 lg:py-0 w-full lg:w-auto flex items-center justify-between">
+                    OUR SCHEME
+                    {isMobile ? (
+                      <i
+                        className={`fas ${openScheme ? "fa-chevron-up" : "fa-chevron-down"
+                          } ml-2`}
+                      ></i>
+                    ) : null}
+                  </button>
+
+                  {/* Submenu */}
+                  {openScheme && (
+                    <ul className="absolute lg:absolute left-0 top-full bg-white shadow-lg rounded-md w-48 py-2 z-50">
+                      <li>
+                        <a
+                          href="#"
+                          className="block px-4 py-2 text-gray-700 hover:bg-amber-100"
+                        >
+                          Akshaynidhi
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="#"
+                          className="block px-4 py-2 text-gray-700 hover:bg-amber-100"
+                        >
+                          Swarna Bindu
+                        </a>
+                      </li>
+                    </ul>
+                  )}
+                </li>
+
+                <li className="liclass">
+                  <Link
+                    href="/gallery"
+                    className="text-gray-800 hover:text-amber-600 font-semibold block py-2 px-4 lg:py-0"
+                  >
+                    MEDIA
+                  </Link>
+                </li>
+
+                <li className="liclass">
+                  <Link
+                    href="/contact-us"
+                    className="text-gray-800 hover:text-amber-600 font-semibold block py-2 px-4 lg:py-0"
+                  >
+                    CONTACT US
+                  </Link>
+                </li>
+              </ul>
+
+              {/* Brand logo for mobile */}
+              <div className="lg:hidden flex  flex-grow w-1/6 h-24 align-center justify-center">
+                <a href="#" className="">
                   <img
                     src="/assets/logo/icon-only.png"
                     alt="Brand Logo"
-                    className="mt-3 h-8"
+                    className="h-10"
                   />
                 </a>
-              </li>
+              </div>
 
-              <li
-                className="relative liclass"
-                onMouseEnter={() => !isMobile && setaboutusOpen(true)}
-                onMouseLeave={() => !isMobile && setaboutusOpen(false)}
-                onClick={() => isMobile && setaboutusOpen(!aboutusOpen)}
-              >
-                <button className="text-gray-800 hover:text-amber-600 font-semibold py-2 px-4 lg:py-0 w-full lg:w-auto flex items-center justify-between">
-                  ABOUT US
-                  {isMobile ? (
-                    <i
-                      className={`fas ${
-                        aboutusOpen ? "fa-chevron-up" : "fa-chevron-down"
-                      } ml-2`}
-                    ></i>
-                  ) : null}
-                </button>
-
-                {/* Button-style submenu */}
-                {aboutusOpen && (
-                  <ul className="absolute lg:absolute left-0  bg-white shadow-lg rounded-md w-48 top-full py-2 z-50">
-                    <li>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-gray-700 hover:bg-amber-100 hover:text-amber-600 font-medium"
+              {/* Placeholder for alignment on mobile */}
+              <div className="lg:hidden">
+                <div className=" p-2  w-1/3 h-24">
+                  <ul className="navbar-top-right flex items-center gap-3 text-lg">
+                    {/* User icon with badge + dropdown */}
+                    <li className="relative">
+                      <button
+                        onClick={() => {
+                          setUserOpen(!userOpen);
+                          setCartOpen(false); // close cart if open
+                        }}
+                        className="text-gray-700 relative"
                       >
-                        Story
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-gray-700 hover:bg-amber-100 hover:text-amber-600 font-medium"
-                      >
-                        Mission & Vision
-                      </a>
-                    </li>
-
-                    <li>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-gray-700 hover:bg-amber-100 hover:text-amber-600 font-medium"
-                      >
-                        MD Message
-                      </a>
-                    </li>
-                  </ul>
-                )}
-              </li>
-
-              <li
-                className="relative group liclass"
-                ref={triggerRef}
-                onMouseEnter={() => !isMobile && setOpen(true)}
-                onMouseLeave={() => !isMobile && setOpen(false)}
-                onClick={() => isMobile && setOpen(!open)}
-              >
-                <button className="text-gray-800 hover:text-amber-600 font-semibold  py-2 px-4 lg:py-0 w-full text-left lg:w-auto flex items-center">
-                  PRODUCTS{" "}
-                  {isMobile && (
-                    <i
-                      className={`fas ${
-                        open ? "fa-chevron-up" : "fa-chevron-down"
-                      } ml-2`}
-                    ></i>
-                  )}
-                </button>
-              </li>
-
-              <li className="liclass">
-                <Link
-                  href="/product-list"
-                  className="text-gray-800 hover:text-amber-600 font-semibold block py-2 px-4 lg:py-0"
-                >
-                  SHOP ONLINE
-                </Link>
-              </li>
-
-              <li
-                className="relative liclass"
-                onMouseEnter={() => !isMobile && setdiamondOpen(true)}
-                onMouseLeave={() => !isMobile && setdiamondOpen(false)}
-                onClick={() => isMobile && setdiamondOpen(!diamondOpen)}
-              >
-                <button className="text-gray-800 hover:text-amber-600 font-semibold py-2 px-4 lg:py-0 w-full lg:w-auto flex items-center justify-between">
-                  DIAMOND
-                  {isMobile ? (
-                    <i
-                      className={`fas ${
-                        diamondOpen ? "fa-chevron-up" : "fa-chevron-down"
-                      } ml-2`}
-                    ></i>
-                  ) : null}
-                </button>
-
-                {/* Button-style submenu */}
-                {diamondOpen && (
-                  <ul className="absolute lg:absolute left-0  bg-white shadow-lg rounded-md w-48 top-full py-2 z-50">
-                    <li>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-gray-700 hover:bg-amber-100 hover:text-amber-600 font-medium"
-                      >
-                        Kisna
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-gray-700 hover:bg-amber-100 hover:text-amber-600 font-medium"
-                      >
-                        My blue Diamond
-                      </a>
-                    </li>
-                  </ul>
-                )}
-              </li>
-
-              <li
-                className="liclass mobile-icon hidden lg:block"
-                style={{ margin: 0 }}
-              >
-                <a href="#" className="do-brand-logo margin-t">
-                  <img src="/assets/logo/brand-logo.png" alt="Brand Logo" />
-                </a>
-              </li>
-              <li className="liclass">
-                <a
-                  href="#"
-                  className="text-gray-800 hover:text-amber-600 font-semibold block py-2 px-4 lg:py-0"
-                >
-                  CSR
-                </a>
-              </li>
-              {/* Our Scheme with submenu */}
-              <li
-                className="relative group liclass"
-                onMouseEnter={() => !isMobile && setOpenScheme(true)}
-                onMouseLeave={() => !isMobile && setOpenScheme(false)}
-                onClick={() => isMobile && setOpenScheme(!openScheme)}
-              >
-                <button className="text-gray-800 hover:text-amber-600 font-semibold py-2 px-4 lg:py-0 w-full lg:w-auto flex items-center justify-between">
-                  OUR SCHEME
-                  {isMobile ? (
-                    <i
-                      className={`fas ${
-                        openScheme ? "fa-chevron-up" : "fa-chevron-down"
-                      } ml-2`}
-                    ></i>
-                  ) : null}
-                </button>
-
-                {/* Submenu */}
-                {openScheme && (
-                  <ul className="absolute lg:absolute left-0 top-full bg-white shadow-lg rounded-md w-48 py-2 z-50">
-                    <li>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-gray-700 hover:bg-amber-100"
-                      >
-                        Akshaynidhi
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-gray-700 hover:bg-amber-100"
-                      >
-                        Swarna Bindu
-                      </a>
-                    </li>
-                  </ul>
-                )}
-              </li>
-
-              <li className="liclass">
-                <Link
-                  href="/gallery"
-                  className="text-gray-800 hover:text-amber-600 font-semibold block py-2 px-4 lg:py-0"
-                >
-                  MEDIA
-                </Link>
-              </li>
-
-              <li className="liclass">
-                <Link
-                  href="/contact-us"
-                  className="text-gray-800 hover:text-amber-600 font-semibold block py-2 px-4 lg:py-0"
-                >
-                  CONTACT US
-                </Link>
-              </li>
-            </ul>
-
-            {/* Brand logo for mobile */}
-            <div className="lg:hidden flex  flex-grow w-1/6 h-24 align-center justify-center">
-              <a href="#" className="">
-                <img
-                  src="/assets/logo/icon-only.png"
-                  alt="Brand Logo"
-                  className="h-10"
-                />
-              </a>
-            </div>
-
-            {/* Placeholder for alignment on mobile */}
-            <div className="lg:hidden">
-              
-<div className=" p-2  w-1/3 h-24">
-  <ul className="navbar-top-right flex items-center gap-3 text-lg">
-    {/* User icon with badge + dropdown */}
-    <li className="relative">
-      <button
-        onClick={() => {
-          setUserOpen(!userOpen);
-          setCartOpen(false); // close cart if open
-        }}
-        className="text-gray-700 relative"
-      >
-        <i className="fa-regular fa-user text-xl"></i>
-        {/* <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
+                        <i className="fa-regular fa-user text-xl"></i>
+                        {/* <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
           2
         </span> */}
-      </button>
+                      </button>
 
-      {userOpen && (
-        <div className="absolute left-[-65px] top-[125px] mt-1 -translate-y-1/2 w-44 bg-white  rounded-lg shadow-lg p-2 z-80">
-          <ul className="text-[16px]">
-            <li>
-              <Link
-                href="/login"
-                className="block px-3 py-2 hover:bg-gray-100 "
-              >
-                Login
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/register"
-                className="block px-3 py-2 hover:bg-gray-100 rounded "
-              >
-                Register
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/profile"
-                className="block px-3 py-2 hover:bg-gray-100 rounded "
-              >
-                My Profile
-              </Link>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="block px-3 py-2 hover:bg-gray-100 rounded text-red-600"
-              >
-                Logout
-              </a>
-            </li>
-          </ul>
-        </div>
-      )}
-    </li>
+                      {userOpen && (
+                        <div className="absolute left-[-65px] top-[125px] mt-1 -translate-y-1/2 w-44 bg-white  rounded-lg shadow-lg p-2 z-80">
+                          <ul className="text-[16px]">
+                             {!user && (
+                          <>
+                            <li>
+                              <Link
+                                href="/login"
+                                className="block px-3 py-2 hover:bg-gray-100"
+                              >
+                                Login
+                              </Link>
+                            </li>
+                            <li>
+                              <Link
+                                href="/register"
+                                className="block px-3 py-2 hover:bg-gray-100 rounded"
+                              >
+                                Register
+                              </Link>
+                            </li>
+                          </>
+                        )}
 
-    {/* Wishlist */}
-    <li>
-      <a href="#" className="text-gray-700">
-        <i className="fa-regular fa-heart"></i>
-      </a>
-    </li>
+                        {/* Show when user IS logged in */}
+                        {user && (
+                          <>
+                            <li>
+                              <Link
+                                href="/profile"
+                                className="block px-3 py-2 hover:bg-gray-100 rounded"
+                              >
+                                My Profile
+                              </Link>
+                            </li>
+                            <li>
+                              <button
+                                onClick={() => signOut({ callbackUrl: "/login" })}
+                                className="block w-full text-left px-3 py-2 hover:bg-gray-100 rounded text-red-600"
+                              >
+                                Logout
+                              </button>
+                            </li>
+                          </>
+                        )}
+                          </ul>
+                        </div>
+                      )}
+                    </li>
 
-    {/* Cart icon with dropdown */}
-    <li className="relative">
-      <button className="text-gray-700 relative"
-      >
-        <i className="fa-solid fa-cart-shopping text-xl"></i>
-        <span className="absolute -top-2 -right-3 bg-amber-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
-          3
-        </span>
-      </button>
+                    {/* Wishlist */}
+                    <li>
+                      <a href="#" className="text-gray-700">
+                        <i className="fa-regular fa-heart"></i>
+                      </a>
+                    </li>
 
- 
-    </li>
-  </ul>
-</div>
-
-              
+                    {/* Cart icon with dropdown */}
+                    <li className="relative">
+                      <button className="text-gray-700 relative">
+                        <i className="fa-solid fa-cart-shopping text-xl"></i>
+                        <span className="absolute -top-2 -right-3 bg-amber-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
+                          3
+                        </span>
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
-          </div>
 
-          {/* Mega Menu - Full width of the navigation container */}
-          {(open || (isMobile && open)) && (
-            <div
-              ref={menuRef}
-              className="absolute lg:top-full container p-6 z-50
+            {/* Mega Menu - Full width of the navigation container */}
+            {(open || (isMobile && open)) && (
+              <div
+                ref={menuRef}
+                className="absolute lg:top-full container p-6 z-50
              overflow-y-auto overflow-x-hidden max-h-[80vh]"
-              onMouseEnter={() => !isMobile && setOpen(true)}
-              onMouseLeave={() => !isMobile && setOpen(false)}
-              style={{
-                left: 0,
-                right: 0,
-                width: "100%",
-              }}
-            >
-              <div className=" bg-white grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 shadow-lg ">
-                {/* Column 1 */}
-                <div className="lg:pl-12">
-                  <h4 className="font-bold text-[#d4b262] border-b border-amber-200 pb-2 mb-3 text-lg">
-                    JEWELLERY
-                  </h4>
-                  <ul className="space-y-2">
-                    {[
-                      "Earrings",
-                      "Rings",
-                      "Pendants",
-                      "Bracelets",
-                      "Chains",
-                      "Necklaces",
-                      "Thali Chains",
-                      "Bangles",
-                      "Coins",
-                    ].map((item) => (
-                      <li key={item}>
-                        <a
-                          href="/collections"
-                          className="text-gray-700 hover:text-amber-600 block py-1 transition-colors duration-200"
-                        >
-                          {item}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                onMouseEnter={() => !isMobile && setOpen(true)}
+                onMouseLeave={() => !isMobile && setOpen(false)}
+                style={{
+                  left: 0,
+                  right: 0,
+                  width: "100%",
+                }}
+              >
+                <div className=" bg-white grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 shadow-lg ">
+                  {/* Column 1 */}
+                  <div className="lg:pl-12">
+                    <h4 className="font-bold text-[#d4b262] border-b border-amber-200 pb-2 mb-3 text-lg">
+                      JEWELLERY
+                    </h4>
+                    <ul className="space-y-2">
+                      {[
+                        "Earrings",
+                        "Rings",
+                        "Pendants",
+                        "Bracelets",
+                        "Chains",
+                        "Necklaces",
+                        "Thali Chains",
+                        "Bangles",
+                        "Coins",
+                      ].map((item) => (
+                        <li key={item}>
+                          <a
+                            href="/collections"
+                            className="text-gray-700 hover:text-amber-600 block py-1 transition-colors duration-200"
+                          >
+                            {item}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
 
-                {/* Column 2 */}
-                <div>
-                  <h4 className="font-bold text-[#d4b262] border-b border-amber-200 pb-2 mb-3 text-lg">
-                    PROMISE COLLECTIONS
-                  </h4>
-                  <ul className="space-y-2 mb-6">
-                    {[
-                      "Kids Collections",
-                      "Bridal Collections",
-                      "Light Weight Collections",
-                      "New Collections",
-                      "Antique Collection",
-                    ].map((item) => (
-                      <li key={item}>
-                        <a
-                          href="#"
-                          className="text-gray-700 hover:text-amber-600 block py-1 transition-colors duration-200"
-                        >
-                          {item}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <h4 className="font-bold text-[#d4b262] border-b border-amber-200 pb-2 mb-3 text-lg mt-8">
-                    DIAMOND
-                  </h4>
-                  <ul className="space-y-2">
-                    {["Kisna", "My Blue Diamonds"].map((item) => (
-                      <li key={item}>
-                        <a
-                          href="#"
-                          className="text-gray-700 hover:text-amber-600 block py-1 transition-colors duration-200"
-                        >
-                          {item}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Column 3 */}
-                <div>
-                  <h4 className="font-bold text-[#d4b262] border-b border-amber-200 pb-2 mb-3 text-lg">
-                    PURITY
-                  </h4>
-                  <ul className="space-y-2">
-                    {["18 Carat", "20 Carat", "22 Carat", "24 Carat"].map(
-                      (item) => (
+                  {/* Column 2 */}
+                  <div>
+                    <h4 className="font-bold text-[#d4b262] border-b border-amber-200 pb-2 mb-3 text-lg">
+                      PROMISE COLLECTIONS
+                    </h4>
+                    <ul className="space-y-2 mb-6">
+                      {[
+                        "Kids Collections",
+                        "Bridal Collections",
+                        "Light Weight Collections",
+                        "New Collections",
+                        "Antique Collection",
+                      ].map((item) => (
                         <li key={item}>
                           <a
                             href="#"
@@ -625,27 +591,65 @@ const Header: React.FC = () => {
                             {item}
                           </a>
                         </li>
-                      )
-                    )}
-                  </ul>
-                </div>
+                      ))}
+                    </ul>
 
-                {/* Column 4 - Promotion */}
-                <div className="bg-[#d4b262] p-6  text-center text-black flex flex-col justify-center items-center">
-                  <h3 className="font-bold text-xl mb-3">BRIDAL COLLECTIONS</h3>
-                  <div className="bg-black text-yellow-400 inline-block px-6 py-2 rounded-full text-base font-bold my-3">
-                    DISCOUNT UP TO 5%
+                    <h4 className="font-bold text-[#d4b262] border-b border-amber-200 pb-2 mb-3 text-lg mt-8">
+                      DIAMOND
+                    </h4>
+                    <ul className="space-y-2">
+                      {["Kisna", "My Blue Diamonds"].map((item) => (
+                        <li key={item}>
+                          <a
+                            href="#"
+                            className="text-gray-700 hover:text-amber-600 block py-1 transition-colors duration-200"
+                          >
+                            {item}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <p className="text-base mb-2 font-medium">
-                    LIMITED TIME OFFER
-                  </p>
-                  <p className="text-base font-semibold">ENTIRE STORE</p>
+
+                  {/* Column 3 */}
+                  <div>
+                    <h4 className="font-bold text-[#d4b262] border-b border-amber-200 pb-2 mb-3 text-lg">
+                      PURITY
+                    </h4>
+                    <ul className="space-y-2">
+                      {["18 Carat", "20 Carat", "22 Carat", "24 Carat"].map(
+                        (item) => (
+                          <li key={item}>
+                            <a
+                              href="#"
+                              className="text-gray-700 hover:text-amber-600 block py-1 transition-colors duration-200"
+                            >
+                              {item}
+                            </a>
+                          </li>
+                        )
+                      )}
+                    </ul>
+                  </div>
+
+                  {/* Column 4 - Promotion */}
+                  <div className="bg-[#d4b262] p-6  text-center text-black flex flex-col justify-center items-center">
+                    <h3 className="font-bold text-xl mb-3">
+                      BRIDAL COLLECTIONS
+                    </h3>
+                    <div className="bg-black text-yellow-400 inline-block px-6 py-2 rounded-full text-base font-bold my-3">
+                      DISCOUNT UP TO 5%
+                    </div>
+                    <p className="text-base mb-2 font-medium">
+                      LIMITED TIME OFFER
+                    </p>
+                    <p className="text-base font-semibold">ENTIRE STORE</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
-        </nav>
-      </div>
+            )}
+          </nav>
+        </div>
       </div>
     </header>
   );

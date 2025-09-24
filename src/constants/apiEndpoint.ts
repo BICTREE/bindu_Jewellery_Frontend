@@ -13,3 +13,15 @@ export const GetCategoryApi = '/categories/many';
 
 export const SendEnquriyApi = '/enquiries';
 
+// profile
+export const GetMyProfileApi = '/users/profile';
+
+export const UpdateProfileApi = '/users';
+
+
+export const AddMyAddressApi = '/users/addresses';
+export const UpdateMyAddressApi = '/users/addresses';
+export const DeleteMyAddressApi = '/users/addresses';
+export const GetMyAddressApi = '/users/addresses/own';
+
+
