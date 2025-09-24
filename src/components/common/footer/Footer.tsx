@@ -38,9 +38,9 @@ const Footer = () => {
           <ul className="space-y-2 text-sm">
             <li><a href="#" className="ftr-hober">About Us</a></li>
             <li><a href="#" className="ftr-hober">Blog</a></li>
-            <li><a href="#" className="ftr-hober">Brand</a></li>
+            <li><a href="#" className="ftr-hober">Our Branch</a></li>
             <li><a href="#" className="ftr-hober">Gift Vouchers</a></li>
-            <li><a href="#" className="ftr-hober">Affiliate</a></li>
+            <li><a href="#" className="ftr-hober">News and Events</a></li>
             <li><a href="#" className="ftr-hober">Special Offer</a></li>
             <li><a href="#" className="ftr-hober">Jewellery Care Tips</a></li>
           </ul>
