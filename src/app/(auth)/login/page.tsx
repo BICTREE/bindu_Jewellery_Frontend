@@ -2,8 +2,8 @@
 import { useEffect, useState } from "react";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { signIn, useSession } from "next-auth/react";
-import type { Session } from "next-auth";
-import toast, { Toaster } from "react-hot-toast";
+
+import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
 // Extend the Session type to include role
