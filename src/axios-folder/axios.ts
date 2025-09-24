@@ -3,21 +3,21 @@ import { BASE_URL } from "@/constants/apiEndpoint";
 import axios from "axios";
 import { getSession } from "next-auth/react";
 
-
-
-const defaultInstance = axios.create({
+// 🌍 Public instance (no token required)
+const axiosPublic = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
 });
 
-const privateInstance = axios.create({
+// 🔐 Private instance (with token)
+const axiosPrivate = axios.create({
   baseURL: BASE_URL,
   headers: { "Content-Type": "application/json" },
   withCredentials: true,
 });
 
-// 🔐 Attach accessToken from NextAuth to each request
-privateInstance.interceptors.request.use(
+// Attach accessToken from NextAuth to each request
+axiosPrivate.interceptors.request.use(
   async (config) => {
     const session = await getSession();
     if (session?.accessToken) {
@@ -31,5 +31,4 @@ privateInstance.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-export default defaultInstance;
-export const axiosPrivate = privateInstance;
+export { axiosPublic, axiosPrivate };
