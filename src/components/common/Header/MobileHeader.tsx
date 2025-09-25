@@ -40,6 +40,7 @@ interface MenuItem {
 
 export default function MobileHeader() {
   const [isOpen, setIsOpen] = useState(false);
+   const [userOpen, setUserOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
   const { data: session } = useSession();
   const user = session?.user;
@@ -128,12 +129,12 @@ export default function MobileHeader() {
   return (
     <header className="lg:hidden  top-0 left-0 w-full bg-white z-50 shadow-md">
       {/* Top row with gold rate bar */}
-      <div className="bg-amber-50 py-2 font-semibold text-center border-b">
+      <div className="bg-[#f3f4f6] py-2 font-semibold text-center ">
         <div className="news">
           <ul>
             <li className="flex justify-center items-center gap-2 text-sm">
               {"TODAY'S GOLD RATE"}
-              <button className="bg-black text-yellow-400 px-3 py-1 rounded-full text-sm font-bold">
+              <button className="bg-[#d4b262] text-white px-3 py-1 rounded-full text-sm font-bold">
                 10000/gm
               </button>
             </li>
@@ -156,13 +157,67 @@ export default function MobileHeader() {
         </Link>
 
         <div className="flex items-center gap-3">
-          <button className="text-gray-700 relative">
+          <button 
+          
+           onClick={() => {
+                      setUserOpen(!userOpen);
+                    
+                    }}
+     className="text-gray-700 relative  hover:text-[#d4b262]">
             <User className="w-5 h-5" />
           </button>
-          <button className="text-gray-700">
+   {userOpen && (
+                    <div className="absolute right-0 top-[146px] mt-1 -translate-y-1/2 w-44 bg-white rounded-lg shadow-lg p-2 z-80">
+                      <ul className="text-[16px]">
+                        {!user && (
+                          <>
+                            <li>
+                              <Link
+                                href="/login"
+                                className="block px-3 py-2 hover:bg-gray-100"
+                              >
+                                Login
+                              </Link>
+                            </li>
+                            <li>
+                              <Link
+                                href="/register"
+                                className="block px-3 py-2 hover:bg-gray-100 rounded"
+                              >
+                                Register
+                              </Link>
+                            </li>
+                          </>
+                        )}
+
+                        {user && (
+                          <>
+                            <li>
+                              <Link
+                                href="/profile"
+                                className="block px-3 py-2 hover:bg-gray-100 rounded"
+                              >
+                                My Profile
+                              </Link>
+                            </li>
+                            <li>
+                              <button
+                                onClick={() => signOut({ callbackUrl: "/login" })}
+                                className="block w-full text-left px-3 py-2 hover:bg-gray-100 rounded text-red-600"
+                              >
+                                Logout
+                              </button>
+                            </li>
+                          </>
+                        )}
+                      </ul>
+                    </div>
+                  )}
+
+          <button className="text-gray-700  hover:text-[#d4b262]">
             <Heart className="w-5 h-5" />
           </button>
-          <button className="text-gray-700 relative">
+          <button className="text-gray-700 relative hover:text-[#d4b262]">
             <ShoppingCart className="w-5 h-5" />
             <span className="absolute -top-2 -right-3 bg-amber-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
               3
@@ -173,15 +228,29 @@ export default function MobileHeader() {
 
       {/* Navigation Drawer */}
       <div
-        className={`fixed   h-full min-h-screen w-80 bg-white shadow-lg z-50 transform transition-transform duration-300 ${
+        className={`fixed h-full min-h-screen w-80 bg-white shadow-lg z-50 transform transition-transform duration-300 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         {/* Drawer Header */}
-        <div className="flex items-center justify-between px-4 py-4 border-b bg-amber-50">
+
+        <div className="bg-[#f3f4f6] py-2 font-semibold text-center ">
+        <div className="news">
+          <ul>
+            <li className="flex justify-center items-center gap-2 text-sm">
+              {"TODAY'S GOLD RATE"}
+              <button className="bg-[#d4b262] text-white px-3 py-1 rounded-full text-sm font-bold">
+                10000/gm
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+        <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 ">
           <div className="flex items-center gap-3">
             <img
-              src="/assets/logo/brand-logo.png"
+             src="/assets/logo/icon-only.png"
               alt="Brand Logo"
               className="h-8"
             />
@@ -192,7 +261,7 @@ export default function MobileHeader() {
         </div>
 
         {/* User Section */}
-        <div className="px-4 py-3 border-b bg-gray-50">
+        {/* <div className="px-4 py-3 border-b bg-gray-50">
           {user ? (
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium">Welcome, {user.name}</span>
@@ -216,10 +285,10 @@ export default function MobileHeader() {
               </Link>
             </div>
           )}
-        </div>
+        </div> */}
 
         {/* Contact Info */}
-        <div className="px-4 py-3 border-b bg-gray-50 text-xs">
+        {/* <div className="px-4 py-3 border-b bg-gray-50 text-xs">
           <div className="flex items-center gap-2 mb-2">
             <span className="text-amber-600">📧</span>
             <span>contact@bindujewellery.co.in</span>
@@ -228,7 +297,7 @@ export default function MobileHeader() {
             <span className="text-amber-600">📞</span>
             <span>04994 256888</span>
           </div>
-        </div>
+        </div> */}
 
         {/* Nav Items with Scroll */}
         <nav className="flex-1 overflow-y-auto max-h-[calc(100vh-300px)]">
