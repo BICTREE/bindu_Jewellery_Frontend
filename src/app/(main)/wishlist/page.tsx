@@ -1,37 +1,50 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Banner from "@/components/common/Banner/Banner";
 import ProductListComp from "@/components/wishlist/WishlistComp";
+import { getMyList } from "@/services/wishlistService/wishlistService";
+
 
 type Product = {
-  id: number;
+  _id: string;
   name: string;
-  purity: string;
-  stone: string;
-  weight: string;
-  offer: string;
+  purity?: string;
+  stone?: string;
+  weight?: string;
+  offer?: string;
   price: number;
   image: string;
-  hoverImg: string;
+  hoverImg?: string;
 };
 
-const products: Product[] = [
-  { id: 1, name: "EARRINGS, TRENDY DESIGNS", purity: "18 Carat", stone: "Diamond", weight: "<5g", offer: "30% OFF MAKING CHARGES", price: 35853, image: "/assets/images/card-img01.png", hoverImg: "/assets/images/catmod-01.jpg" },
-  { id: 2, name: "RINGS, TRENDY DESIGNS", purity: "20 Carat", stone: "Ruby", weight: "5-10g", offer: "30% OFF MAKING CHARGES", price: 25000, image: "/assets/images/card-img01.png", hoverImg: "/assets/images/catmod-01.jpg" },
-  { id: 3, name: "NECKLACES, TRENDY DESIGNS", purity: "22 Carat", stone: "Emerald", weight: "10-20g", offer: "30% OFF MAKING CHARGES", price: 15000, image: "/assets/images/card-img01.png", hoverImg: "/assets/images/catmod-01.jpg" },
-  { id: 4, name: "BRACELETS, TRENDY DESIGNS", purity: "24 Carat", stone: "Sapphire", weight: "20g+", offer: "30% OFF MAKING CHARGES", price: 40000, image: "/assets/images/card-img01.png", hoverImg: "/assets/images/catmod-01.jpg" },
-  { id: 5, name: "EARRINGS, TRENDY DESIGNS", purity: "22 Carat", stone: "Diamond", weight: "5-10g", offer: "30% OFF MAKING CHARGES", price: 40000, image: "/assets/images/card-img01.png", hoverImg: "/assets/images/catmod-01.jpg" },
-  { id: 6, name: "RINGS, TRENDY DESIGNS", purity: "18 Carat", stone: "Emerald", weight: "<5g", offer: "30% OFF MAKING CHARGES", price: 40000, image: "/assets/images/card-img01.png", hoverImg: "/assets/images/catmod-01.jpg" },
-  { id: 7, name: "NECKLACES, TRENDY DESIGNS", purity: "20 Carat", stone: "Ruby", weight: "10-20g", offer: "30% OFF MAKING CHARGES", price: 40000, image: "/assets/images/card-img01.png", hoverImg: "/assets/images/catmod-01.jpg" },
-  { id: 8, name: "BRACELETS, TRENDY DESIGNS", purity: "24 Carat", stone: "Sapphire", weight: "20g+", offer: "30% OFF MAKING CHARGES", price: 40000, image: "/assets/images/card-img01.png", hoverImg: "/assets/images/catmod-01.jpg" },
-  { id: 9, name: "EARRINGS, TRENDY DESIGNS", purity: "18 Carat", stone: "Diamond", weight: "<5g", offer: "30% OFF MAKING CHARGES", price: 40000, image: "/assets/images/card-img01.png", hoverImg: "/assets/images/catmod-01.jpg" },
-  { id: 10, name: "RINGS, TRENDY DESIGNS", purity: "20 Carat", stone: "Ruby", weight: "5-10g", offer: "30% OFF MAKING CHARGES", price: 40000, image: "/assets/images/card-img01.png", hoverImg: "/assets/images/catmod-01.jpg" },
-];
-
 const Collections = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // ✅ Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 6;
+
+  useEffect(() => {
+    const fetchWishlist = async () => {
+      try {
+        setLoading(true);
+        const res = await getMyList();
+          console.log(res,"data")
+        if (res) {
+          // assuming API returns `res.data.result`
+          setProducts(res || []);
+        }
+      } catch (error) {
+        console.error("Failed to fetch wishlist:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchWishlist();
+  }, []);
 
   const indexOfLast = currentPage * productsPerPage;
   const indexOfFirst = indexOfLast - productsPerPage;
@@ -42,62 +55,73 @@ const Collections = () => {
     <>
       <Banner Title="Wishlist" />
 
-      <div className="container mx-auto flex flex-col gap-6">
-        {/* MAIN CONTENT */}
+      <div className="container mx-auto flex flex-col gap-6 pb-20">
         <main className="flex-1">
-          <ProductListComp
-            products={currentProducts.map((p) => ({
-              ...p,
-              price: p.price.toString(),
-            }))}
-          />
+          {loading ? (
+            <p className="text-center py-12">Loading wishlist...</p>
+          ) : products.length === 0 ? (
+            <p className="text-center py-12">Your wishlist is empty.</p>
+          ) : (
+            <>
+              <ProductListComp
+                products={currentProducts.map((p) => ({
+                  ...p,
+                  price: p.price.toString(), // ✅ keep string if UI expects it
+                  image: p.image || "/assets/images/card-img01.png",
+                  hoverImg: p.hoverImg || "/assets/images/catmod-01.jpg",
+                }))}
+              />
 
-          {/* Pagination */}
-          {totalPages > 1 && (
-            <div className="flex justify-center mt-6 mb-6 items-center gap-1">
-              {/* Previous Button */}
-              <button
-                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-                disabled={currentPage === 1}
-                className={`px-2 py-1 text-sm rounded-full shadow-sm transition-colors duration-200 ${
-                  currentPage === 1
-                    ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                    : "bg-white text-gray-700 hover:bg-[#d4b262] hover:text-white"
-                }`}
-              >
-                Prev
-              </button>
+              {/* Pagination */}
+              {totalPages > 1 && (
+                <div className="flex justify-center mt-6 mb-6 items-center gap-1">
+                  {/* Prev */}
+                  <button
+                    onClick={() =>
+                      setCurrentPage((prev) => Math.max(prev - 1, 1))
+                    }
+                    disabled={currentPage === 1}
+                    className={`px-2 py-1 text-sm rounded-full shadow-sm transition-colors duration-200 ${
+                      currentPage === 1
+                        ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                        : "bg-white text-gray-700 hover:bg-[#d4b262] hover:text-white"
+                    }`}
+                  >
+                    Prev
+                  </button>
 
-              {/* Page Numbers */}
-              {Array.from({ length: totalPages }, (_, i) => (
-                <button
-                  key={i + 1}
-                  onClick={() => setCurrentPage(i + 1)}
-                  className={`px-2 py-1 text-sm rounded-full shadow-sm transition-colors duration-200 border ${
-                    currentPage === i + 1
-                      ? "bg-[#d4b262] text-white border-[#d4b262]"
-                      : "bg-white text-gray-700 border-gray-300 hover:bg-[#d4b262] hover:text-white"
-                  }`}
-                >
-                  {i + 1}
-                </button>
-              ))}
+                  {/* Page Numbers */}
+                  {Array.from({ length: totalPages }, (_, i) => (
+                    <button
+                      key={i + 1}
+                      onClick={() => setCurrentPage(i + 1)}
+                      className={`px-2 py-1 text-sm rounded-full shadow-sm transition-colors duration-200 border ${
+                        currentPage === i + 1
+                          ? "bg-[#d4b262] text-white border-[#d4b262]"
+                          : "bg-white text-gray-700 border-gray-300 hover:bg-[#d4b262] hover:text-white"
+                      }`}
+                    >
+                      {i + 1}
+                    </button>
+                  ))}
 
-              {/* Next Button */}
-              <button
-                onClick={() =>
-                  setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-                }
-                disabled={currentPage === totalPages}
-                className={`px-2 py-1 text-sm rounded-full shadow-sm transition-colors duration-200 ${
-                  currentPage === totalPages
-                    ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                    : "bg-white text-gray-700 hover:bg-[#d4b262] hover:text-white"
-                }`}
-              >
-                Next
-              </button>
-            </div>
+                  {/* Next */}
+                  <button
+                    onClick={() =>
+                      setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                    }
+                    disabled={currentPage === totalPages}
+                    className={`px-2 py-1 text-sm rounded-full shadow-sm transition-colors duration-200 ${
+                      currentPage === totalPages
+                        ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                        : "bg-white text-gray-700 hover:bg-[#d4b262] hover:text-white"
+                    }`}
+                  >
+                    Next
+                  </button>
+                </div>
+              )}
+            </>
           )}
         </main>
       </div>
