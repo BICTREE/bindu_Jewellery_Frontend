@@ -1,6 +1,7 @@
-// import { Link } from "lucide-react";
+"use client";
 import React from "react";
 import Link from "next/link";
+
 type ProductCardProps = {
   image: string;
   hoverImg: string;
@@ -17,174 +18,52 @@ const ProductCard: React.FC<ProductCardProps> = ({
   price,
 }) => {
   return (
-    <>
-    <Link href="/product-list/ring">
-      <div className="cardBlock sm:justify-center mx-auto ">
-        <div className="card">
-          <img src={image} alt={name} className="img img1" />
-          <img src={hoverImg} alt={name} className="img img2" />
+    <Link href="/product-list/ring" className="w-full sm:w-60 mx-auto">
+      <div className="group cursor-pointer">
+        {/* Card Image */}
+        <div className="relative w-full aspect-[13/18] overflow-hidden bg-white shadow-lg transition-all duration-500 rounded-lg group-hover:rounded-t-[120px]">
+          <img
+            src={image}
+            alt={name}
+            className="absolute w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
+          />
+          <img
+            src={hoverImg}
+            alt={name}
+            className="absolute w-full h-full object-cover opacity-0 transition-all duration-500 group-hover:opacity-100 group-hover:scale-105"
+          />
 
-          <div className="info">
-            <ul className="actions">
-              <li>
-                <button className="iconBtn">
-                  <img src="/assets/images/Heart.svg" alt="wishlist" />
-                </button>
-              </li>
-              <li>
-                <button className="iconBtn">
-                  <img src="/assets/images/Eye.svg" alt="preview" />
-                </button>
-              </li>
-              <li>
-                <button className="iconBtn">
-                  <img src="/assets/images/Forward_Arrow.svg" alt="share" />
-                </button>
-              </li>
-            </ul>
+          {/* Action Buttons - Vertical Left Side */}
+          <div className="absolute top-1/2 left-2 -translate-y-1/2 opacity-0 -translate-x-4 transition-all duration-500 group-hover:opacity-100 group-hover:translate-x-0 flex flex-col space-y-2">
+            <button className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center hover:bg-amber-500 transition">
+              <img src="/assets/images/Heart.svg" alt="wishlist" />
+            </button>
+            <button className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center hover:bg-amber-500 transition">
+              <img src="/assets/images/Eye.svg" alt="preview" />
+            </button>
+            <button className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center hover:bg-amber-500 transition">
+              <img src="/assets/images/Forward_Arrow.svg" alt="share" />
+            </button>
           </div>
         </div>
 
-        <div className="productInfo">
-          <h3>{name}</h3>
-          <p>{offer ?? "22K Hallmarked"}</p>
-          <div className="price">
-            <span className="textPrice">₹{price}</span>
-            <button className="textCart">Add to Cart</button>
+        {/* Product Info */}
+        <div className="text-center mt-3 px-2">
+          <h3 className="text-sm sm:text-base font-bold text-amber-700 uppercase">
+            {name}
+          </h3>
+          <p className="text-xs sm:text-sm text-gray-500">
+            {offer ?? "22K Hallmarked"}
+          </p>
+          <div className="mt-2 text-base font-bold text-gray-900 relative">
+            <span className="group-hover:hidden">₹{price}</span>
+            <button className="hidden group-hover:inline-block text-amber-700 font-semibold">
+              Add to Cart
+            </button>
           </div>
         </div>
       </div>
-</Link>
-      {/* ✅ Scoped styles */}
-      <style jsx>{`
-        .cardBlock {
-          width: 260px;
-        }
-
-        .card {
-          position: relative;
-          width: 260px;
-          height: 360px;
-          overflow: hidden;
-          border-radius: 0;
-          background: #fff;
-          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-          transition: all 0.5s ease;
-          cursor: pointer;
-        }
-
-        .card img {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-
-        .card img.img2 {
-          opacity: 0;
-        }
-
-        .info {
-          position: absolute;
-          bottom: 0;
-          opacity: 0;
-          transform: translateX(-50px);
-          transition: 0.5s;
-          color: #fff;
-          text-align: center;
-          padding: 12px;
-        }
-
-        .info ul {
-          width: 30px;
-          margin: 0;
-          padding: 0;
-        }
-
-        .info ul li {
-          width: 30px;
-          height: 30px;
-          list-style: none;
-          background: #d4d4d4;
-          margin: 5px 0;
-          padding: 5px;
-          border-radius: 100%;
-        }
-
-        .info ul li img {
-          width: 100%;
-          height: 100%;
-          position: inherit;
-        }
-
-        .productInfo {
-          padding: 12px;
-          text-align: center;
-        }
-
-        .productInfo h3 {
-          font-size: 14px;
-          font-weight: bold;
-          color: #b58900;
-          margin: 6px 0 4px;
-          text-transform: uppercase;
-        }
-
-        .productInfo p {
-          font-size: 12px;
-          color: #777;
-          margin: 0;
-        }
-
-        .price {
-          margin-top: 8px;
-          font-size: 16px;
-          font-weight: bold;
-          color: #000;
-          position: relative;
-        }
-
-        .price .textPrice {
-          display: inline-block;
-          transition: opacity 0.3s ease;
-        }
-
-        .price .textCart {
-          display: none;
-          color: #b58900;
-        }
-
-        /* Hover effects */
-        .cardBlock:hover .card {
-          border-radius: 120px 120px 0 0;
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        }
-
-        .cardBlock:hover .img1 {
-          opacity: 0;
-        }
-
-        .cardBlock:hover .img2 {
-          opacity: 1;
-          transform: scale(1.05);
-        }
-
-        .cardBlock:hover .info {
-          opacity: 1;
-          transform: translateX(0px);
-          transition-delay: 0.2s;
-        }
-
-        .cardBlock:hover .price .textPrice {
-          display: none;
-        }
-
-        .cardBlock:hover .price .textCart {
-          display: inline-block;
-        }
-      `}</style>
-    </>
+    </Link>
   );
 };
 
