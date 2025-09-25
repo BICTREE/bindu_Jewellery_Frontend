@@ -248,6 +248,18 @@ header {
 top:29px;
   height: 50px;
     background:#fff;
+
+  // Media queries for responsiveness
+    @media (max-width: $tablet-breakpoint) {
+       top:29px;
+    }
+
+    @media (max-width: $mobile-breakpoint) {
+       top:0px;
+    }
+
+  
+
 }
 
 }

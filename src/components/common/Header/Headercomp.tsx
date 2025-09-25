@@ -354,14 +354,14 @@ const Header: React.FC = () => {
             {open && (
               <div
                 ref={menuRef}
-                className="absolute left-0 right-0 top-full container p-6 z-50 overflow-y-auto overflow-x-hidden max-h-[80vh]"
+                className=" shadow-lg absolute bg-white left-0 right-0 top-12 container p-6 z-50 overflow-y-auto overflow-x-hidden max-h-[80vh] "
                 onMouseEnter={() => setOpen(true)}
                 onMouseLeave={() => setOpen(false)}
                 style={{ width: "100%" }}
               >
-                <div className="bg-white grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 shadow-lg">
+                <div className="bg-white grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 ">
                   {/* Column 1 */}
-                  <div className="bg-amber-900 lg:pl-12">
+                  <div className="bg-white lg:pl-12">
                     <h4 className="font-bold text-[#d4b262] border-b border-amber-200 pb-2 mb-3 text-lg">
                       JEWELLERY
                     </h4>
