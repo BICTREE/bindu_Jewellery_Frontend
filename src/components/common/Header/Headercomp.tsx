@@ -526,130 +526,145 @@ const Header: React.FC = () => {
               </div>
             </div>
 
-            {/* Mega Menu - Full width of the navigation container */}
-            {(open || (isMobile && open)) && (
-              <div
-                ref={menuRef}
-                className="absolute lg:top-full container p-6 z-50
-             overflow-y-auto overflow-x-hidden max-h-[80vh]"
-                onMouseEnter={() => !isMobile && setOpen(true)}
-                onMouseLeave={() => !isMobile && setOpen(false)}
-                style={{
-                  left: 0,
-                  right: 0,
-                  width: "100%",
-                }}
+          {/* Mega Menu - Full width of the navigation container */}
+{(open || (isMobile && open)) && (
+  // PRODUCTS MENU
+  <div
+    ref={menuRef}
+    className={`${
+      isMobile
+        ? ` top-0 left-0 h-screen w-80 max-w-[90%] bg-red shadow-xl transform transition-transform duration-500 ease-in-out z-50
+            ${open ? "translate-x-0" : "-translate-x-full"}`
+        : "absolute lg:top-full container p-6 z-50 overflow-y-auto overflow-x-hidden max-h-[80vh]"
+    }`}
+    onMouseEnter={() => !isMobile && setOpen(true)}
+    onMouseLeave={() => !isMobile && setOpen(false)}
+    style={!isMobile ? { left: 0, right: 0, width: "100%" } : {}}
+  >
+    {/* Close button (only on mobile) */}
+    {isMobile && (
+      <button
+        className="absolute top-4 right-4 text-gray-700 text-xl"
+        onClick={() => setOpen(false)}
+      >
+        <i className="fas fa-times"></i>
+      </button>
+    )}
+
+    <div
+      className={`${
+        isMobile
+          ? "p-6 overflow-y-auto h-full grid grid-cols-1 gap-6"
+          : "bg-white grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 shadow-lg"
+      }`}
+    >
+      {/* Column 1 */}
+      <div className={`${!isMobile ? "  bg-amber-900 lg:pl-12" : ""}`}>
+        <h4 className="font-bold text-[#d4b262] border-b border-amber-200 pb-2 mb-3 text-lg">
+          JEWELLERY
+        </h4>
+        <ul className="space-y-2">
+          {[
+            "Earrings",
+            "Rings",
+            "Pendants",
+            "Bracelets",
+            "Chains",
+            "Necklaces",
+            "Thali Chains",
+            "Bangles",
+            "Coins",
+          ].map((item) => (
+            <li key={item}>
+              <a
+                href="/collections"
+                className="text-gray-700 hover:text-amber-600 block py-1 transition-colors duration-200"
               >
-                <div className=" bg-white grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 shadow-lg ">
-                  {/* Column 1 */}
-                  <div className="lg:pl-12">
-                    <h4 className="font-bold text-[#d4b262] border-b border-amber-200 pb-2 mb-3 text-lg">
-                      JEWELLERY
-                    </h4>
-                    <ul className="space-y-2">
-                      {[
-                        "Earrings",
-                        "Rings",
-                        "Pendants",
-                        "Bracelets",
-                        "Chains",
-                        "Necklaces",
-                        "Thali Chains",
-                        "Bangles",
-                        "Coins",
-                      ].map((item) => (
-                        <li key={item}>
-                          <a
-                            href="/collections"
-                            className="text-gray-700 hover:text-amber-600 block py-1 transition-colors duration-200"
-                          >
-                            {item}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                {item}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
 
-                  {/* Column 2 */}
-                  <div>
-                    <h4 className="font-bold text-[#d4b262] border-b border-amber-200 pb-2 mb-3 text-lg">
-                      PROMISE COLLECTIONS
-                    </h4>
-                    <ul className="space-y-2 mb-6">
-                      {[
-                        "Kids Collections",
-                        "Bridal Collections",
-                        "Light Weight Collections",
-                        "New Collections",
-                        "Antique Collection",
-                      ].map((item) => (
-                        <li key={item}>
-                          <a
-                            href="#"
-                            className="text-gray-700 hover:text-amber-600 block py-1 transition-colors duration-200"
-                          >
-                            {item}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
+      {/* Column 2 */}
+      <div>
+        <h4 className="font-bold text-[#d4b262] border-b border-amber-200 pb-2 mb-3 text-lg">
+          PROMISE COLLECTIONS
+        </h4>
+        <ul className="space-y-2 mb-6">
+          {[
+            "Kids Collections",
+            "Bridal Collections",
+            "Light Weight Collections",
+            "New Collections",
+            "Antique Collection",
+          ].map((item) => (
+            <li key={item}>
+              <a
+                href="#"
+                className="text-gray-700 hover:text-amber-600 block py-1 transition-colors duration-200"
+              >
+                {item}
+              </a>
+            </li>
+          ))}
+        </ul>
 
-                    <h4 className="font-bold text-[#d4b262] border-b border-amber-200 pb-2 mb-3 text-lg mt-8">
-                      DIAMOND
-                    </h4>
-                    <ul className="space-y-2">
-                      {["Kisna", "My Blue Diamonds"].map((item) => (
-                        <li key={item}>
-                          <a
-                            href="#"
-                            className="text-gray-700 hover:text-amber-600 block py-1 transition-colors duration-200"
-                          >
-                            {item}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Column 3 */}
-                  <div>
-                    <h4 className="font-bold text-[#d4b262] border-b border-amber-200 pb-2 mb-3 text-lg">
-                      PURITY
-                    </h4>
-                    <ul className="space-y-2">
-                      {["18 Carat", "20 Carat", "22 Carat", "24 Carat"].map(
-                        (item) => (
-                          <li key={item}>
-                            <a
-                              href="#"
-                              className="text-gray-700 hover:text-amber-600 block py-1 transition-colors duration-200"
-                            >
-                              {item}
-                            </a>
-                          </li>
-                        )
-                      )}
-                    </ul>
-                  </div>
-
-                  {/* Column 4 - Promotion */}
-                  <div className="bg-[#d4b262] p-6  text-center text-black flex flex-col justify-center items-center">
-                    <h3 className="font-bold text-xl mb-3">
-                      BRIDAL COLLECTIONS
-                    </h3>
-                    <div className="bg-black text-yellow-400 inline-block px-6 py-2 rounded-full text-base font-bold my-3">
-                      DISCOUNT UP TO 5%
-                    </div>
-                    <p className="text-base mb-2 font-medium">
-                      LIMITED TIME OFFER
-                    </p>
-                    <p className="text-base font-semibold">ENTIRE STORE</p>
-                  </div>
+                  <h4 className="font-bold text-[#d4b262] border-b border-amber-200 pb-2 mb-3 text-lg mt-8">
+                    DIAMOND
+                  </h4>
+                  <ul className="space-y-2">
+                    {["Kisna", "My Blue Diamonds"].map((item) => (
+                      <li key={item}>
+                        <a
+                          href="#"
+                          className="text-gray-700 hover:text-amber-600 block py-1 transition-colors duration-200"
+                        >
+                          {item}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-              </div>
-            )}
-          </nav>
+
+      {/* Column 3 */}
+      <div>
+        <h4 className="font-bold text-[#d4b262] border-b border-amber-200 pb-2 mb-3 text-lg">
+          PURITY
+        </h4>
+        <ul className="space-y-2">
+          {["18 Carat", "20 Carat", "22 Carat", "24 Carat"].map((item) => (
+            <li key={item}>
+              <a
+                href="#"
+                className="text-gray-700 hover:text-amber-600 block py-1 transition-colors duration-200"
+              >
+                {item}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Column 4 - Promotion */}
+      <div
+        className={`bg-[#d4b262] p-6 text-center text-black flex flex-col justify-center items-center ${
+          isMobile ? "rounded-lg" : ""
+        }`}
+      >
+        <h3 className="font-bold text-xl mb-3">BRIDAL COLLECTIONS</h3>
+        <div className="bg-black text-yellow-400 inline-block px-6 py-2 rounded-full text-base font-bold my-3">
+          DISCOUNT UP TO 5%
         </div>
+        <p className="text-base mb-2 font-medium">LIMITED TIME OFFER</p>
+        <p className="text-base font-semibold">ENTIRE STORE</p>
+      </div>
+    </div>
+  </div>
+)}
+        </nav>
+      </div>
       </div>
     </header>
   );
