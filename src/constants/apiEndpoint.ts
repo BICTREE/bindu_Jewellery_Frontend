@@ -27,3 +27,6 @@ export const DeleteMyAddressApi = '/users/addresses';
 export const GetMyAddressApi = '/users/addresses/own';
 
 
+export const GetMyWhishlist = '/users/wishlists';
+
+
