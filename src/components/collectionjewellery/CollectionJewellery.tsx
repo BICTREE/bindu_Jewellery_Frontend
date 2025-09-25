@@ -1,16 +1,43 @@
 "use client";
-import React from "react";
+
+import React, { useEffect, useState } from "react";
 import JewelleryCard from "../common/collectioncard/JewelleryCard";
+import { getAllCategory } from "@/services/categoryService/categorySerice";
+
+
+interface Category {
+  _id: string;
+  name: string;
+  description: string;
+  image: {
+    location: string;
+  };
+}
 
 const CollectionJewellery = () => {
-  const collections = [
-    { image: "/assets/images/catmod-08.jpg", title: "STUDS AND DROPS" },
-    { image: "/assets/images/catmod-08.jpg", title: "BANGLES" },
-    { image: "/assets/images/catmod-08.jpg", title: "NECKLACES" },
-    { image: "/assets/images/catmod-08.jpg", title: "RINGS" },
-    { image: "/assets/images/catmod-08.jpg", title: "CHAINS" },
-    { image: "/assets/images/catmod-08.jpg", title: "PENDANTS" },
-  ];
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await getAllCategory(1); // page 1 by default
+        if (res?.success && res?.data?.result) {
+          setCategories(res.data.result);
+        }
+      } catch (error) {
+        console.error("Failed to fetch categories:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  if (loading) {
+    return <p className="text-center py-12">Loading categories...</p>;
+  }
 
   return (
     <section className="container mx-auto py-12 px-4">
@@ -18,11 +45,19 @@ const CollectionJewellery = () => {
         Jewellery Collections
       </h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {collections.map((item, idx) => (
-          <JewelleryCard key={idx} image={item.image} title={item.title} />
-        ))}
-      </div>
+      {categories.length === 0 ? (
+        <p className="text-center">No categories found.</p>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {categories.map((item) => (
+            <JewelleryCard
+              key={item._id}
+              image={item.image.location}
+              title={item.name}
+            />
+          ))}
+        </div>
+      )}
     </section>
   );
 };
