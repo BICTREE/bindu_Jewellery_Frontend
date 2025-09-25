@@ -4,12 +4,12 @@ import React from "react";
 import ProductCard from "../common/productcard/ProductCard";
 
 interface Product {
-  id: number;
+  _id: string;
   image: string;
   hoverImg: string;
   name: string;
   offer?: string;
-  price: string;
+  price: number;
 }
 
 interface ProductListProps {
@@ -26,7 +26,7 @@ const WishlistComp: React.FC<ProductListProps> = ({ products }) => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 ">
         {products.map((product) => (
-          <ProductCard key={product.id} {...product} />
+          <ProductCard key={product._id} {...product} />
         ))}
       </div>
     </div>
