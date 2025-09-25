@@ -6,17 +6,17 @@ import ProductListComp from "@/components/wishlist/WishlistComp";
 import { getMyList } from "@/services/wishlistService/wishlistService";
 
 
-type Product = {
-  _id: string;
+interface Product {
+  _id: string; // changed from number → string
   name: string;
+  price: number;
+  image: string;
+  hoverImg: string;
   purity?: string;
   stone?: string;
   weight?: string;
   offer?: string;
-  price: number;
-  image: string;
-  hoverImg?: string;
-};
+}
 
 const Collections = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -66,7 +66,7 @@ const Collections = () => {
               <ProductListComp
                 products={currentProducts.map((p) => ({
                   ...p,
-                  price: p.price.toString(), // ✅ keep string if UI expects it
+                    price: p.price, // ✅ keep string if UI expects it
                   image: p.image || "/assets/images/card-img01.png",
                   hoverImg: p.hoverImg || "/assets/images/catmod-01.jpg",
                 }))}

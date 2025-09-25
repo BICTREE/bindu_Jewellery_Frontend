@@ -4,12 +4,12 @@ import React from "react";
 import ProductCard from "../common/productcard/ProductCard";
 
 interface Product {
-  _id: number;
+  _id: string;
   image: string;
   hoverImg: string;
   name: string;
   offer?: string;
-  price: string;
+  price: number;
 }
 
 interface ProductListProps {
