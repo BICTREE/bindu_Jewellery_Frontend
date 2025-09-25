@@ -9,7 +9,7 @@ interface NewEnquriy {
   subject: string;
   message: string;
 }
-// Clinic-Service Management Api
+// SendEnquriy Api
 export const SendEnquriy = async (body: NewEnquriy) => {
   try {
     const response = await axiosPublic.post(
