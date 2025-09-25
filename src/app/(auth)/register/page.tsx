@@ -1,9 +1,14 @@
 "use client";
 import { useState } from "react";
 import { Mail, Lock, User, Phone, Calendar, Key } from "lucide-react";
+import toast from "react-hot-toast";
+import { RegisterUser, SendOTP, VerifyOTP } from "@/services/AuthService/AuthService";
+
 
 export default function Register() {
   const [step, setStep] = useState<"register" | "otp">("register");
+  const [loading, setLoading] = useState(false);
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -13,6 +18,7 @@ export default function Register() {
     gender: "",
     birthday: "",
   });
+
   const [otp, setOtp] = useState("");
 
   const handleChange = (
@@ -25,18 +31,47 @@ export default function Register() {
     setOtp(e.target.value);
   };
 
-  const handleSendOtp = (e: React.FormEvent) => {
+  // 1️⃣ Send OTP
+  const handleSendOtp = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Registration Data:", formData);
-    // Here, trigger OTP send API
-    setStep("otp"); // switch to OTP form
+    setLoading(true);
+    try {
+      const res = await SendOTP({ email: formData.email });
+      toast.success(res?.message || "OTP sent successfully!");
+      setStep("otp");
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message || "Failed to send OTP");
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleVerifyOtp = (e: React.FormEvent) => {
+  // 2️⃣ Verify OTP + Register User
+  const handleVerifyOtp = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Entered OTP:", otp);
-    // Verify OTP API call here
-    alert("OTP Verified! Registration complete.");
+    setLoading(true);
+    try {
+      // First verify OTP
+      await VerifyOTP({ email: formData.email, otp });
+
+      // If OTP verified, register user
+      const body = {
+        ...formData,
+        credType: "email",
+        otp,
+      };
+      const res = await RegisterUser(body);
+
+      toast.success(res?.message || "Registration successful!");
+      // redirect to login after success
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 1500);
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message || "Failed to verify OTP");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -56,12 +91,9 @@ export default function Register() {
 
         {step === "register" ? (
           <>
-            {/* Title */}
             <h2 className="text-center text-2xl font-semibold text-white mb-6">
               Register Now
             </h2>
-
-            {/* Registration Form */}
             <form className="space-y-5" onSubmit={handleSendOtp}>
               {/* First Name */}
               <div>
@@ -157,9 +189,9 @@ export default function Register() {
                     <option value="" disabled>
                       Select Gender
                     </option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
                   </select>
                 </label>
               </div>
@@ -182,9 +214,10 @@ export default function Register() {
               {/* Send OTP Button */}
               <button
                 type="submit"
-                className="w-full bg-[#d4b262] text-white py-3 rounded-md font-semibold tracking-wide hover:bg-[#bfa04f] transition"
+                disabled={loading}
+                className="w-full bg-[#d4b262] text-white py-3 rounded-md font-semibold tracking-wide hover:bg-[#bfa04f] transition disabled:opacity-50"
               >
-                Send OTP
+                {loading ? "Sending..." : "Send OTP"}
               </button>
 
               {/* Login Link */}
@@ -198,7 +231,6 @@ export default function Register() {
           </>
         ) : (
           <>
-            {/* OTP Form */}
             <h2 className="text-center text-2xl font-semibold text-white mb-6">
               Enter OTP
             </h2>
@@ -219,9 +251,10 @@ export default function Register() {
 
               <button
                 type="submit"
-                className="w-full bg-[#d4b262] text-white py-3 rounded-md font-semibold tracking-wide hover:bg-[#bfa04f] transition"
+                disabled={loading}
+                className="w-full bg-[#d4b262] text-white py-3 rounded-md font-semibold tracking-wide hover:bg-[#bfa04f] transition disabled:opacity-50"
               >
-                Verify OTP
+                {loading ? "Verifying..." : "Verify OTP"}
               </button>
             </form>
           </>

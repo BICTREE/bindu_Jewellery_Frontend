@@ -4,6 +4,8 @@ export const BASE_URL = 'https://bindu-jewellery-backend.vercel.app/api';
 
 // Auth API
 export const SignUpApi = '/users/register';
+export const SendOTPApi = '/auth/send-otp';
+export const VerifyOTPApi = '/auth/verify-otp';
 export const LoginApi = '/auth/login';
 
 
