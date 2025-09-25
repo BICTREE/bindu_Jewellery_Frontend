@@ -39,7 +39,8 @@ export default function Register() {
       const res = await SendOTP({ email: formData.email });
       toast.success(res?.message || "OTP sent successfully!");
       setStep("otp");
-    } catch (error: any) {
+    } catch (err: unknown) {
+      const error = err as { response?: { data?: { message?: string } } };
       toast.error(error?.response?.data?.message || "Failed to send OTP");
     } finally {
       setLoading(false);
@@ -67,9 +68,10 @@ export default function Register() {
       setTimeout(() => {
         window.location.href = "/login";
       }, 1500);
-    } catch (error: any) {
+    } catch (err: unknown) {
+      const error = err as { response?: { data?: { message?: string } } };
       toast.error(error?.response?.data?.message || "Failed to verify OTP");
-    } finally {
+    }finally {
       setLoading(false);
     }
   };
