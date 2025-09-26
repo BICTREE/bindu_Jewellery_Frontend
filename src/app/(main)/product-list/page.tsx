@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Banner from "@/components/common/Banner/Banner";
 import ProductListComp from "@/components/productlist/ProductListComp";
-import { ChevronDown, ChevronRight } from "lucide-react";
+import { ChevronDown, ChevronRight, Filter, Minus, Plus } from "lucide-react";
 import { GetAllProducts } from "@/services/productService/productService";
 
 // Product type
@@ -14,9 +14,20 @@ type Product = {
   stone?: string;
   weight?: string;
   offer?: string;
+  metalType?: string;
+  grossWeight?: string;
   price: number;
   image: string;
   hoverImg: string;
+};
+type ApiProduct = {
+  _id: string;
+  name: string;
+  metalType?: string;
+  grossWeight?: string;
+  price: number;
+  thumbnail?: { location: string };
+  images?: { location: string }[];
 };
 
 // Filter options (keeping for UI but not using for filtering)
@@ -61,11 +72,11 @@ const Collections = () => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        const res = await GetAllProducts(currentPage);
+        const res: ApiProduct[] = await GetAllProducts(currentPage); // ✅ properly typed
         const apiProducts = res || [];
         console.log(res, "data");
-        
-        const normalized: Product[] = apiProducts.map((p: any) => {
+
+        const normalized: Product[] = apiProducts.map((p) => {
           // purity normalization
           let purity: string | undefined;
           if (p.metalType?.includes("18")) purity = "18 Carat";
@@ -75,7 +86,8 @@ const Collections = () => {
 
           // weight normalization
           let weight: string | undefined;
-          const g = parseFloat(p.grossWeight);
+          const g = parseFloat(p.grossWeight ?? "");
+
           if (!isNaN(g)) {
             if (g < 5) weight = "<5g";
             else if (g <= 10) weight = "5-10g";
@@ -144,12 +156,36 @@ const Collections = () => {
       <Banner Title="Collections" />
 
       <div className="container mx-auto flex flex-col md:flex-row gap-2 md:gap-6">
+        <div className="flex items-center  md:hidden justify-between w-full ">
+
+          {/* MOBILE FILTER TOGGLE */}
+          <h2 className="block md:hidden px-4 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 pt-0">
+            Our Collections
+          </h2>
+          <button
+            className="md:hidden flex items-center justify-between w-[100px]  px-4 py-2 mt-3 bg-[#d4b262] text-white rounded-full shadow-md hover:bg-amber-600 transition-all duration-200 mb-4"
+            onClick={() => setMobileFilterOpen(!mobileFilterOpen)}
+          >
+            <div className="flex items-center gap-2">
+              <Filter className="w-4 h-4" />
+              {mobileFilterOpen ? "Filters" : "Filters"}
+            </div>
+
+            <div className="flex items-center">
+              {mobileFilterOpen ? (
+                <Minus className="w-4 h-4 animate-pulse" />
+              ) : (
+                <Plus className="w-4 h-4 animate-pulse" />
+              )}
+            </div>
+          </button>
+        </div>
+
         {/* LEFT FILTER SIDEBAR */}
         <div className="bg-white shadow-md">
           <aside
-            className={`${
-              mobileFilterOpen ? "block" : "hidden"
-            } md:block md:w-64 w-full p-4 md:p-6 space-y-6 self-start sticky top-24`}
+            className={`${mobileFilterOpen ? "block" : "hidden"
+              } md:block md:w-64 w-full p-4 md:p-6 space-y-6 self-start sticky top-24`}
           >
             {["Product Type", "Gold Purity", "Stone Type", "Product Weight"].map(
               (section) => {
@@ -157,10 +193,10 @@ const Collections = () => {
                   section === "Product Type"
                     ? productTypes
                     : section === "Gold Purity"
-                    ? goldPurityOptions
-                    : section === "Stone Type"
-                    ? stoneTypes
-                    : productWeights;
+                      ? goldPurityOptions
+                      : section === "Stone Type"
+                        ? stoneTypes
+                        : productWeights;
 
                 const isOpen = sectionOpen[section];
 
@@ -195,19 +231,19 @@ const Collections = () => {
                                   section === "Product Type"
                                     ? filters.productType.includes(opt)
                                     : section === "Gold Purity"
-                                    ? filters.goldPurity.includes(opt)
-                                    : section === "Stone Type"
-                                    ? filters.stoneType.includes(opt)
-                                    : filters.productWeight.includes(opt)
+                                      ? filters.goldPurity.includes(opt)
+                                      : section === "Stone Type"
+                                        ? filters.stoneType.includes(opt)
+                                        : filters.productWeight.includes(opt)
                                 }
                                 onChange={() =>
                                   section === "Product Type"
                                     ? handleCheckbox("productType", opt)
                                     : section === "Gold Purity"
-                                    ? handleCheckbox("goldPurity", opt)
-                                    : section === "Stone Type"
-                                    ? handleCheckbox("stoneType", opt)
-                                    : handleCheckbox("productWeight", opt)
+                                      ? handleCheckbox("goldPurity", opt)
+                                      : section === "Stone Type"
+                                        ? handleCheckbox("stoneType", opt)
+                                        : handleCheckbox("productWeight", opt)
                                 }
                               />
                               {opt}
@@ -276,11 +312,10 @@ const Collections = () => {
               <button
                 onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
                 disabled={currentPage === 1}
-                className={`px-2 py-1 text-sm rounded-full ${
-                  currentPage === 1
+                className={`px-2 py-1 text-sm rounded-full ${currentPage === 1
                     ? "bg-gray-200 text-gray-400 cursor-not-allowed"
                     : "bg-white text-gray-700 hover:bg-[#d4b262] hover:text-white"
-                }`}
+                  }`}
               >
                 Prev
               </button>
@@ -289,11 +324,10 @@ const Collections = () => {
                 <button
                   key={i + 1}
                   onClick={() => setCurrentPage(i + 1)}
-                  className={`px-2 py-1 text-sm rounded-full border ${
-                    currentPage === i + 1
+                  className={`px-2 py-1 text-sm rounded-full border ${currentPage === i + 1
                       ? "bg-[#d4b262] text-white border-[#d4b262]"
                       : "bg-white text-gray-700 border-gray-300 hover:bg-[#d4b262] hover:text-white"
-                  }`}
+                    }`}
                 >
                   {i + 1}
                 </button>
@@ -304,11 +338,10 @@ const Collections = () => {
                   setCurrentPage((prev) => Math.min(prev + 1, totalPages))
                 }
                 disabled={currentPage === totalPages}
-                className={`px-2 py-1 text-sm rounded-full ${
-                  currentPage === totalPages
+                className={`px-2 py-1 text-sm rounded-full ${currentPage === totalPages
                     ? "bg-gray-200 text-gray-400 cursor-not-allowed"
                     : "bg-white text-gray-700 hover:bg-[#d4b262] hover:text-white"
-                }`}
+                  }`}
               >
                 Next
               </button>

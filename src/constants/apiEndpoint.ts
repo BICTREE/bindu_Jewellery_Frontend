@@ -34,5 +34,6 @@ export const RemoveFromWhishlistApi = '/users/wishlists/remove';
 // product
 
 export const GetAllProductsApi = '/products/many';
+export const GetProductByIdApi = '/products';
 
 

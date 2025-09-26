@@ -84,7 +84,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   };
 
   return (
-    <Link href={`/product-list/${id}`} className="w-full sm:w-60 mx-auto">
+    <Link href={`/products/${id}`} className="w-full sm:w-60 mx-auto">
       <div className="group cursor-pointer">
         {/* Card Image */}
         <div className="relative w-full aspect-[13/18] overflow-hidden bg-white shadow-lg transition-all duration-500 rounded-lg group-hover:rounded-t-[120px]">
