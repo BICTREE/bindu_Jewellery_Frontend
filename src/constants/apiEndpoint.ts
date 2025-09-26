@@ -28,5 +28,11 @@ export const GetMyAddressApi = '/users/addresses/own';
 
 
 export const GetMyWhishlist = '/users/wishlists';
+export const AddToWhishlistApi = '/users/wishlists/add';
+export const RemoveFromWhishlistApi = '/users/wishlists/remove';
+
+// product
+
+export const GetAllProductsApi = '/products/many';
 
 
