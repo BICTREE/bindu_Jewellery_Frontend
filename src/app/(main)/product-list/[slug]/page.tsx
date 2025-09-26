@@ -273,7 +273,7 @@ const ProductPage = () => {
   </div>
 </div>
 </div>
-    <JewelleryDetails/>
+    {/* <JewelleryDetails/> */}
     <MayLikethis/>
     </>
 

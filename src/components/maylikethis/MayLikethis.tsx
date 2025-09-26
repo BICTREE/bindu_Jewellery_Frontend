@@ -7,7 +7,7 @@ import ProductCard from "../common/productcard/ProductCard";
 
 const products = [
   {
-    id: 1,
+    id: "1",
     name: "EARRINGS, TRENDY DESIGNS",
     offer: "30% OFF MAKING CHARGES",
     price: "₹35853.00",
@@ -15,44 +15,44 @@ const products = [
     img2: "/assets/images/catmod-01.jpg",
   },
   {
-    id: 2,
+    id: "2",
     name: "EARRINGS, TRENDY DESIGNS",
     offer: "30% OFF MAKING CHARGES",
     price: "₹35853.00",
     img: "/assets/images/card-img01.png",
-    img2:  "/assets/images/catmod-01.jpg",
+    img2: "/assets/images/catmod-01.jpg",
   },
   {
-    id: 3,
+    id: "3",
     name: "EARRINGS, TRENDY DESIGNS",
     offer: "30% OFF MAKING CHARGES",
     price: "₹35853.00",
     img: "/assets/images/card-img01.png",
-    img2:  "/assets/images/catmod-01.jpg",
+    img2: "/assets/images/catmod-01.jpg",
   },
   {
-    id: 4,
+    id: "4",
     name: "EARRINGS, TRENDY DESIGNS",
     offer: "30% OFF MAKING CHARGES",
     price: "₹35853.00",
- img: "/assets/images/card-img01.png",
-    img2:  "/assets/images/catmod-01.jpg",
+    img: "/assets/images/card-img01.png",
+    img2: "/assets/images/catmod-01.jpg",
   },
   {
-    id: 5,
+    id: "5",
     name: "EARRINGS, TRENDY DESIGNS",
     offer: "30% OFF MAKING CHARGES",
     price: "₹35853.00",
-   img: "/assets/images/card-img01.png",
-    img2:  "/assets/images/catmod-01.jpg",
+    img: "/assets/images/card-img01.png",
+    img2: "/assets/images/catmod-01.jpg",
   },
   {
-    id: 6,
+    id: "6",
     name: "EARRINGS, TRENDY DESIGNS",
     offer: "30% OFF MAKING CHARGES",
     price: "₹35853.00",
-  img: "/assets/images/card-img01.png",
-    img2:  "/assets/images/catmod-01.jpg",
+    img: "/assets/images/card-img01.png",
+    img2: "/assets/images/catmod-01.jpg",
   },
 ];
 
@@ -65,35 +65,36 @@ export default function NewArrivals() {
       </p>
 
       <Swiper
-  modules={[Navigation]}
-  spaceBetween={30}
-  slidesPerView={4}
-  breakpoints={{
-    320: { 
-      slidesPerView: 1,
-      centeredSlides: true,   // ✅ center align on mobile
-    },
-    640: { 
-      slidesPerView: 2,
-      centeredSlides: false,  // optional: disable centering on tablet
-    },
-    1024: { slidesPerView: 4 },
-  }}
-  className="px-4"
->
-  {products.map((item) => (
-    <SwiperSlide key={item.id} className="flex justify-center">
-      {/* ✅ flex wrapper centers ProductCard */}
-      <ProductCard
-        image={item.img}
-        hoverImg={item.img2}
-        name={item.name}
-        offer={item.offer}
-        price={item.price}
-      />
-    </SwiperSlide>
-  ))}
-</Swiper>
+        modules={[Navigation]}
+        spaceBetween={30}
+        slidesPerView={4}
+        breakpoints={{
+          320: {
+            slidesPerView: 1,
+            centeredSlides: true,   // ✅ center align on mobile
+          },
+          640: {
+            slidesPerView: 2,
+            centeredSlides: false,  // optional: disable centering on tablet
+          },
+          1024: { slidesPerView: 4 },
+        }}
+        className="px-4"
+      >
+        {products.map((item) => (
+          <SwiperSlide key={item.id} className="flex justify-center">
+            {/* ✅ flex wrapper centers ProductCard */}
+            <ProductCard
+              id={item.id}
+              image={item.img}
+              hoverImg={item.img2}
+              name={item.name}
+              offer={item.offer}
+              price={item.price}
+            />
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </div>
   );
 }
