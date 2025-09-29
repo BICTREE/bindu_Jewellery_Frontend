@@ -77,10 +77,10 @@ const Header: React.FC = () => {
             <div className="hidden md:flex">
               <ul className="navbar-top-right flex flex-wrap gap-4 text-sm">
                 <li>
-                  <a href="#" className="text-gray-700 flex items-center gap-1">
+                  <Link href="#" className="text-gray-700 flex items-center gap-1">
                     <i className="fa-solid fa-envelope text-amber-600"></i>
                     contact@bindujewellery.co.in
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <a href="#" className="text-gray-700 flex items-center gap-1">
@@ -157,9 +157,9 @@ const Header: React.FC = () => {
 
                 {/* Wishlist */}
                 <li>
-                  <a href="#" className="text-gray-700">
+                  <Link href="/wishlist" className="text-gray-700">
                     <i className="fa-regular fa-heart"></i>
-                  </a>
+                  </Link>
                 </li>
 
                 {/* Cart icon with dropdown */}
@@ -207,12 +207,12 @@ const Header: React.FC = () => {
                   {aboutusOpen && (
                     <ul className="absolute left-0 bg-white shadow-lg rounded-md w-48 top-full py-2 z-50">
                       <li>
-                        <a
+                        <Link
                           href="#"
                           className="block px-4 py-2 text-gray-700 hover:bg-amber-100 hover:text-amber-600 font-medium"
                         >
                           Story
-                        </a>
+                        </Link>
                       </li>
                       <li>
                         <a
@@ -223,12 +223,12 @@ const Header: React.FC = () => {
                         </a>
                       </li>
                       <li>
-                        <a
+                        <Link
                           href="#"
                           className="block px-4 py-2 text-gray-700 hover:bg-amber-100 hover:text-amber-600 font-medium"
                         >
                           MD Message
-                        </a>
+                        </Link>
                       </li>
                     </ul>
                   )}
@@ -266,12 +266,12 @@ const Header: React.FC = () => {
                   {diamondOpen && (
                     <ul className="absolute left-0 bg-white shadow-lg rounded-md w-48 top-full py-2 z-50">
                       <li>
-                        <a
+                        <Link
                           href="#"
                           className="block px-4 py-2 text-gray-700 hover:bg-amber-100 hover:text-amber-600 font-medium"
                         >
                           Kisna
-                        </a>
+                        </Link>
                       </li>
                       <li>
                         <a
@@ -286,18 +286,18 @@ const Header: React.FC = () => {
                 </li>
 
                 <li className="liclass mobile-icon" style={{ margin: 0 }}>
-                  <a href="/" className="do-brand-logo margin-t">
+                  <Link href="/" className="do-brand-logo margin-t">
                     <img src="/assets/logo/brand-logo.png" alt="Brand Logo" />
-                  </a>
+                  </Link>
                 </li>
 
                 <li className="liclass">
-                  <a
+                  <Link
                     href="#"
                     className="text-gray-800 hover:text-amber-600 font-semibold block py-2 px-4"
                   >
                     CSR
-                  </a>
+                  </Link>
                 </li>
 
                 <li
@@ -312,20 +312,20 @@ const Header: React.FC = () => {
                   {openScheme && (
                     <ul className="absolute left-0 top-full bg-white shadow-lg rounded-md w-48 py-2 z-50">
                       <li>
-                        <a
+                        <Link
                           href="#"
                           className="block px-4 py-2 text-gray-700 hover:bg-amber-100"
                         >
                           Akshaynidhi
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a
+                        <Link
                           href="#"
                           className="block px-4 py-2 text-gray-700 hover:bg-amber-100"
                         >
                           Swarna Bindu
-                        </a>
+                        </Link>
                       </li>
                     </ul>
                   )}
@@ -379,12 +379,12 @@ const Header: React.FC = () => {
                         "Coins",
                       ].map((item) => (
                         <li key={item}>
-                          <a
+                          <Link
                             href="/collections"
                             className="text-gray-700 hover:text-amber-600 block py-1 transition-colors duration-200"
                           >
                             {item}
-                          </a>
+                          </Link>
                         </li>
                       ))}
                     </ul>
@@ -404,12 +404,12 @@ const Header: React.FC = () => {
                         "Antique Collection",
                       ].map((item) => (
                         <li key={item}>
-                          <a
+                          <Link
                             href="#"
                             className="text-gray-700 hover:text-amber-600 block py-1 transition-colors duration-200"
                           >
                             {item}
-                          </a>
+                          </Link>
                         </li>
                       ))}
                     </ul>
@@ -420,12 +420,12 @@ const Header: React.FC = () => {
                     <ul className="space-y-2">
                       {["Kisna", "My Blue Diamonds"].map((item) => (
                         <li key={item}>
-                          <a
+                          <Link
                             href="#"
                             className="text-gray-700 hover:text-amber-600 block py-1 transition-colors duration-200"
                           >
                             {item}
-                          </a>
+                          </Link>
                         </li>
                       ))}
                     </ul>
@@ -439,12 +439,12 @@ const Header: React.FC = () => {
                     <ul className="space-y-2">
                       {["18 Carat", "20 Carat", "22 Carat", "24 Carat"].map((item) => (
                         <li key={item}>
-                          <a
+                          <Link
                             href="#"
                             className="text-gray-700 hover:text-amber-600 block py-1 transition-colors duration-200"
                           >
                             {item}
-                          </a>
+                          </Link>
                         </li>
                       ))}
                     </ul>
