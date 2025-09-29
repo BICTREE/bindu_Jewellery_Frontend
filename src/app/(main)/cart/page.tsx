@@ -109,55 +109,72 @@ const CartPage = () => {
 
       {/* Main Layout */}
       <div className="container mx-auto px-4 py-6 grid md:grid-cols-3 gap-6">
-        {/* Cart Items */}
-        <div className="md:col-span-2 space-y-4 ">
-         <h2 className="text-sm font-semibold text-gray-600 mt-4 md:mt-0">
-            TOTAL ITEMS {cartItems.length}
-          </h2>
+      
+   
+{/* Cart Items */}
+<div className="md:col-span-2 space-y-4 h-full">
+  <h2 className="text-sm font-semibold text-gray-600 mt-4 md:mt-0">
+    TOTAL ITEMS {cartItems.length}
+  </h2>
 
-          {cartItems.map((item) => (
-            <div
-              key={item.id}
-              className="flex items-start relative bg-white p-6 rounded-lg shadow-[0_0_5px_rgba(0,0,0,0.1)] space-y-4"
-
-              
-            >
-              <img
-                src={item.image}
-                alt={item.name}
-                className="w-32 h-32 object-contain"
-              />
-              <div className="ml-4 flex-1">
-                <h3 className="text-gray-800 font-semibold">{item.name}</h3>
-                <div className="text-sm text-gray-600 mt-1 space-y-1">
-                  <p>Metal: {item.metal}</p>
-                  {/* {item.gemstone && <p>Gemstone: {item.gemstone}</p>} */}
-                  <p>Size: {item.size}</p>
-                  <p>Qty: {item.qty}</p>
-                </div>
-                <div className="mt-2">
-                  <span className="text-[#d4b262] font-semibold">
-                    ₹{item.price.toLocaleString("en-IN")}
-                  </span>
-                  <span className="text-gray-400 line-through ml-2">
-                    ₹{item.originalPrice.toLocaleString("en-IN")}
-                  </span>
-                </div>
-              </div>
-              {/* Close Button */}
-              <button
-                onClick={() => removeItem(item.id)}
-                className="absolute top-2 right-2 text-gray-400 hover:text-[#d4b262]"
-              >
-                <X size={18} />
-              </button>
-            </div>
-          ))}
-
-          <button className="mt-4 px-4 py-2 border border-[#d4b262] text-[#d4b262] hover:text-[#ffffff] rounded-lg hover:bg-[#d4b262] text-sm">
-            CONTINUE SHOPPING
-          </button>
+  {cartItems.length === 0 ? (
+    <div className="flex items-center justify-center h-full  ">
+      <div className="text-center text-gray-600">
+        <p className="text-lg font-medium">🛒 Your cart is empty</p>
+        <Link
+          href="/"
+          className="mt-4 inline-block px-6 py-2 bg-[#d4b262] text-white rounded-lg hover:bg-[#ce9f4e]"
+        >
+          Continue Shopping
+        </Link>
+      </div>
+    </div>
+  ) : (
+    cartItems.map((item) => (
+      <div
+        key={item.id}
+        className="flex items-start relative bg-white p-6 rounded-lg shadow-[0_0_5px_rgba(0,0,0,0.1)] space-y-4"
+      >
+        <img
+          src={item.image}
+          alt={item.name}
+          className="w-32 h-32 object-contain"
+        />
+        <div className="ml-4 flex-1">
+          <h3 className="text-gray-800 font-semibold">{item.name}</h3>
+          <div className="text-sm text-gray-600 mt-1 space-y-1">
+            <p>Metal: {item.metal}</p>
+            <p>Size: {item.size}</p>
+            <p>Qty: {item.qty}</p>
+          </div>
+          <div className="mt-2">
+            <span className="text-[#d4b262] font-semibold">
+              ₹{item.price.toLocaleString("en-IN")}
+            </span>
+            <span className="text-gray-400 line-through ml-2">
+              ₹{item.originalPrice.toLocaleString("en-IN")}
+            </span>
+          </div>
         </div>
+        {/* Close Button */}
+        <button
+          onClick={() => removeItem(item.id)}
+          className="absolute top-2 right-2 text-gray-400 hover:text-[#d4b262]"
+        >
+          <X size={18} />
+        </button>
+      </div>
+    ))
+  )}
+
+  {cartItems.length > 0 && (
+    <button className="mt-4 px-4 py-2 border border-[#d4b262] text-[#d4b262] hover:text-[#ffffff] rounded-lg hover:bg-[#d4b262] text-sm">
+      CONTINUE SHOPPING
+    </button>
+  )}
+</div>
+
+
 
         {/* Order Summary */}
         <div className=" bg-white p-6 rounded-lg shadow-[0_0_5px_rgba(0,0,0,0.1)] space-y-4">
