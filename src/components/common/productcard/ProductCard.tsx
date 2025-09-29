@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { AddToWishlist, RemoveFromWishlist } from "@/services/wishlistService/wishlistService";
 import { GetMyProfile } from "@/services/profileService/profileService";
 import { Heart } from "lucide-react";
+import { useSession } from "next-auth/react";
 
 type ProductCardProps = {
   id: string; // productId
@@ -27,18 +28,23 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const [inWishlist, setInWishlist] = useState(false);
   const [loading, setLoading] = useState(false);
   const [loadingUser, setLoadingUser] = useState(true); // ✅ loading state for fetching user
+  const { data: session, status } = useSession();
 
-  // Fetch user data
+  // ✅ fetch user data only if logged in
   const fetchUser = async () => {
+    if (status !== "authenticated") {
+      setLoadingUser(false);
+      return;
+    }
+
     setLoadingUser(true);
     try {
       const data = await GetMyProfile();
       setUser((prev) => {
-        // ✅ Only update state if wishlist or id changed
         if (!prev || JSON.stringify(prev.wishlist) !== JSON.stringify(data.wishlist)) {
           return data;
         }
-        return prev; // no change, skip re-render
+        return prev;
       });
       setInWishlist(data.wishlist.includes(id));
     } catch (err) {
@@ -50,8 +56,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
   };
 
   useEffect(() => {
-    fetchUser();
-  }, []);
+    if (status === "authenticated") {
+      fetchUser();
+    } else {
+      setUser(null);
+      setInWishlist(false);
+      setLoadingUser(false);
+    }
+  }, [status]);
 
   const handleWishlist = async (e: React.MouseEvent) => {
     e.preventDefault();
