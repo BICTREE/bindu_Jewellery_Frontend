@@ -164,7 +164,7 @@ const Header: React.FC = () => {
 
                 {/* Cart icon with dropdown */}
                 <li className="relative">
-                  <Link href="cart" className="text-gray-700 relative">
+                  <Link href="/cart" className="text-gray-700 relative">
                     <i className="fa-solid fa-cart-shopping text-xl"></i>
                     <span className="absolute -top-2 -right-3 bg-amber-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
                       3

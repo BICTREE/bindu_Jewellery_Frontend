@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Search } from "lucide-react";
 const BlogSidebar = () => {
   return (
-    <aside className="  bg-white p-6 rounded-lg shadow-[0_0_5px_rgba(0,0,0,0.1)] space-y-4">
+    <aside className="  bg-white p-6 rounded-lg shadow-[0_0_5px_rgba(0,0,0,0.1)] space-y-4 h-full">
       {/* Search */}
    <div className="relative">
   <input
@@ -104,7 +104,7 @@ const BlogSidebar = () => {
           ].map((tag) => (
             <span
               key={tag}
-              className={`px-3 py-1 text-sm border rounded cursor-pointer hover:bg-[#b99748] hover:text-white ${
+              className={`px-3 py-1 text-sm border border-gray-200 rounded cursor-pointer hover:bg-[#b99748] hover:text-white ${
                 tag === "Marketing" ? " rounded bg-[#d4b262] text-white" : ""
               }`}
             >
