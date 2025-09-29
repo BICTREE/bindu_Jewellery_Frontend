@@ -4,6 +4,7 @@ import { useScrollAnimation, useScrollLogo } from "./header";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 import MobileHeader from "./MobileHeader";
+import Home from "@/app/(main)/page";
 
 const Header: React.FC = () => {
   // ✅ Hooks auto-disable on mobile
@@ -100,7 +101,7 @@ const Header: React.FC = () => {
                       setUserOpen(!userOpen);
                       setCartOpen(false);
                     }}
-                    className="text-gray-700 relative"
+                    className="text-[#a8a7aa]  relative hover:text-[#d4b262] cursor-pointer"
                   >
                     <i className="fa-regular fa-user text-xl"></i>
                   </button>
@@ -163,12 +164,12 @@ const Header: React.FC = () => {
 
                 {/* Cart icon with dropdown */}
                 <li className="relative">
-                  <button className="text-gray-700 relative">
+                  <Link href="cart" className="text-gray-700 relative">
                     <i className="fa-solid fa-cart-shopping text-xl"></i>
                     <span className="absolute -top-2 -right-3 bg-amber-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
                       3
                     </span>
-                  </button>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -185,13 +186,13 @@ const Header: React.FC = () => {
                 className="flex flex-row w-full bg-transparent"
               >
                 <li className="liclass logo-icon">
-                  <a href="#">
+                <Link href="/">
                     <img
                       src="/assets/logo/icon-only.png"
                       alt="Brand Logo"
                       className="mt-3 h-8"
                     />
-                  </a>
+                  </Link>
                 </li>
 
                 <li
@@ -285,7 +286,7 @@ const Header: React.FC = () => {
                 </li>
 
                 <li className="liclass mobile-icon" style={{ margin: 0 }}>
-                  <a href="#" className="do-brand-logo margin-t">
+                  <a href="/" className="do-brand-logo margin-t">
                     <img src="/assets/logo/brand-logo.png" alt="Brand Logo" />
                   </a>
                 </li>
@@ -450,13 +451,19 @@ const Header: React.FC = () => {
                   </div>
 
                   {/* Column 4 - Promotion */}
-                  <div className="bg-[#d4b262] p-6 text-center text-black flex flex-col justify-center items-center">
-                    <h3 className="font-bold text-xl mb-3">BRIDAL COLLECTIONS</h3>
+                  <div className="bg-[#d4b262]  text-center text-black flex flex-col justify-center items-center">
+                    {/* <h3 className="font-bold text-xl mb-3">BRIDAL COLLECTIONS</h3>
                     <div className="bg-black text-yellow-400 inline-block px-6 py-2 rounded-full text-base font-bold my-3">
                       DISCOUNT UP TO 5%
                     </div>
                     <p className="text-base mb-2 font-medium">LIMITED TIME OFFER</p>
-                    <p className="text-base font-semibold">ENTIRE STORE</p>
+                    <p className="text-base font-semibold">ENTIRE STORE</p>  */}
+
+                      <img
+                      src="/assets/images/menubanner.png"
+                      alt="Brand Logo"
+                      className=" "
+                    />
                   </div>
                 </div>
               </div>
