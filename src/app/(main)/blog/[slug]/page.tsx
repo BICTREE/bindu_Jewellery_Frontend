@@ -84,8 +84,8 @@ const BlogDetails = () => {
                 className="w-20 h-20 rounded-lg object-cover" />
               <div>
                 <p className="text-gray-600 italic">
-                  "Somehow form a family that’s the way we all became the Brady
-                  Bunch apartment in the sky moving on up..."
+                  Somehow form a family thats the way we all became the Brady
+                  Bunch apartment in the sky moving on up...
                 </p>
                 <p className="mt-2 font-semibold text-gray-800">
                   - San Johnson -
