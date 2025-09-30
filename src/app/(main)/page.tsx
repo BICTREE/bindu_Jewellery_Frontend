@@ -9,9 +9,11 @@ import PoppularCategory from "@/components/home/PoppularCategory";
 import SubscribeNewsletter from "@/components/home/SubscribeNewsletter";
 import GiftMore from "@/components/home/GiftMore";
 import MediaComp from "@/components/home/MediaComp";
+import OfferPopup from "@/components/common/offerpopup/OfferPopup";
 export default function Home() {
   return (
     <div className=" ">
+         <OfferPopup />
      <Hero/>
      <FreeshipingComp/>
      <CollectionBanners/>

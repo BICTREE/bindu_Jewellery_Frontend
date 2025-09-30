@@ -74,7 +74,6 @@ const BlogDetails = () => {
   </div>
 </div>
 
-
           {/* Author */}
           <div className="mt-8 bg-gray-50 p-6 rounded-lg border border-gray-200">
             <div className="flex items-center gap-4">
