@@ -41,6 +41,72 @@ type Category = {
   __v: number;
 };
 
+// Loading Skeleton Components
+const CategorySkeleton = () => (
+  <div className="animate-pulse">
+    <div className="h-6 bg-gray-200 rounded mb-3 w-3/4"></div>
+    <ul className="space-y-2">
+      {[...Array(6)].map((_, index) => (
+        <li key={index}>
+          <div className="h-4 bg-gray-200 rounded w-full"></div>
+        </li>
+      ))}
+    </ul>
+  </div>
+);
+
+const MegaMenuSkeleton = () => (
+  <div className="bg-white grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    {/* Column 1 Skeleton */}
+    <div className="bg-white lg:pl-12">
+      <div className="h-7 bg-gray-200 rounded mb-3 w-3/4"></div>
+      <ul className="space-y-2">
+        {[...Array(8)].map((_, index) => (
+          <li key={index}>
+            <div className="h-4 bg-gray-200 rounded w-full"></div>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    {/* Column 2 Skeleton */}
+    <div>
+      <div className="h-7 bg-gray-200 rounded mb-3 w-3/4"></div>
+      <ul className="space-y-2">
+        {[...Array(5)].map((_, index) => (
+          <li key={index}>
+            <div className="h-4 bg-gray-200 rounded w-full"></div>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    {/* Column 3 Skeleton */}
+    <div>
+      <div className="h-7 bg-gray-200 rounded mb-3 w-3/4"></div>
+      <ul className="space-y-2">
+        {[...Array(4)].map((_, index) => (
+          <li key={index}>
+            <div className="h-4 bg-gray-200 rounded w-full"></div>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    {/* Column 4 Skeleton */}
+    <div>
+      <div className="h-7 bg-gray-200 rounded mb-3 w-3/4"></div>
+      <ul className="space-y-2">
+        {[...Array(6)].map((_, index) => (
+          <li key={index}>
+            <div className="h-4 bg-gray-200 rounded w-full"></div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+);
+
 const Header: React.FC = () => {
   // ✅ Hooks auto-disable on mobile
   useScrollAnimation(".header1", { threshold: 50, activeClass: "fixed" });
@@ -451,9 +517,7 @@ const Header: React.FC = () => {
                 style={{ width: "100%" }}
               >
                 {loading ? (
-                  <div className="flex justify-center items-center py-8">
-                    <p className="text-gray-600">Loading categories...</p>
-                  </div>
+                  <MegaMenuSkeleton />
                 ) : (
                   <div className="bg-white grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 ">
                     {/* Column 1 - JEWELLERY (from categories) */}
@@ -466,7 +530,7 @@ const Header: React.FC = () => {
                           jewelleryChildren.map((child) => (
                             <li key={child._id}>
                               <Link
-                                href={`/collections?category=${child._id}`}
+                                href={`/product-list?category=${child._id}`}
                                 className="text-gray-700 hover:text-amber-600 block py-1 transition-colors duration-200"
                               >
                                 {child.name}
@@ -504,7 +568,7 @@ const Header: React.FC = () => {
                           promiseCollectionsChildren.map((child) => (
                             <li key={child._id}>
                               <Link
-                                href={`/collections?category=${child._id}`}
+                                href={`/product-list?category=${child._id}`}
                                 className="text-gray-700 hover:text-amber-600 block py-1 transition-colors duration-200"
                               >
                                 {child.name}
@@ -541,7 +605,7 @@ const Header: React.FC = () => {
                         {purityItems.map((item) => (
                           <li key={item}>
                             <Link
-                              href={`/collections?purity=${item.replace(' Carat', 'K')}`}
+                              href={`/product-list?purity=${item.replace(' Carat', 'K')}`}
                               className="text-gray-700 hover:text-amber-600 block py-1 transition-colors duration-200"
                             >
                               {item}
@@ -551,8 +615,53 @@ const Header: React.FC = () => {
                       </ul>
                     </div>
 
+                    {/* Column 4 - Other Categories */}
+                    {/* <div>
+                      <h4 className="font-bold text-[#d4b262] border-b border-amber-200 pb-2 mb-3 text-lg">
+                        MORE CATEGORIES
+                      </h4>
+                      <ul className="space-y-2">
+                        {otherParentCategories.slice(0, 6).map((parentCat) => (
+                          <li key={parentCat._id}>
+                            <Link
+                              href={`/collections?category=${parentCat._id}`}
+                              className="text-gray-700 hover:text-amber-600 block py-1 transition-colors duration-200 font-medium"
+                            >
+                              {parentCat.name}
+                              {parentCat.productIds && parentCat.productIds.length > 0 && (
+                                <span className="text-xs text-gray-400 ml-1">
+                                  ({parentCat.productIds.length})
+                                </span>
+                              )}
+                            </Link>
+                          
+                            <ul className="ml-3 mt-1 space-y-1">
+                              {childCategories
+                                .filter(childCat => childCat.parent?._id === parentCat._id)
+                                .slice(0, 2)
+                                .map((childCat) => (
+                                  <li key={childCat._id}>
+                                    <Link
+                                      href={`/collections?category=${childCat._id}`}
+                                      className="text-gray-600 hover:text-amber-500 block py-0.5 text-sm transition-colors duration-200"
+                                    >
+                                      {childCat.name}
+                                      {childCat.productIds && childCat.productIds.length > 0 && (
+                                        <span className="text-xs text-gray-400 ml-1">
+                                          ({childCat.productIds.length})
+                                        </span>
+                                      )}
+                                    </Link>
+                                  </li>
+                                ))}
+                            </ul>
+                          </li>
+                        ))}
+                      </ul>
+                    </div> */}
+
                     {/* If there are more categories, show them in additional rows */}
-                    {otherParentCategories.length > 6 && (
+                    {/* {otherParentCategories.length > 6 && (
                       <div className="col-span-full mt-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 border-t pt-6">
                           {otherParentCategories.slice(6).map((parentCat) => (
@@ -583,7 +692,7 @@ const Header: React.FC = () => {
                           ))}
                         </div>
                       </div>
-                    )}
+                    )} */}
 
                     {/* Promotion Column */}
                     <div className="col-span-full lg:col-span-1 bg-[#d4b262] text-center text-black flex flex-col justify-center items-center">
