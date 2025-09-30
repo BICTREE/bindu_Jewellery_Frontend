@@ -21,10 +21,10 @@ const CollectionJewellery = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const res = await getAllCategory(1); // page 1 by default
-        if (res?.success && res?.data?.result) {
-          setCategories(res.data.result);
-        }
+        const res = await getAllCategory(); // page 1 by default
+        console.log(res)
+          setCategories(res);
+      
       } catch (error) {
         console.error("Failed to fetch categories:", error);
       } finally {
