@@ -4,7 +4,42 @@ import { useScrollAnimation, useScrollLogo } from "./header";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 import MobileHeader from "./MobileHeader";
-import Home from "@/app/(main)/page";
+import { getAllCategory } from "@/services/categoryService/categorySerice";
+
+// Category type based on your API response
+type Category = {
+  _id: string;
+  parent: {
+    _id: string;
+    parent: null | string;
+    name: string;
+    description: string;
+    isArchived: boolean;
+    image: {
+      name: string;
+      key: string;
+      location: string;
+      _id: string;
+    };
+    productIds: string[];
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
+  } | null;
+  name: string;
+  description: string;
+  isArchived: boolean;
+  image: {
+    name: string;
+    key: string;
+    location: string;
+    _id: string;
+  };
+  productIds: string[];
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+};
 
 const Header: React.FC = () => {
   // ✅ Hooks auto-disable on mobile
@@ -19,6 +54,8 @@ const Header: React.FC = () => {
   const [aboutusOpen, setaboutusOpen] = useState(false);
   const [openScheme, setOpenScheme] = useState(false);
   const [diamondOpen, setdiamondOpen] = useState(false);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const menuRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLLIElement>(null);
@@ -27,6 +64,23 @@ const Header: React.FC = () => {
   const [cartOpen, setCartOpen] = useState(false);
   const { data: session, status } = useSession();
   const user = session?.user;
+
+  // ✅ Fetch categories for mega menu
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        setLoading(true);
+        const categoriesData = await getAllCategory();
+        setCategories(categoriesData || []);
+      } catch (err) {
+        console.error("Failed to fetch categories", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   // ✅ Detect screen size - only desktop functionality
   useEffect(() => {
@@ -53,6 +107,42 @@ const Header: React.FC = () => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  // Group categories by parent for better organization
+  const parentCategories = categories.filter(cat => cat.parent === null);
+  const childCategories = categories.filter(cat => cat.parent !== null);
+
+  // Find specific parent categories
+  const jewelleryParent = parentCategories.find(cat => 
+    cat.name.toLowerCase().includes("jewellery") || 
+    cat.name.toLowerCase().includes("jewelry")
+  );
+
+  const promiseCollectionsParent = parentCategories.find(cat => 
+    cat.name.toLowerCase().includes("promise") || 
+    cat.name.toLowerCase().includes("collection")
+  );
+
+  // Get child categories for each parent
+  const jewelleryChildren = childCategories.filter(child => 
+    jewelleryParent && child.parent?._id === jewelleryParent._id
+  );
+
+  const promiseCollectionsChildren = childCategories.filter(child => 
+    promiseCollectionsParent && child.parent?._id === promiseCollectionsParent._id
+  );
+
+  // Other categories (excluding the main ones we're using)
+  const otherParentCategories = parentCategories.filter(cat => 
+    cat !== jewelleryParent && cat !== promiseCollectionsParent
+  );
+
+  const purityItems = [
+    "18 Carat",
+    "20 Carat", 
+    "22 Carat",
+    "24 Carat"
+  ];
 
   return (
     <header>
@@ -186,7 +276,7 @@ const Header: React.FC = () => {
                 className="flex flex-row w-full bg-transparent"
               >
                 <li className="liclass logo-icon">
-                <Link href="/">
+                  <Link href="/">
                     <img
                       src="/assets/logo/icon-only.png"
                       alt="Brand Logo"
@@ -360,112 +450,151 @@ const Header: React.FC = () => {
                 onMouseLeave={() => setOpen(false)}
                 style={{ width: "100%" }}
               >
-                <div className="bg-white grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 ">
-                  {/* Column 1 */}
-                  <div className="bg-white lg:pl-12">
-                    <h4 className="font-bold text-[#d4b262] border-b border-amber-200 pb-2 mb-3 text-lg">
-                      JEWELLERY
-                    </h4>
-                    <ul className="space-y-2">
-                      {[
-                        "Earrings",
-                        "Rings",
-                        "Pendants",
-                        "Bracelets",
-                        "Chains",
-                        "Necklaces",
-                        "Thali Chains",
-                        "Bangles",
-                        "Coins",
-                      ].map((item) => (
-                        <li key={item}>
-                          <Link
-                            href="/collections"
-                            className="text-gray-700 hover:text-amber-600 block py-1 transition-colors duration-200"
-                          >
-                            {item}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
+                {loading ? (
+                  <div className="flex justify-center items-center py-8">
+                    <p className="text-gray-600">Loading categories...</p>
                   </div>
-
-                  {/* Column 2 */}
-                  <div>
-                    <h4 className="font-bold text-[#d4b262] border-b border-amber-200 pb-2 mb-3 text-lg">
-                      PROMISE COLLECTIONS
-                    </h4>
-                    <ul className="space-y-2 mb-6">
-                      {[
-                        "Kids Collections",
-                        "Bridal Collections",
-                        "Light Weight Collections",
-                        "New Collections",
-                        "Antique Collection",
-                      ].map((item) => (
-                        <li key={item}>
-                          <Link
-                            href="#"
-                            className="text-gray-700 hover:text-amber-600 block py-1 transition-colors duration-200"
-                          >
-                            {item}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-
-                    <h4 className="font-bold text-[#d4b262] border-b border-amber-200 pb-2 mb-3 text-lg mt-8">
-                      DIAMOND
-                    </h4>
-                    <ul className="space-y-2">
-                      {["Kisna", "My Blue Diamonds"].map((item) => (
-                        <li key={item}>
-                          <Link
-                            href="#"
-                            className="text-gray-700 hover:text-amber-600 block py-1 transition-colors duration-200"
-                          >
-                            {item}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Column 3 */}
-                  <div>
-                    <h4 className="font-bold text-[#d4b262] border-b border-amber-200 pb-2 mb-3 text-lg">
-                      PURITY
-                    </h4>
-                    <ul className="space-y-2">
-                      {["18 Carat", "20 Carat", "22 Carat", "24 Carat"].map((item) => (
-                        <li key={item}>
-                          <Link
-                            href="#"
-                            className="text-gray-700 hover:text-amber-600 block py-1 transition-colors duration-200"
-                          >
-                            {item}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Column 4 - Promotion */}
-                  <div className="bg-[#d4b262]  text-center text-black flex flex-col justify-center items-center">
-                    {/* <h3 className="font-bold text-xl mb-3">BRIDAL COLLECTIONS</h3>
-                    <div className="bg-black text-yellow-400 inline-block px-6 py-2 rounded-full text-base font-bold my-3">
-                      DISCOUNT UP TO 5%
+                ) : (
+                  <div className="bg-white grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 ">
+                    {/* Column 1 - JEWELLERY (from categories) */}
+                    <div className="bg-white lg:pl-12">
+                      <h4 className="font-bold text-[#d4b262] border-b border-amber-200 pb-2 mb-3 text-lg">
+                        {jewelleryParent ? jewelleryParent.name.toUpperCase() : "JEWELLERY"}
+                      </h4>
+                      <ul className="space-y-2">
+                        {jewelleryChildren.length > 0 ? (
+                          jewelleryChildren.map((child) => (
+                            <li key={child._id}>
+                              <Link
+                                href={`/collections?category=${child._id}`}
+                                className="text-gray-700 hover:text-amber-600 block py-1 transition-colors duration-200"
+                              >
+                                {child.name}
+                                {child.productIds && child.productIds.length > 0 && (
+                                  <span className="text-xs text-gray-400 ml-1">
+                                    ({child.productIds.length})
+                                  </span>
+                                )}
+                              </Link>
+                            </li>
+                          ))
+                        ) : (
+                          // Fallback if no jewellery categories found
+                          ["Earrings", "Rings", "Pendants", "Bracelets", "Necklaces", "Bangles"].map((item) => (
+                            <li key={item}>
+                              <Link
+                                href="/collections"
+                                className="text-gray-700 hover:text-amber-600 block py-1 transition-colors duration-200"
+                              >
+                                {item}
+                              </Link>
+                            </li>
+                          ))
+                        )}
+                      </ul>
                     </div>
-                    <p className="text-base mb-2 font-medium">LIMITED TIME OFFER</p>
-                    <p className="text-base font-semibold">ENTIRE STORE</p>  */}
 
+                    {/* Column 2 - PROMISE COLLECTIONS (from categories) */}
+                    <div>
+                      <h4 className="font-bold text-[#d4b262] border-b border-amber-200 pb-2 mb-3 text-lg">
+                        {promiseCollectionsParent ? promiseCollectionsParent.name.toUpperCase() : "COLLECTIONS"}
+                      </h4>
+                      <ul className="space-y-2">
+                        {promiseCollectionsChildren.length > 0 ? (
+                          promiseCollectionsChildren.map((child) => (
+                            <li key={child._id}>
+                              <Link
+                                href={`/collections?category=${child._id}`}
+                                className="text-gray-700 hover:text-amber-600 block py-1 transition-colors duration-200"
+                              >
+                                {child.name}
+                                {child.productIds && child.productIds.length > 0 && (
+                                  <span className="text-xs text-gray-400 ml-1">
+                                    ({child.productIds.length})
+                                  </span>
+                                )}
+                              </Link>
+                            </li>
+                          ))
+                        ) : (
+                          // Fallback if no promise collections found
+                          ["Bridal Collections", "Kids Collections", "New Arrivals", "Premium Collection"].map((item) => (
+                            <li key={item}>
+                              <Link
+                                href="/collections"
+                                className="text-gray-700 hover:text-amber-600 block py-1 transition-colors duration-200"
+                              >
+                                {item}
+                              </Link>
+                            </li>
+                          ))
+                        )}
+                      </ul>
+                    </div>
+
+                    {/* Column 3 - PURITY (static) */}
+                    <div>
+                      <h4 className="font-bold text-[#d4b262] border-b border-amber-200 pb-2 mb-3 text-lg">
+                        PURITY
+                      </h4>
+                      <ul className="space-y-2">
+                        {purityItems.map((item) => (
+                          <li key={item}>
+                            <Link
+                              href={`/collections?purity=${item.replace(' Carat', 'K')}`}
+                              className="text-gray-700 hover:text-amber-600 block py-1 transition-colors duration-200"
+                            >
+                              {item}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* If there are more categories, show them in additional rows */}
+                    {otherParentCategories.length > 6 && (
+                      <div className="col-span-full mt-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 border-t pt-6">
+                          {otherParentCategories.slice(6).map((parentCat) => (
+                            <div key={parentCat._id} className="bg-white">
+                              <h4 className="font-bold text-[#d4b262] border-b border-amber-200 pb-2 mb-3 text-lg">
+                                {parentCat.name}
+                              </h4>
+                              <ul className="space-y-2">
+                                {childCategories
+                                  .filter(childCat => childCat.parent?._id === parentCat._id)
+                                  .map((childCat) => (
+                                    <li key={childCat._id}>
+                                      <Link
+                                        href={`/collections?category=${childCat._id}`}
+                                        className="text-gray-700 hover:text-amber-600 block py-1 transition-colors duration-200"
+                                      >
+                                        {childCat.name}
+                                        {childCat.productIds && childCat.productIds.length > 0 && (
+                                          <span className="text-xs text-gray-400 ml-1">
+                                            ({childCat.productIds.length})
+                                          </span>
+                                        )}
+                                      </Link>
+                                    </li>
+                                  ))}
+                              </ul>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Promotion Column */}
+                    <div className="col-span-full lg:col-span-1 bg-[#d4b262] text-center text-black flex flex-col justify-center items-center">
                       <img
-                      src="/assets/images/menubanner.png"
-                      alt="Brand Logo"
-                      className=" "
-                    />
+                        src="/assets/images/menubanner.png"
+                        alt="Brand Logo"
+                        className=""
+                      />
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             )}
           </nav>
