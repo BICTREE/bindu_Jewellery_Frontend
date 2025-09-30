@@ -4,20 +4,16 @@ import React, { useState } from 'react'
 const Hero = () => {
   const slides = [
     {
-      img: "/assets/images/hero.png",
+      img: "/assets/images/hero.jpg",
       title: "First slide label",
-      text: "Some representative placeholder content for the first slide.",
+      // text: "Some representative placeholder content for the first slide.",
     },
     {
-      img: "https://tecdn.b-cdn.net/img/Photos/Slides/img%20(22).jpg",
+      img: "/assets/images/hero2.jpg",
       title: "Second slide label",
-      text: "Some representative placeholder content for the second slide.",
+      // text: "Some representative placeholder content for the second slide.",
     },
-    {
-      img: "https://tecdn.b-cdn.net/img/Photos/Slides/img%20(23).jpg",
-      title: "Third slide label",
-      text: "Some representative placeholder content for the third slide.",
-    },
+   
   ];
 
   const [current, setCurrent] = useState(0);
@@ -48,8 +44,8 @@ const Hero = () => {
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
-              <h5 className="text-xl font-semibold">{slide.title}</h5>
-              <p>{slide.text}</p>
+              {/* <h5 className="text-xl font-semibold">{slide.title}</h5> */}
+              {/* <p>{slide.text}</p> */}
             </div>
           </div>
         ))}
