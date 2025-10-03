@@ -1,19 +1,18 @@
-'use client'
-import React, { useState } from 'react'
+"use client";
+import React, { useState } from "react";
 
 const Hero = () => {
   const slides = [
     {
       img: "/assets/images/hero.jpg",
+      mobileImg: "/assets/images/mob-hero01.png",
       title: "First slide label",
-      // text: "Some representative placeholder content for the first slide.",
     },
     {
       img: "/assets/images/hero2.jpg",
+      mobileImg: "/assets/images/mob-hero01.png",
       title: "Second slide label",
-      // text: "Some representative placeholder content for the second slide.",
     },
-   
   ];
 
   const [current, setCurrent] = useState(0);
@@ -26,11 +25,10 @@ const Hero = () => {
     setCurrent((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
   };
 
-
   return (
     <div className="relative w-full overflow-hidden">
       {/* Slides */}
-      <div className="relative w-full h-[500px]">
+      <div className="relative w-full h-[550px] md:h-[450px]">
         {slides.map((slide, index) => (
           <div
             key={index}
@@ -38,14 +36,22 @@ const Hero = () => {
               index === current ? "opacity-100" : "opacity-0"
             }`}
           >
+            {/* Mobile Image */}
+            <img
+              src={slide.mobileImg}
+              alt={slide.title}
+              className="w-full h-full object-cover block md:hidden"
+            />
+            {/* Desktop / Tablet Image */}
             <img
               src={slide.img}
               alt={slide.title}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover hidden md:block"
             />
+
+            {/* Optional text */}
             <div className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
               {/* <h5 className="text-xl font-semibold">{slide.title}</h5> */}
-              {/* <p>{slide.text}</p> */}
             </div>
           </div>
         ))}
@@ -77,11 +83,7 @@ const Hero = () => {
           stroke="currentColor"
           className="h-8 w-8"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M15.75 19.5L8.25 12l7.5-7.5"
-          />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
         </svg>
       </button>
 
@@ -97,15 +99,11 @@ const Hero = () => {
           stroke="currentColor"
           className="h-8 w-8"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M8.25 4.5l7.5 7.5-7.5 7.5"
-          />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
         </svg>
       </button>
     </div>
-  )
-}
+  );
+};
 
-export default Hero
+export default Hero;

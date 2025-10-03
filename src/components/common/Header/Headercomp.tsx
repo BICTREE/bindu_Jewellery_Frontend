@@ -200,7 +200,7 @@ const Header: React.FC = () => {
                   onMouseEnter={() => setaboutusOpen(true)}
                   onMouseLeave={() => setaboutusOpen(false)}
                 >
-                  <button className="text-gray-800 hover:text-amber-600 font-semibold py-2 px-4 flex items-center">
+                  <button className="text-gray-800 hover:text-[#d4b262] font-semibold py-2 px-4 flex items-center">
                     ABOUT US
                   </button>
 
@@ -208,26 +208,26 @@ const Header: React.FC = () => {
                     <ul className="absolute left-0 bg-white shadow-lg rounded-md w-48 top-full py-2 z-50">
                       <li>
                         <Link
-                          href="#"
-                          className="block px-4 py-2 text-gray-700 hover:bg-amber-100 hover:text-amber-600 font-medium"
+                          href="/ourstory"
+                          className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-[#d4b262] font-medium"
                         >
-                          Story
+                          Our Story
                         </Link>
                       </li>
                       <li>
                         <a
-                          href="#"
-                          className="block px-4 py-2 text-gray-700 hover:bg-amber-100 hover:text-amber-600 font-medium"
+                          href="/missionandvision"
+                          className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-[#d4b262] font-medium"
                         >
                           Mission & Vision
                         </a>
                       </li>
                       <li>
                         <Link
-                          href="#"
-                          className="block px-4 py-2 text-gray-700 hover:bg-amber-100 hover:text-amber-600 font-medium"
+                          href="/ourleadership"
+                          className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-[#d4b262]  font-medium"
                         >
-                          MD Message
+                          Our Leadership
                         </Link>
                       </li>
                     </ul>
@@ -240,7 +240,7 @@ const Header: React.FC = () => {
                   onMouseEnter={() => setOpen(true)}
                   onMouseLeave={() => setOpen(false)}
                 >
-                  <button className="text-gray-800 hover:text-amber-600 font-semibold py-2 px-4 flex items-center">
+                  <button className="text-gray-800 hover:text-[#d4b262] font-semibold py-2 px-4 flex items-center">
                     PRODUCTS
                   </button>
                 </li>
@@ -248,7 +248,7 @@ const Header: React.FC = () => {
                 <li className="liclass">
                   <Link
                     href="/product-list"
-                    className="text-gray-800 hover:text-amber-600 font-semibold block py-2 px-4"
+                    className="text-gray-800 hover:text-[#d4b262] font-semibold block py-2 px-4"
                   >
                     SHOP ONLINE
                   </Link>
@@ -259,7 +259,7 @@ const Header: React.FC = () => {
                   onMouseEnter={() => setdiamondOpen(true)}
                   onMouseLeave={() => setdiamondOpen(false)}
                 >
-                  <button className="text-gray-800 hover:text-amber-600 font-semibold py-2 px-4 flex items-center">
+                  <button className="text-gray-800 hover:text-[#d4b262] font-semibold py-2 px-4 flex items-center">
                     DIAMOND
                   </button>
 
@@ -268,7 +268,7 @@ const Header: React.FC = () => {
                       <li>
                         <Link
                           href="#"
-                          className="block px-4 py-2 text-gray-700 hover:bg-amber-100 hover:text-amber-600 font-medium"
+                          className="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#d4b262] font-medium"
                         >
                           Kisna
                         </Link>
@@ -276,7 +276,7 @@ const Header: React.FC = () => {
                       <li>
                         <a
                           href="#"
-                          className="block px-4 py-2 text-gray-700 hover:bg-amber-100 hover:text-amber-600 font-medium"
+                          className="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#d4b262] font-medium"
                         >
                           My blue Diamond
                         </a>
@@ -294,7 +294,7 @@ const Header: React.FC = () => {
                 <li className="liclass">
                   <Link
                     href="#"
-                    className="text-gray-800 hover:text-amber-600 font-semibold block py-2 px-4"
+                    className="text-gray-800 hover:text-[#d4b262] font-semibold block py-2 px-4"
                   >
                     CSR
                   </Link>
@@ -305,7 +305,7 @@ const Header: React.FC = () => {
                   onMouseEnter={() => setOpenScheme(true)}
                   onMouseLeave={() => setOpenScheme(false)}
                 >
-                  <button className="text-gray-800 hover:text-amber-600 font-semibold py-2 px-4 flex items-center">
+                  <button className="text-gray-800 hover:text-[#d4b262] font-semibold py-2 px-4 flex items-center">
                     OUR SCHEME
                   </button>
 
@@ -314,15 +314,17 @@ const Header: React.FC = () => {
                       <li>
                         <Link
                           href="#"
-                          className="block px-4 py-2 text-gray-700 hover:bg-amber-100"
+                          className="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#d4b262] font-medium"
                         >
+
+                          
                           Akshaynidhi
                         </Link>
                       </li>
                       <li>
                         <Link
                           href="#"
-                          className="block px-4 py-2 text-gray-700 hover:bg-amber-100"
+                          className="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#d4b262] font-medium"
                         >
                           Swarna Bindu
                         </Link>
@@ -334,7 +336,7 @@ const Header: React.FC = () => {
                 <li className="liclass">
                   <Link
                     href="/gallery"
-                    className="text-gray-800 hover:text-amber-600 font-semibold block py-2 px-4"
+                    className="text-gray-800 hover:text-[#d4b262] font-semibold block py-2 px-4"
                   >
                     MEDIA
                   </Link>
@@ -343,7 +345,7 @@ const Header: React.FC = () => {
                 <li className="liclass">
                   <Link
                     href="/contact-us"
-                    className="text-gray-800 hover:text-amber-600 font-semibold block py-2 px-4"
+                    className="text-gray-800 hover:text-[#d4b262] font-semibold block py-2 px-4"
                   >
                     CONTACT US
                   </Link>

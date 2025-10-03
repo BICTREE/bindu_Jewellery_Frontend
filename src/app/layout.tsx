@@ -4,6 +4,7 @@ import "./globals.css";
 import '../components/style/main.scss'
 import { AuthProvider } from "./Providers";
 import { Toaster } from "react-hot-toast";
+import PageLoader from "@/components/loader/PageLoader";
 // import Footer from "@/components/common/footer/Footer";
 // import Header from "@/components/common/Header/Headercomp";
 
@@ -34,6 +35,8 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
          <Toaster position="top-right" />
+
+            <PageLoader />
         {children}
         
         </body>
