@@ -3,9 +3,11 @@
 import Banner from "@/components/common/Banner/Banner";
 import JewelleryDetails from "@/components/jewellerydetails/JewelleryDetails";
 import MayLikethis from "@/components/maylikethis/MayLikethis";
+import { AddToCart } from "@/services/cartService/cartService";
 import { GetProductById } from "@/services/productService/productService";
 import { useParams } from "next/navigation";
 import React, { useState, useRef, useEffect } from "react";
+import toast from "react-hot-toast";
 
 // 🔍 Zoom Lens Component
 const ProductImageWithLens = ({ src }: { src: string }) => {
@@ -344,14 +346,40 @@ const ProductPage = () => {
   };
 
   // Handle Add to Cart click
-  const handleAddToCart = () => {
-    if (Object.keys(groupedVariants).length > 0 && !hasAllRequiredVariants) {
-      setShowVariantWarning(true);
-      return;
-    }
-    // Proceed with add to cart logic
-    console.log("Adding to cart");
-  };
+ const handleAddToCart = async () => {
+  if (Object.keys(groupedVariants).length > 0 && !hasAllRequiredVariants) {
+    setShowVariantWarning(true);
+    return;
+  }
+
+  try {
+    if (!product) return;
+
+    // Build `specs` array from selected variants
+    const specs = Object.entries(selectedVariants).map(([variationName, optionId]) => {
+      const variationId = groupedVariants[variationName]?.variationId;
+      return {
+        variationId,
+        optionId,
+      };
+    });
+
+    const payload = {
+      productId: product._id,
+      quantity,
+      specs,
+      giftWrap: false, // or add UI toggle
+    };
+
+    console.log("🛒 Sending payload:", payload);
+
+    const response = await AddToCart(payload);
+    toast.success("Product added to cart!");
+    console.log("Cart response:", response);
+  } catch (err) {
+    toast.error("Failed to add product to cart");
+  }
+};
 
   if (loading) return <div className="text-center py-20">Loading...</div>;
   if (!product) return <div className="text-center py-20">Product not found</div>;
