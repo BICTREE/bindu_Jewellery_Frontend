@@ -64,7 +64,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     <Link href={`/products/${id}`} className="w-full sm:w-60 mx-auto">
       <div className="group">
         {/* Card Image */}
-        <div className="relative w-full aspect-[13/18] overflow-hidden bg-white shadow-lg transition-all duration-500 rounded-lg group-hover:rounded-t-[120px]">
+        <div className="relative w-full aspect-[13/18] overflow-hidden bg-white  transition-all duration-500 rounded-lg group-hover:rounded-t-[120px]">
           <img
             src={image}
             alt={name}
@@ -112,17 +112,17 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
         {/* Product Info */}
         <div className="text-center mt-3 px-2">
-          <h3 className="text-sm sm:text-base font-bold text-amber-700 uppercase">
+          <h3 className="text-sm sm:text-base font-bold text-[#d4b262] uppercase">
             {name}
           </h3>
           <p className="text-xs sm:text-sm text-gray-500">
             {offer ?? "22K Hallmarked"}
           </p>
-          <div className="mt-2 text-base font-bold text-gray-900 relative">
-            <span className="group-hover:hidden">₹{price}</span>
-            <button className="hidden group-hover:inline-block text-amber-700 font-semibold">
-              Add to Cart
-            </button>
+          <div className=" cursor-pointer mt-2 text-base font-bold text-gray-900 relative h-[40px]">
+            <span className=" group-hover:hidden  text-[#000] font-semibold ">₹{price}</span>
+           <button className=" cursor-pointer px-3 py-1 hidden group-hover:inline-block rounded-full bg-[#d4b262] text-white text-sm font-medium  hover:bg-[#c49b45] transition-all duration-300">
+  Add to Cart
+</button>
           </div>
         </div>
       </div>

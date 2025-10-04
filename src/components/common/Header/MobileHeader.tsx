@@ -49,9 +49,9 @@ export default function MobileHeader() {
     {
       label: "ABOUT US",
       children: [
-        { label: "Story", href: "/about/story" },
-        { label: "Mission & Vision", href: "/about/mission-vision" },
-        { label: "MD Message", href: "/about/md-message" },
+        { label: "Our Story", href: "/ourstory" },
+        { label: "Mission & Vision", href: "/mission-vision" },
+        { label: "MD Message", href: "/md-message" },
       ],
     },
     {

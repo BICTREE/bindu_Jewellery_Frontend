@@ -5,6 +5,7 @@ import "./globals.css";
 import '../components/style/main.scss'
 import { AuthProvider } from "./Providers";
 import { Toaster } from "react-hot-toast";
+import PageLoader from "@/components/loader/PageLoader";
 // import Footer from "@/components/common/footer/Footer";
 // import Header from "@/components/common/Header/Headercomp";
 import ReduxProvider from "@/redux/ReduxProvider";
@@ -38,6 +39,8 @@ export default function RootLayout({
             <ReduxProvider>
 
          <Toaster position="top-right" />
+
+            <PageLoader />
         {children}
             </ReduxProvider>
         
