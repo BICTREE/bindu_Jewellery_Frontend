@@ -37,3 +37,10 @@ export const GetAllProductsApi = '/products/many';
 export const GetProductByIdApi = '/products';
 
 
+
+export const GetMyCartApi = '/users/carts';
+
+export const AddToCartApi = '/users/carts/add';
+
+
+
