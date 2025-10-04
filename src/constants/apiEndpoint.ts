@@ -42,7 +42,7 @@ export const GetMyCartApi = '/users/carts';
 
 export const AddToCartApi = '/users/carts/add';
 export const RemoveCartApi = '/users/carts/remove';
-export const UpdateCartApi = '/users/carts/remove';
+export const UpdateCartApi = '/users/carts/update';
 
 
 

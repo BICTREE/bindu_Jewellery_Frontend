@@ -1,5 +1,5 @@
 import { axiosPrivate } from "@/axios-folder/axios";
-import { AddToCartApi, GetMyCartApi, RemoveCartApi } from "@/constants/apiEndpoint";
+import { AddToCartApi, GetMyCartApi, RemoveCartApi, UpdateCartApi } from "@/constants/apiEndpoint";
 
 // ✅ Define spec type
 interface Spec {
@@ -20,7 +20,7 @@ interface UpdateProps {
   quantity: number;
 }
 
-// Wishlist/Cart APIs
+// Cart APIs
 export const getMyCart = async () => {
   const res = await axiosPrivate.get(GetMyCartApi);
   console.log(res, "api response");
@@ -41,7 +41,7 @@ export const AddToCart = async (body: CartItem) => {
 // Update cart item
 export const UpdateCart = async (body: UpdateProps) => {
   try {
-    const response = await axiosPrivate.post(AddToCartApi, body);
+    const response = await axiosPrivate.put(UpdateCartApi, body);
     return response.data;
   } catch (error) {
     console.error("Update cart error:", error);
@@ -50,7 +50,7 @@ export const UpdateCart = async (body: UpdateProps) => {
 };
 
 // Remove item from cart
-export const RemoveFromCart = async (body: { productId: string }) => {
+export const RemoveFromCart = async (body: {itemId: string }) => {
   try {
     const response = await axiosPrivate.post(RemoveCartApi, body);
     return response.data;
