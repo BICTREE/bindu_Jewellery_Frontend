@@ -1,65 +1,87 @@
 "use client";
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { X } from "lucide-react";
 import Link from "next/link";
 import Banner from "@/components/common/Banner/Banner";
+import { getMyCart, UpdateCart, RemoveFromCart } from "@/services/cartService/cartService";
+import toast from "react-hot-toast";
+interface CartItem {
+  _id: string;
+  productId: string;
+  name: string;
+  price: number;
+  extraPrice: number;
+  tax: number;
+  quantity: number;
+  thumbnail: {
+    location: string;
+    name: string;
+    key: string;
+  };
+  specs: {
+    variationId: string;
+    optionId: string;
+    variationName: string;
+    optionValue: string;
+  }[];
+  stockStatus: string;
+}
 
 const CartPage = () => {
   const [coupon, setCoupon] = useState("");
   const [discount, setDiscount] = useState(0);
   const [appliedCoupon, setAppliedCoupon] = useState("");
   const [showAlert, setShowAlert] = useState(false);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: "Venera Floral Heart Diamond Pendant With Chain",
-      image: "/assets/images/catmod-11.jpg",
-      metal: "18K Yellow Gold (3.59g)",
-      size: "43.82 cm",
-      qty: 1,
-      price: 57078,
-      originalPrice: 65518,
-    },
-    {
-      id: 2,
-      name: "Tidal Diamond Ring",
-      image: "/assets/images/catmod-11.jpg",
-      metal: "18K Yellow Gold (3.30g)",
-      size: "12",
-      qty: 1,
-      price: 58779,
-      originalPrice: 68641,
-    },
-    {
-      id: 3,
-      name: "Kiaan Gold And Gemstone Mens Ring",
-      image: "/assets/images/catmod-11.jpg",
-      metal: "18K Yellow Gold (8.14g)",
-      size: "18",
-      qty: 1,
-      price: 89907,
-      originalPrice: 95776,
-    },
-  ]);
+  // 🔹 Fetch cart from API
+  useEffect(() => {
+    const fetchCart = async () => {
+      try {
+        const cart = await getMyCart();
+        setCartItems(cart || []);
+      } catch (error) {
+        console.error("Error fetching cart:", error);
+        toast.error("Failed to load cart. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCart();
+  }, []);
 
-  // Remove item
-  const removeItem = (id: number) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== id));
+  // 🔹 Remove item using API
+  const removeItem = async (productId: string) => {
+    try {
+      const itemId = productId
+      await RemoveFromCart({ itemId });
+      setCartItems((prev) => prev.filter((item) => item._id !== productId));
+      toast.success("Item removed from cart.");
+    } catch (error) {
+      console.error("Error removing item:", error);
+toast.error("Failed to remove item. Try again.");
+
+    }
   };
 
-  // Update quantity
-  const updateQty = (id: number, type: "inc" | "dec") => {
-    setCartItems((prev) =>
-      prev.map((item) =>
-        item.id === id
-          ? {
-              ...item,
-              qty: type === "inc" ? item.qty + 1 : Math.max(1, item.qty - 1),
-            }
-          : item
-      )
-    );
+  // 🔹 Update quantity using API
+  const updateQty = async (itemId: string, type: "inc" | "dec") => {
+    const item = cartItems.find((i) => i._id === itemId);
+    if (!item) return;
+
+    const newQty = type === "inc" ? item.quantity + 1 : Math.max(1, item.quantity - 1);
+
+    try {
+      await UpdateCart({ itemId: item._id, quantity: newQty });
+      setCartItems((prev) =>
+        prev.map((i) => (i._id === itemId ? { ...i, quantity: newQty } : i))
+      );
+        toast.success(`Quantity ${type === "inc" ? "increased" : "decreased"}.`);
+    } catch (error) {
+      console.error("Error updating quantity:", error);
+       toast.error("Failed to update quantity. Try again."); toast.error("Failed to update quantity. Try again.");
+    }
   };
 
   // Handle coupon
@@ -76,23 +98,27 @@ const CartPage = () => {
 
   // Totals
   const { itemTotal, discountAmount, orderTotal } = useMemo(() => {
-    const totalOriginal = cartItems.reduce(
-      (sum, item) => sum + item.originalPrice * item.qty,
-      0
-    );
     const totalCurrent = cartItems.reduce(
-      (sum, item) => sum + item.price * item.qty,
+      (sum, item) => sum + (item.price + item.extraPrice + item.tax) * item.quantity,
       0
     );
     const couponDiscount = appliedCoupon ? (totalCurrent * discount) / 100 : 0;
     const finalTotal = totalCurrent - couponDiscount;
 
     return {
-      itemTotal: totalOriginal,
-      discountAmount: totalOriginal - totalCurrent + couponDiscount,
+      itemTotal: totalCurrent,
+      discountAmount: couponDiscount,
       orderTotal: finalTotal,
     };
   }, [cartItems, discount, appliedCoupon]);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <p className="text-gray-600">Loading your cart...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white">
@@ -102,12 +128,8 @@ const CartPage = () => {
       {showAlert && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/40 z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm text-center">
-            <h2 className="text-lg font-semibold text-red-600">
-              Invalid Coupon
-            </h2>
-            <p className="text-gray-600 mt-2">
-              Please try again with a valid code.
-            </p>
+            <h2 className="text-lg font-semibold text-red-600">Invalid Coupon</h2>
+            <p className="text-gray-600 mt-2">Please try again with a valid code.</p>
             <button
               onClick={() => setShowAlert(false)}
               className="mt-4 px-4 py-2 bg-[#d4b262] text-white rounded-lg hover:bg-[#ce9f4e]"
@@ -118,7 +140,6 @@ const CartPage = () => {
         </div>
       )}
 
-      {/* Layout */}
       <div className="container mx-auto px-4 py-6 grid md:grid-cols-3 gap-6">
         {/* Cart Items */}
         <div className="md:col-span-2 space-y-4">
@@ -141,31 +162,33 @@ const CartPage = () => {
           ) : (
             cartItems.map((item) => (
               <div
-                key={item.id}
+                key={item._id}
                 className="flex items-start relative bg-white p-6 rounded-lg shadow-[0_0_5px_rgba(0,0,0,0.1)]"
               >
                 <img
-                  src={item.image}
+                  src={item.thumbnail?.location}
                   alt={item.name}
                   className="w-32 h-32 object-contain"
                 />
                 <div className="ml-4 flex-1">
                   <h3 className="text-gray-800 font-semibold">{item.name}</h3>
                   <div className="text-sm text-gray-600 mt-1 space-y-1">
-                    <p>Metal: {item.metal}</p>
-                    <p>Size: {item.size}</p>
+                    {item.specs?.map((spec, idx) => (
+                      <p key={idx}>
+                        {spec.variationName}: {spec.optionValue}
+                      </p>
+                    ))}
 
-                    {/* Quantity Controls */}
                     <div className="mt-2 flex items-center gap-2">
                       <button
-                        onClick={() => updateQty(item.id, "dec")}
+                        onClick={() => updateQty(item._id, "dec")}
                         className="px-3 py-1 border border-[#d4b262] rounded hover:bg-[#d4b262] text-[#d4b262] hover:text-white hover:border-[#d4b262]"
                       >
                         -
                       </button>
-                      <span className="px-2">{item.qty}</span>
+                      <span className="px-2">{item.quantity}</span>
                       <button
-                        onClick={() => updateQty(item.id, "inc")}
+                        onClick={() => updateQty(item._id, "inc")}
                         className="px-3 py-1 border border-[#d4b262] rounded hover:bg-[#d4b262] text-[#d4b262] hover:text-white hover:border-[#d4b262]"
                       >
                         +
@@ -174,16 +197,12 @@ const CartPage = () => {
                   </div>
                   <div className="mt-2">
                     <span className="text-[#d4b262] font-semibold">
-                      ₹{item.price.toLocaleString("en-IN")}
-                    </span>
-                    <span className="text-gray-400 line-through ml-2">
-                      ₹{item.originalPrice.toLocaleString("en-IN")}
+                      ₹{(item.price + item.extraPrice + item.tax).toLocaleString("en-IN")}
                     </span>
                   </div>
                 </div>
-                {/* Remove */}
                 <button
-                  onClick={() => removeItem(item.id)}
+                  onClick={() => removeItem(item._id)}
                   className="absolute top-2 right-2 text-gray-400 hover:text-[#d4b262]"
                 >
                   <X size={18} />
@@ -201,11 +220,8 @@ const CartPage = () => {
 
         {/* Order Summary */}
         <div className="bg-white p-6 rounded-lg shadow-[0_0_5px_rgba(0,0,0,0.1)] space-y-4">
-          {/* Coupon */}
           <div>
-            <p className="text-sm text-gray-700 font-medium">
-              Apply Offer / Voucher
-            </p>
+            <p className="text-sm text-gray-700 font-medium">Apply Offer / Voucher</p>
 
             {appliedCoupon ? (
               <p className="text-green-600 text-sm mt-1">
@@ -230,7 +246,6 @@ const CartPage = () => {
             )}
           </div>
 
-          {/* Totals */}
           <div className="text-sm text-gray-700 space-y-2 border-t pt-4 border-gray-200">
             <div className="flex justify-between">
               <span>Item total</span>
@@ -253,7 +268,6 @@ const CartPage = () => {
             </p>
           </div>
 
-          {/* Checkout */}
           <div className="flex justify-center border-t border-gray-200 pt-4">
             <Link
               href="/checkout"
@@ -263,7 +277,6 @@ const CartPage = () => {
             </Link>
           </div>
 
-          {/* Help */}
           <div className="pt-4 text-sm text-gray-600 border-gray-200">
             <p>Have any queries? Contact us for your assistance</p>
             <p className="mt-2">

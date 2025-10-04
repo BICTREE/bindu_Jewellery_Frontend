@@ -4,8 +4,19 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import ProductCard from "../common/productcard/ProductCard";
+import { VariantItem } from "@/app/(main)/product-list/page";
 
-const products = [
+interface DummyProduct {
+  id: string;
+  name: string;
+  offer?: string;
+  price: string;
+  img: string;
+  img2: string;
+  variantItems?: VariantItem[]; // ✅ optional
+}
+
+const products: DummyProduct[] =  [
   {
     id: "1",
     name: "EARRINGS, TRENDY DESIGNS",
@@ -91,6 +102,8 @@ export default function NewArrivals() {
               name={item.name}
               offer={item.offer}
               price={item.price}
+               // ✅ always pass an array so ProductCard never breaks
+              variantItems={item.variantItems ?? []}
             />
           </SwiperSlide>
         ))}
