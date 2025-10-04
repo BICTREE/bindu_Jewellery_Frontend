@@ -1,5 +1,5 @@
-export const BASE_URL = 'https://bindu-jewellery-backend.vercel.app/api';
-// export const BASE_URL = 'http://localhost:8080/api';
+// export const BASE_URL = 'https://bindu-jewellery-backend.vercel.app/api';
+export const BASE_URL = 'http://localhost:8080/api';
 
 
 // Auth API
@@ -41,6 +41,8 @@ export const GetProductByIdApi = '/products';
 export const GetMyCartApi = '/users/carts';
 
 export const AddToCartApi = '/users/carts/add';
+export const RemoveCartApi = '/users/carts/remove';
+export const UpdateCartApi = '/users/carts/update';
 
 
 

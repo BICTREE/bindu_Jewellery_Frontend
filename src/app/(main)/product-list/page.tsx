@@ -8,23 +8,36 @@ import { GetAllProducts } from "@/services/productService/productService";
 import { getAllCategory } from "@/services/categoryService/categorySerice";
 import { useSearchParams } from "next/navigation";
 
+
+export interface BackendSpec {
+  variationId: {
+    _id: string;
+    name?: string;
+  };
+  optionId: {
+    _id: string;
+    value?: string;
+  };
+}
+
+export  type VariantItem = {
+  _id: string;
+  sku: string;
+  stock: number;
+  extraPrice: number;
+  specs: BackendSpec[];
+};
+
 type Product = {
   id: string;
   name: string;
-  stone?: string;
-  weight?: string;
-  offer?: string;
-  grossWeight?: string;
   price: number;
   image: string;
   hoverImg: string;
-  tags?: string[];
-  metalType?: string;
-  purity?: string;
-  stoneWeight?: string;
-  stoneCount?: number;
-  category?: string;
+  specs: BackendSpec[];
+  variantItems: VariantItem[]; // ✅ add variantItems
 };
+
 
 type ApiProduct = {
   _id: string;
@@ -38,6 +51,8 @@ type ApiProduct = {
   tags?: string[];
   stoneWeight?: string;
   stoneCount?: number;
+  variantItems: VariantItem[]; 
+  
 };
 
 type Category = {
@@ -234,6 +249,7 @@ function CollectionsContent() {
             p.images?.[0]?.location ||
             p.thumbnail?.location ||
             "/assets/images/catmod-08.jpg",
+             variantItems: p.variantItems || [],
         }));
 
         setProducts(normalized);
