@@ -7,6 +7,7 @@ import { ChevronDown, ChevronRight, Filter, Minus, Plus } from "lucide-react";
 import { GetAllProducts } from "@/services/productService/productService";
 import { getAllCategory } from "@/services/categoryService/categorySerice";
 import { useSearchParams } from "next/navigation";
+import Pagination from "@/components/common/pagination/Pagination";
 
 
 export interface BackendSpec {
@@ -139,7 +140,36 @@ function CollectionsContent() {
   const [categoryLoading, setCategoryLoading] = useState(false);
   const searchParams = useSearchParams();
 
-  const productsPerPage = 6;
+  const productsPerPage =6;
+
+  // Read query params on mount and set filters
+  useEffect(() => {
+    const categoryParam = searchParams.get("category");
+    const purityParam = searchParams.get("purity");
+    const stoneTypeParam = searchParams.get("stoneType");
+    const weightParam = searchParams.get("weight");
+    const minPriceParam = searchParams.get("minPrice");
+    const maxPriceParam = searchParams.get("maxPrice");
+
+    setFilters((prev) => ({
+      ...prev,
+      category: categoryParam ? [categoryParam] : [],
+      goldPurity: purityParam ? [purityParam] : [],
+      stoneType: stoneTypeParam ? [stoneTypeParam] : [],
+      productWeight: weightParam ? [weightParam] : [],
+      minPrice: minPriceParam ? parseInt(minPriceParam) : 0,
+      maxPrice: maxPriceParam ? parseInt(maxPriceParam) : 150000,
+    }));
+  }, [searchParams]);
+
+  console.log(filters, "params data");
+
+  const toggleCategory = (id: string) => {
+    setCategoryOpen((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
+  };
 
   // Fetch categories
   useEffect(() => {
@@ -289,8 +319,9 @@ function CollectionsContent() {
         <div className="flex flex-col md:flex-row gap-2 md:gap-6 h-full pb-10">
             {/* LEFT FILTER SIDEBAR */}
           <aside
-            className={`${mobileFilterOpen ? "block" : "hidden"
-              } md:block md:w-64 w-full p-4 md:p-6 space-y-6 self-start sticky top-24`}
+            className={`${
+              mobileFilterOpen ? "block" : "hidden"
+            } md:block md:w-64 w-full p-4 md:p-6 space-y-6 self-start sticky top-24`}
           >
             {/* Category Filter */}
             <div>
@@ -511,12 +542,15 @@ function CollectionsContent() {
           {totalPages > 1 && (
             <div className="flex justify-center mt-6 mb-6 items-center gap-1">
               <button
-                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                onClick={() =>
+                  setCurrentPage((prev) => Math.max(prev - 1, 1))
+                }
                 disabled={currentPage === 1}
-                className={`px-2 py-1 text-sm rounded-full ${currentPage === 1
-                  ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                  : "bg-white text-gray-700 hover:bg-[#d4b262] hover:text-white"
-                  }`}
+                className={`px-2 py-1 text-sm rounded-full ${
+                  currentPage === 1
+                    ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                    : "bg-white text-gray-700 hover:bg-[#d4b262] hover:text-white"
+                }`}
               >
                 Prev
               </button>
@@ -525,10 +559,11 @@ function CollectionsContent() {
                 <button
                   key={i + 1}
                   onClick={() => setCurrentPage(i + 1)}
-                  className={`px-2 py-1 text-sm rounded-full border ${currentPage === i + 1
-                    ? "bg-[#d4b262] text-white border-[#d4b262]"
-                    : "bg-white text-gray-700 border-gray-300 hover:bg-[#d4b262] hover:text-white"
-                    }`}
+                  className={`px-2 py-1 text-sm rounded-full border ${
+                    currentPage === i + 1
+                      ? "bg-[#d4b262] text-white border-[#d4b262]"
+                      : "bg-white text-gray-700 border-gray-300 hover:bg-[#d4b262] hover:text-white"
+                  }`}
                 >
                   {i + 1}
                 </button>
@@ -539,10 +574,11 @@ function CollectionsContent() {
                   setCurrentPage((prev) => Math.min(prev + 1, totalPages))
                 }
                 disabled={currentPage === totalPages}
-                className={`px-2 py-1 text-sm rounded-full ${currentPage === totalPages
-                  ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                  : "bg-white text-gray-700 hover:bg-[#d4b262] hover:text-white"
-                  }`}
+                className={`px-2 py-1 text-sm rounded-full ${
+                  currentPage === totalPages
+                    ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                    : "bg-white text-gray-700 hover:bg-[#d4b262] hover:text-white"
+                }`}
               >
                 Next
               </button>
