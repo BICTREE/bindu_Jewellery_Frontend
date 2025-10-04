@@ -2,6 +2,8 @@
 
 import React from "react";
 import ProductCard from "../common/productcard/ProductCard";
+import { VariantItem } from "@/app/(main)/product-list/page";
+
 
 interface Product {
   id: string;
@@ -10,6 +12,7 @@ interface Product {
   name: string;
   offer?: string;
   price: number;
+ variantItems: VariantItem[];
 }
 
 interface ProductListProps {
@@ -17,6 +20,7 @@ interface ProductListProps {
 }
 
 const ProductListComp: React.FC<ProductListProps> = ({ products }) => {
+  console.log(products,"product data")
   return (
     <div className="container mx-auto">
    <h2 className="hidden sm:block px-4 text-2xl font-bold text-gray-800 pb-4 pt-2 md:py-4 lg:py-8">
