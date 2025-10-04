@@ -234,13 +234,13 @@ const Header: React.FC = () => {
               <ul className="navbar-top-right flex flex-wrap gap-4 text-sm">
                 <li>
                   <Link href="#" className="text-gray-700 flex items-center gap-1">
-                    <i className="fa-solid fa-envelope text-amber-600"></i>
+                    <i className="fa-solid fa-envelope text-[#d4b262]"></i>
                     contact@bindujewellery.co.in
                   </Link>
                 </li>
                 <li>
                   <a href="#" className="text-gray-700 flex items-center gap-1">
-                    <i className="fa-solid fa-phone text-amber-600"></i>
+                    <i className="fa-solid fa-phone text-[#d4b262]"></i>
                     04994 256888
                   </a>
                 </li>
@@ -322,7 +322,7 @@ const Header: React.FC = () => {
                 <li className="relative">
                   <Link href="/cart" className="text-gray-700 relative">
                     <i className="fa-solid fa-cart-shopping text-xl"></i>
-                    <span className="absolute -top-2 -right-3 bg-amber-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
+                    <span className="absolute -top-2 -right-3 bg-black text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
                       3
                     </span>
                   </Link>

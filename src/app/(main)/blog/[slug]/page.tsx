@@ -35,10 +35,10 @@ const BlogDetails = () => {
     <>
       <Banner Title="Blog" />
 
-      <div className="bg-white">
-        <div className="container mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-3 gap-10">
+      <div className="bg-white   py-10">
+        <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-10">
           {/* Left side - Blog content */}
-          <div className="md:col-span-2">
+          <div className="md:col-span-2 order-2 sm:order-1">
             {/* Blog Image */}
             <img
               src="/assets/images/blog-image-3.jpg"
@@ -191,10 +191,10 @@ const BlogDetails = () => {
                 </div>
               </form>
             </div>
-          </div>
+          </div >
 
           {/* Right side - Sidebar */}
-          <div>
+          <div className="order-1 sm:order-2">
             <BlogSidebar />
           </div>
         </div>

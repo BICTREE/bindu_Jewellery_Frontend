@@ -6,6 +6,7 @@ import ProductListComp from "@/components/productlist/ProductListComp";
 import { ChevronDown, ChevronRight, Filter, Minus, Plus } from "lucide-react";
 import { GetAllProducts } from "@/services/productService/productService";
 import { getAllCategory } from "@/services/categoryService/categorySerice";
+import Pagination from "@/components/common/pagination/Pagination";
 
 type Product = {
   id: string;
@@ -118,7 +119,7 @@ const Collections = () => {
   const [loading, setLoading] = useState(false);
   const [categoryLoading, setCategoryLoading] = useState(false);
 
-  const productsPerPage = 6;
+  const productsPerPage =6;
 
   // Fetch categories
   useEffect(() => {
@@ -251,7 +252,7 @@ const Collections = () => {
     <>
       <Banner Title="Collections" />
 
-      <div className="container mx-auto flex flex-col md:flex-row gap-2 md:gap-6">
+      <div className="container mx-auto relative ">
         <div className="flex items-center md:hidden justify-between w-full">
           <h2 className="block md:hidden px-4 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 pt-0">
             Our Collections
@@ -274,11 +275,12 @@ const Collections = () => {
           </button>
         </div>
 
-        {/* LEFT FILTER SIDEBAR */}
-        <div className="bg-white shadow-md">
+      
+        <div className="flex flex-col md:flex-row gap-2 md:gap-6 h-full pb-10">
+            {/* LEFT FILTER SIDEBAR */}
           <aside
             className={`${mobileFilterOpen ? "block" : "hidden"
-              } md:block md:w-64 w-full p-4 md:p-6 space-y-6 self-start sticky top-24`}
+              } md:block md:w-64 w-full p-4 md:p-6 space-y-6 self-start sticky top-24 bg-white shadow-md`}
           >
             {/* Category Filter */}
             <div>
@@ -436,10 +438,10 @@ const Collections = () => {
               </div>
             </div>
           </aside>
-        </div>
+        
 
         {/* MAIN CONTENT */}
-        <main className="flex-1">
+        <main className="flex-2 relative ">
           {loading ? (
             <p className="text-center py-10">Loading products...</p>
           ) : (
@@ -458,48 +460,25 @@ const Collections = () => {
           )}
 
           {/* Pagination */}
-          {totalPages > 1 && (
-            <div className="flex justify-center mt-6 mb-6 items-center gap-1">
-              <button
-                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-                disabled={currentPage === 1}
-                className={`px-2 py-1 text-sm rounded-full ${currentPage === 1
-                  ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                  : "bg-white text-gray-700 hover:bg-[#d4b262] hover:text-white"
-                  }`}
-              >
-                Prev
-              </button>
 
-              {Array.from({ length: totalPages }, (_, i) => (
-                <button
-                  key={i + 1}
-                  onClick={() => setCurrentPage(i + 1)}
-                  className={`px-2 py-1 text-sm rounded-full border ${currentPage === i + 1
-                    ? "bg-[#d4b262] text-white border-[#d4b262]"
-                    : "bg-white text-gray-700 border-gray-300 hover:bg-[#d4b262] hover:text-white"
-                    }`}
-                >
-                  {i + 1}
-                </button>
-              ))}
+ 
 
-              <button
-                onClick={() =>
-                  setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-                }
-                disabled={currentPage === totalPages}
-                className={`px-2 py-1 text-sm rounded-full ${currentPage === totalPages
-                  ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                  : "bg-white text-gray-700 hover:bg-[#d4b262] hover:text-white"
-                  }`}
-              >
-                Next
-              </button>
-            </div>
-          )}
+
+    
         </main>
+   
+</div>
+      <div className="w-full bg-white py-4 flex justify-center absolute bottom-0 left-0">
+
+      <Pagination
+        totalPages={totalPages}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
+
       </div>
+</div>
+ 
     </>
   );
 };
