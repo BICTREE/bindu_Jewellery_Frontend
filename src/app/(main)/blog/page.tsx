@@ -9,6 +9,7 @@ const blogPosts = [
     id: 1,
     date: "Feb 06, 2018",
     title: "Trouble with the law since",
+    slug: "trouble-with-the-law-since",
     excerpt:
       "To seek out new life and new civilizations to boldly go where no man has gone before you would see the biggest gift.",
     image: "/assets/images/blog-image-1.jpg",
@@ -17,6 +18,7 @@ const blogPosts = [
     id: 2,
     date: "Mar 30, 2018",
     title: "Kind of torture to have to watch",
+    slug: "trouble-with-the-law-since",
     excerpt:
       "To seek out new life and new civilizations to boldly go where no man has gone before you would see the biggest gift.",
     image: "/assets/images/blog-image-2.jpg",
@@ -25,6 +27,7 @@ const blogPosts = [
     id: 3,
     date: "Apr 14, 2018",
     title: "Make the best of things its an uphill.",
+     slug: "trouble-with-the-law-since",
     excerpt:
       "To seek out new life and new civilizations to boldly go where no man has gone before you would see the biggest gift.",
     image: "/assets/images/blog-image-3.jpg",
@@ -33,6 +36,7 @@ const blogPosts = [
     id: 4,
     date: "Feb 06, 2018",
     title: "Trouble with the law since",
+    slug: "trouble-with-the-law-since",
     excerpt:
       "To seek out new life and new civilizations to boldly go where no man has gone before you would see the biggest gift.",
     image: "/assets/images/blog-image-4.jpg",
@@ -43,6 +47,7 @@ const blogPosts = [
     id: 5,
     date: "Feb 06, 2018",
     title: "Trouble with the law since",
+    slug: "trouble-with-the-law-since",
     excerpt:
       "To seek out new life and new civilizations to boldly go where no man has gone before you would see the biggest gift.",
     image: "/assets/images/blog-image-4.jpg",
@@ -52,6 +57,7 @@ const blogPosts = [
     id: 6,
     date: "Feb 06, 2018",
     title: "Trouble with the law since",
+    slug: "trouble-with-the-law-since",
     excerpt:
       "To seek out new life and new civilizations to boldly go where no man has gone before you would see the biggest gift.",
     image: "/assets/images/blog-image-4.jpg",
@@ -61,6 +67,7 @@ const blogPosts = [
     id: 7,
     date: "Feb 06, 2018",
     title: "Trouble with the law since",
+    slug: "trouble-with-the-law-since",
     excerpt:
       "To seek out new life and new civilizations to boldly go where no man has gone before you would see the biggest gift.",
     image: "/assets/images/blog-image-4.jpg",
@@ -70,6 +77,7 @@ const blogPosts = [
     id:8,
     date: "Feb 06, 2018",
     title: "Trouble with the law since",
+    slug: "trouble-with-the-law-since",
     excerpt:
       "To seek out new life and new civilizations to boldly go where no man has gone before you would see the biggest gift.",
     image: "/assets/images/blog-image-4.jpg",
@@ -123,7 +131,7 @@ const BlogPage = () => {
                   </h2>
                   <p className="mt-2 text-gray-600 text-sm">{post.excerpt}</p>
                   <Link
-                    href="#"
+                   href={`/blog/${post.slug}`}
                     className="block mt-3 text-[#d4b262] text-sm font-semibold hover:underline"
                   >
                     READ MORE
