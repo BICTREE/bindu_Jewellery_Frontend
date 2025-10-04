@@ -1,10 +1,13 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import toast from "react-hot-toast";
-import { AddToWishlist, RemoveFromWishlist } from "@/services/wishlistService/wishlistService";
-import { GetMyProfile } from "@/services/profileService/profileService";
 import { Heart } from "lucide-react";
+import { useSession } from "next-auth/react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, AppDispatch } from "@/redux/store";
+import { fetchUser, toggleWishlist } from "@/redux/store/wishlistSlice";
+
 
 type ProductCardProps = {
   id: string; // productId
@@ -23,69 +26,43 @@ const ProductCard: React.FC<ProductCardProps> = ({
   offer,
   price,
 }) => {
-  const [user, setUser] = useState<{ _id: string; wishlist: string[] } | null>(null);
-  const [inWishlist, setInWishlist] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [loadingUser, setLoadingUser] = useState(true); // ✅ loading state for fetching user
+  const { data: session, status } = useSession();
+  const dispatch = useDispatch<AppDispatch>();
 
-  // Fetch user data
-  const fetchUser = async () => {
-    setLoadingUser(true);
-    try {
-      const data = await GetMyProfile();
-      setUser((prev) => {
-        // ✅ Only update state if wishlist or id changed
-        if (!prev || JSON.stringify(prev.wishlist) !== JSON.stringify(data.wishlist)) {
-          return data;
-        }
-        return prev; // no change, skip re-render
-      });
-      setInWishlist(data.wishlist.includes(id));
-    } catch (err) {
-      console.error("Failed to fetch user data:", err);
-      toast.error("Failed to load user data");
-    } finally {
-      setLoadingUser(false);
-    }
-  };
+  const { _id: userId, wishlist, loading } = useSelector(
+    (state: RootState) => state.user
+  );
 
+  const inWishlist = wishlist.includes(id);
+
+  // ✅ Fetch user only once after login
   useEffect(() => {
-    fetchUser();
-  }, []);
+    if (status === "authenticated" && !userId) {
+      dispatch(fetchUser());
+    }
+  }, [status, userId, dispatch]);
 
   const handleWishlist = async (e: React.MouseEvent) => {
     e.preventDefault();
-    if (loading || loadingUser) return;
+    if (loading) return;
 
-    if (!user?._id) {
+    if (!userId) {
       toast.error("Please login to add items to wishlist");
       return;
     }
 
-    setLoading(true);
-    const payload = { userId: user._id, productId: id };
-
     try {
-      if (inWishlist) {
-        await RemoveFromWishlist(payload);
-        toast.success("Removed from wishlist");
-      } else {
-        await AddToWishlist(payload);
-        toast.success("Added to wishlist");
-      }
-      // ✅ fetch user data only after change
-      fetchUser();
+      await dispatch(toggleWishlist({ userId, productId: id, inWishlist })).unwrap();
+      toast.success(inWishlist ? "Removed from wishlist" : "Added to wishlist");
     } catch (error) {
       console.error("Wishlist error:", error);
       toast.error("Something went wrong");
-    } finally {
-      setLoading(false);
     }
   };
 
   return (
     <Link href={`/products/${id}`} className="w-full sm:w-60 mx-auto">
-      <div className="group cursor-pointer">
+      <div className="group">
         {/* Card Image */}
         <div className="relative w-full aspect-[13/18] overflow-hidden bg-white  transition-all duration-500 rounded-lg group-hover:rounded-t-[120px]">
           <img
@@ -101,34 +78,33 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
           {/* Action Buttons */}
           <div className="absolute top-1/2 left-2 -translate-y-1/2 opacity-0 -translate-x-4 transition-all duration-500 group-hover:opacity-100 group-hover:translate-x-0 flex flex-col space-y-2">
-
-             {/* Wishlist Button */}
+            {/* Wishlist Button */}
             <button
               onClick={handleWishlist}
-              disabled={loading || loadingUser}
-              className={`w-8 h-8 rounded-full flex items-center justify-center transition ${
-                inWishlist ? "bg-red-500" : "bg-gray-300 hover:[#d4b262]"
+              disabled={loading}
+              className={`w-8 h-8 rounded-full flex items-center justify-center transition cursor-pointer  ${
+                inWishlist ? "bg-red-500" : "bg-gray-300 hover:bg-amber-500"
               }`}
             >
-              {loadingUser ? (
+              {loading ? (
                 <span className="text-xs text-white">...</span>
               ) : (
                 <Heart
                   size={18}
                   className="text-white"
-                  fill={inWishlist ? "currentColor" : "none"} // ✅ fill for wishlisted
+                  fill={inWishlist ? "currentColor" : "none"}
                   strokeWidth={2}
                 />
               )}
             </button>
-            
+
             {/* Preview Button */}
-            <button className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center hover:[#d4b262] transition">
+            <button className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center hover:bg-amber-500 transition  cursor-pointer">
               <img src="/assets/images/Eye.svg" alt="preview" />
             </button>
 
             {/* Share Button */}
-            <button className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center hover:bg-[#d4b262] transition">
+            <button className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center hover:bg-amber-500 transition  cursor-pointer">
               <img src="/assets/images/Forward_Arrow.svg" alt="share" />
             </button>
           </div>
