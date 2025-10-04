@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import Banner from "@/components/common/Banner/Banner";
 import ProductListComp from "@/components/productlist/ProductListComp";
 import { ChevronDown, ChevronRight, Filter, Minus, Plus } from "lucide-react";
 import { GetAllProducts } from "@/services/productService/productService";
 import { getAllCategory } from "@/services/categoryService/categorySerice";
+import { useSearchParams } from "next/navigation";
 
 type Product = {
   id: string;
@@ -85,17 +86,20 @@ type Filters = {
   minPrice: number;
   maxPrice: number;
 };
+
 type ProductQueryParams = {
   page?: number;
   entries?: number;
-  category?: string; // comma-separated IDs
-  purity?: string;   // comma-separated purities
+  category?: string;
+  purity?: string;
   minPrice?: number;
   maxPrice?: number;
-  weight?: string;   // comma-separated weights
-  tag?: string;      // comma-separated tags
+  weight?: string;
+  tag?: string;
 };
-const Collections = () => {
+
+// Separate component that uses useSearchParams
+function CollectionsContent() {
   const [currentPage, setCurrentPage] = useState(1);
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -110,15 +114,46 @@ const Collections = () => {
   });
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
   const [sectionOpen, setSectionOpen] = useState<Record<string, boolean>>({
-    "Category": true,
+    Category: true,
     "Gold Purity": true,
     "Stone Type": true,
     "Product Weight": true,
   });
+  const [categoryOpen, setCategoryOpen] = useState<Record<string, boolean>>({});
   const [loading, setLoading] = useState(false);
   const [categoryLoading, setCategoryLoading] = useState(false);
+  const searchParams = useSearchParams();
 
   const productsPerPage = 6;
+
+  // Read query params on mount and set filters
+  useEffect(() => {
+    const categoryParam = searchParams.get("category");
+    const purityParam = searchParams.get("purity");
+    const stoneTypeParam = searchParams.get("stoneType");
+    const weightParam = searchParams.get("weight");
+    const minPriceParam = searchParams.get("minPrice");
+    const maxPriceParam = searchParams.get("maxPrice");
+
+    setFilters((prev) => ({
+      ...prev,
+      category: categoryParam ? [categoryParam] : [],
+      goldPurity: purityParam ? [purityParam] : [],
+      stoneType: stoneTypeParam ? [stoneTypeParam] : [],
+      productWeight: weightParam ? [weightParam] : [],
+      minPrice: minPriceParam ? parseInt(minPriceParam) : 0,
+      maxPrice: maxPriceParam ? parseInt(maxPriceParam) : 150000,
+    }));
+  }, [searchParams]);
+
+  console.log(filters, "params data");
+
+  const toggleCategory = (id: string) => {
+    setCategoryOpen((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
+  };
 
   // Fetch categories
   useEffect(() => {
@@ -142,58 +177,43 @@ const Collections = () => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        
-        // Build query parameters
-        const params:ProductQueryParams = {
+
+        const params: ProductQueryParams = {
           page: currentPage,
           entries: productsPerPage,
         };
 
-        // Add category filter (send multiple category IDs as comma-separated or array)
         if (filters.category.length > 0) {
-          // Get category IDs from selected category names
-          const selectedCategoryIds = categories
-            .filter(cat => filters.category.includes(cat.name))
-            .map(cat => cat._id);
-          
-          if (selectedCategoryIds.length > 0) {
-            // Send as comma-separated string or array depending on backend preference
-            params.category = selectedCategoryIds.join(','); // Or: selectedCategoryIds
-          }
+          params.category = filters.category.join(",");
         }
 
-        // Add purity filter (multiple values as comma-separated)
         if (filters.goldPurity.length > 0) {
-          params.purity = filters.goldPurity.join(','); // Or: filters.goldPurity
+          params.purity = filters.goldPurity.join(",");
         }
 
-        // Add price range filter
-        if (filters.minPrice > 0) {
-          params.minPrice = filters.minPrice;
-        }
-        if (filters.maxPrice < 150000) {
-          params.maxPrice = filters.maxPrice;
-        }
+        if (filters.minPrice > 0) params.minPrice = filters.minPrice;
+        if (filters.maxPrice < 150000) params.maxPrice = filters.maxPrice;
 
-        // Add weight filter (multiple values)
         if (filters.productWeight.length > 0) {
-          // Convert weight ranges to backend format
           const weightMap: Record<string, string> = {
             "<5g": "5",
             "5-10g": "10",
             "10-20g": "20",
-            "20g+": "20"
+            "20g+": "20",
           };
-          const weights = filters.productWeight.map(w => weightMap[w] || w).filter(Boolean);
+          const weights = filters.productWeight
+            .map((w) => weightMap[w] || w)
+            .filter(Boolean);
           if (weights.length > 0) {
-            params.weight = weights.join(','); // Or: weights
+            params.weight = weights.join(",");
           }
         }
 
-        // Add stone type filter via tags (multiple values)
         if (filters.stoneType.length > 0) {
-          params.tag = filters.stoneType.map(s => s.toLowerCase()).join(','); // Or: filters.stoneType.map(s => s.toLowerCase())
+          params.tag = filters.stoneType.map((s) => s.toLowerCase()).join(",");
         }
+
+        console.log("API Params:", params);
 
         const res = await GetAllProducts(params);
         const apiProducts = res?.result || [];
@@ -210,7 +230,10 @@ const Collections = () => {
           stoneWeight: p.stoneWeight,
           stoneCount: p.stoneCount,
           image: p.thumbnail?.location || "/assets/images/catmod-08.jpg",
-          hoverImg: p.images?.[0]?.location || p.thumbnail?.location || "/assets/images/catmod-08.jpg",
+          hoverImg:
+            p.images?.[0]?.location ||
+            p.thumbnail?.location ||
+            "/assets/images/catmod-08.jpg",
         }));
 
         setProducts(normalized);
@@ -227,25 +250,26 @@ const Collections = () => {
 
   const totalPages = Math.ceil(totalProducts / productsPerPage);
 
-  // Handle checkbox filter changes
   const handleCheckbox = (category: keyof Filters, value: string) => {
     const current = filters[category] as string[];
     const updated = current.includes(value)
       ? current.filter((item) => item !== value)
       : [...current, value];
     setFilters({ ...filters, [category]: updated });
-    setCurrentPage(1); // Reset to first page
+    setCurrentPage(1);
   };
 
-  // Handle price range changes
   const handlePriceChange = (type: "minPrice" | "maxPrice", value: number) => {
     setFilters({ ...filters, [type]: value });
     setCurrentPage(1);
   };
 
-  // Group categories by parent
-  const parentCategories = categories.filter(cat => cat.parent === null);
-  const childCategories = categories.filter(cat => cat.parent !== null);
+  const parentCategories = categories.filter((cat) => cat.parent === null);
+  const childCategories = categories.filter((cat) => cat.parent !== null);
+
+  const isCategorySelectedById = (categoryId: string) => {
+    return filters.category.includes(categoryId);
+  };
 
   return (
     <>
@@ -277,8 +301,9 @@ const Collections = () => {
         {/* LEFT FILTER SIDEBAR */}
         <div className="bg-white shadow-md">
           <aside
-            className={`${mobileFilterOpen ? "block" : "hidden"
-              } md:block md:w-64 w-full p-4 md:p-6 space-y-6 self-start sticky top-24`}
+            className={`${
+              mobileFilterOpen ? "block" : "hidden"
+            } md:block md:w-64 w-full p-4 md:p-6 space-y-6 self-start sticky top-24`}
           >
             {/* Category Filter */}
             <div>
@@ -287,7 +312,7 @@ const Collections = () => {
                 onClick={() =>
                   setSectionOpen({
                     ...sectionOpen,
-                    "Category": !sectionOpen["Category"],
+                    Category: !sectionOpen["Category"],
                   })
                 }
               >
@@ -302,38 +327,72 @@ const Collections = () => {
               {sectionOpen["Category"] && (
                 <div className="space-y-4">
                   {categoryLoading ? (
-                    <p className="text-sm text-gray-500">Loading categories...</p>
+                    <p className="text-sm text-gray-500">
+                      Loading categories...
+                    </p>
                   ) : (
                     <>
-                      {parentCategories.map((parentCat) => (
-                        <div key={parentCat._id} className="border-l-2 border-[#d4b262] pl-3">
-                          <h4 className="font-medium text-gray-800 mb-2 text-sm">
-                            {parentCat.name}
-                          </h4>
-                          <ul className="space-y-1 text-gray-700 text-sm ml-2">
-                            {childCategories
-                              .filter(childCat => childCat.parent?._id === parentCat._id)
-                              .map((childCat) => (
-                                <li key={childCat._id}>
-                                  <label className="flex items-center hover:bg-gray-50 px-2 py-1 rounded">
-                                    <input
-                                      type="checkbox"
-                                      className="mr-2 accent-[#d4b262]"
-                                      checked={filters.category.includes(childCat.name)}
-                                      onChange={() => handleCheckbox("category", childCat.name)}
-                                    />
-                                    <span className="flex-1">{childCat.name}</span>
-                                    {childCat.productIds && childCat.productIds.length > 0 && (
-                                      <span className="text-xs text-gray-400 ml-1">
-                                        ({childCat.productIds.length})
-                                      </span>
-                                    )}
-                                  </label>
-                                </li>
-                              ))}
-                          </ul>
-                        </div>
-                      ))}
+                      {parentCategories.map((parentCat) => {
+                        const isOpen = categoryOpen[parentCat._id] ?? true;
+                        return (
+                          <div
+                            key={parentCat._id}
+                            className="border-l-1 border-[#d4b262] pl-3"
+                          >
+                            <div
+                              className="flex items-center justify-between cursor-pointer"
+                              onClick={() => toggleCategory(parentCat._id)}
+                            >
+                              <h4 className="font-medium text-gray-800 mb-2 text-sm">
+                                {parentCat.name}
+                              </h4>
+                              {isOpen ? (
+                                <ChevronDown className="w-4 h-4 text-gray-500" />
+                              ) : (
+                                <ChevronRight className="w-4 h-4 text-gray-500" />
+                              )}
+                            </div>
+
+                            {isOpen && (
+                              <ul className="space-y-1 text-gray-700 text-sm ml-2">
+                                {childCategories
+                                  .filter(
+                                    (childCat) =>
+                                      childCat.parent?._id === parentCat._id
+                                  )
+                                  .map((childCat) => (
+                                    <li key={childCat._id}>
+                                      <label className="flex items-center hover:bg-gray-50 px-2 py-1 rounded">
+                                        <input
+                                          type="checkbox"
+                                          className="mr-2 accent-[#d4b262]"
+                                          checked={isCategorySelectedById(
+                                            childCat._id
+                                          )}
+                                          onChange={() =>
+                                            handleCheckbox(
+                                              "category",
+                                              childCat._id
+                                            )
+                                          }
+                                        />
+                                        <span className="flex-1">
+                                          {childCat.name}
+                                        </span>
+                                        {childCat.productIds &&
+                                          childCat.productIds.length > 0 && (
+                                            <span className="text-xs text-gray-400 ml-1">
+                                              ({childCat.productIds.length})
+                                            </span>
+                                          )}
+                                      </label>
+                                    </li>
+                                  ))}
+                              </ul>
+                            )}
+                          </div>
+                        );
+                      })}
                     </>
                   )}
                 </div>
@@ -346,8 +405,8 @@ const Collections = () => {
                 section === "Gold Purity"
                   ? goldPurityOptions
                   : section === "Stone Type"
-                    ? stoneTypes
-                    : productWeights;
+                  ? stoneTypes
+                  : productWeights;
 
               const isOpen = sectionOpen[section];
 
@@ -382,15 +441,15 @@ const Collections = () => {
                                 section === "Gold Purity"
                                   ? filters.goldPurity.includes(opt)
                                   : section === "Stone Type"
-                                    ? filters.stoneType.includes(opt)
-                                    : filters.productWeight.includes(opt)
+                                  ? filters.stoneType.includes(opt)
+                                  : filters.productWeight.includes(opt)
                               }
                               onChange={() =>
                                 section === "Gold Purity"
                                   ? handleCheckbox("goldPurity", opt)
                                   : section === "Stone Type"
-                                    ? handleCheckbox("stoneType", opt)
-                                    : handleCheckbox("productWeight", opt)
+                                  ? handleCheckbox("stoneType", opt)
+                                  : handleCheckbox("productWeight", opt)
                               }
                             />
                             {opt}
@@ -408,7 +467,9 @@ const Collections = () => {
               <h3 className="font-semibold mb-3 pt-4 pb-2">Price Range</h3>
               <div className="space-y-3">
                 <div>
-                  <label className="block text-sm">Min: ₹{filters.minPrice}</label>
+                  <label className="block text-sm">
+                    Min: ₹{filters.minPrice}
+                  </label>
                   <input
                     type="range"
                     min={0}
@@ -421,7 +482,9 @@ const Collections = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm">Max: ₹{filters.maxPrice}</label>
+                  <label className="block text-sm">
+                    Max: ₹{filters.maxPrice}
+                  </label>
                   <input
                     type="range"
                     min={0}
@@ -447,11 +510,11 @@ const Collections = () => {
               <div className="mb-4 text-gray-600 px-4">
                 Showing {products.length} of {totalProducts} products
               </div>
-              <ProductListComp 
+              <ProductListComp
                 products={products.map((p) => ({
                   ...p,
-                  image: p.image || "/assets/images/card-img01.png",
-                  hoverImg:  "/assets/images/catmod-01.jpg",
+                  image: "/assets/images/card-img01.png",
+                  hoverImg: "/assets/images/catmod-01.jpg",
                 }))}
               />
             </>
@@ -461,12 +524,15 @@ const Collections = () => {
           {totalPages > 1 && (
             <div className="flex justify-center mt-6 mb-6 items-center gap-1">
               <button
-                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                onClick={() =>
+                  setCurrentPage((prev) => Math.max(prev - 1, 1))
+                }
                 disabled={currentPage === 1}
-                className={`px-2 py-1 text-sm rounded-full ${currentPage === 1
-                  ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                  : "bg-white text-gray-700 hover:bg-[#d4b262] hover:text-white"
-                  }`}
+                className={`px-2 py-1 text-sm rounded-full ${
+                  currentPage === 1
+                    ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                    : "bg-white text-gray-700 hover:bg-[#d4b262] hover:text-white"
+                }`}
               >
                 Prev
               </button>
@@ -475,10 +541,11 @@ const Collections = () => {
                 <button
                   key={i + 1}
                   onClick={() => setCurrentPage(i + 1)}
-                  className={`px-2 py-1 text-sm rounded-full border ${currentPage === i + 1
-                    ? "bg-[#d4b262] text-white border-[#d4b262]"
-                    : "bg-white text-gray-700 border-gray-300 hover:bg-[#d4b262] hover:text-white"
-                    }`}
+                  className={`px-2 py-1 text-sm rounded-full border ${
+                    currentPage === i + 1
+                      ? "bg-[#d4b262] text-white border-[#d4b262]"
+                      : "bg-white text-gray-700 border-gray-300 hover:bg-[#d4b262] hover:text-white"
+                  }`}
                 >
                   {i + 1}
                 </button>
@@ -489,10 +556,11 @@ const Collections = () => {
                   setCurrentPage((prev) => Math.min(prev + 1, totalPages))
                 }
                 disabled={currentPage === totalPages}
-                className={`px-2 py-1 text-sm rounded-full ${currentPage === totalPages
-                  ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                  : "bg-white text-gray-700 hover:bg-[#d4b262] hover:text-white"
-                  }`}
+                className={`px-2 py-1 text-sm rounded-full ${
+                  currentPage === totalPages
+                    ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                    : "bg-white text-gray-700 hover:bg-[#d4b262] hover:text-white"
+                }`}
               >
                 Next
               </button>
@@ -501,6 +569,15 @@ const Collections = () => {
         </main>
       </div>
     </>
+  );
+}
+
+// Main component with Suspense boundary
+const Collections = () => {
+  return (
+    <Suspense fallback={<div className="text-center py-10">Loading...</div>}>
+      <CollectionsContent />
+    </Suspense>
   );
 };
 

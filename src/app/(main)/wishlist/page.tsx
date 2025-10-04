@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Banner from "@/components/common/Banner/Banner";
 import ProductListComp from "@/components/wishlist/WishlistComp";
 import { getMyList } from "@/services/wishlistService/wishlistService";
+import { useSession } from "next-auth/react";
 
 
 interface Product {
@@ -19,6 +20,7 @@ interface Product {
 }
 
 const Collections = () => {
+  const { data: session } = useSession(); // ✅ Get user session
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -28,12 +30,16 @@ const Collections = () => {
 
   useEffect(() => {
     const fetchWishlist = async () => {
+      if (!session?.user) {
+        setLoading(false); // ✅ Don’t call API if user not logged in
+        return;
+      }
+
       try {
         setLoading(true);
         const res = await getMyList();
-          console.log(res,"data")
+        console.log(res, "wishlist data");
         if (res) {
-          // assuming API returns `res.data.result`
           setProducts(res || []);
         }
       } catch (error) {
@@ -44,7 +50,7 @@ const Collections = () => {
     };
 
     fetchWishlist();
-  }, []);
+  }, [session?.user]);
 
   const indexOfLast = currentPage * productsPerPage;
   const indexOfFirst = indexOfLast - productsPerPage;
