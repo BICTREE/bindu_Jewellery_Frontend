@@ -1,5 +1,7 @@
 import React from 'react'
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import Link from 'next/link';
+
 const Footer = () => {
   return (
     <footer className="bg-black text-gray-300">
@@ -22,12 +24,19 @@ const Footer = () => {
         <div>
           <h3 className="text-gold font-semibold mb-4 uppercase">Information</h3>
           <ul className="space-y-2 text-sm">
-            <li><a href="#" className="ftr-hober">Jewellery Care Tips</a></li>
-            <li><a href="#" className="ftr-hober">FAQ</a></li>
-            <li><a href="#" className="ftr-hober">Return Policy</a></li>
-            <li><a href="#" className="ftr-hober">Shipping Policy</a></li>
-            <li><a href="#" className="ftr-hober">Certifications</a></li>
-            <li><a href="#" className="ftr-hober">Privacy Policy</a></li>
+           
+           
+
+             <li> <Link href="/returnpolicy" className="ftr-hober" >Return Policy</Link></li> 
+
+   <li> <Link href="/shippingpolicy" className="ftr-hober" >Shipping Policy</Link></li> 
+ <li> <Link href="/privacypolicy" className="ftr-hober" >Privacy Policy</Link></li> 
+       
+            {/* <li><a href="#" className="ftr-hober">Certifications</a></li> */}
+
+
+
+            <li><a href="#" className="ftr-hober"></a></li>
             <li><a href="#" className="ftr-hober">Terms & Conditions</a></li>
           </ul>
         </div>
@@ -36,13 +45,12 @@ const Footer = () => {
         <div>
           <h3 className="text-gold font-semibold mb-4 uppercase">Customer Service</h3>
           <ul className="space-y-2 text-sm">
-            <li><a href="#" className="ftr-hober">About Us</a></li>
-            <li><a href="#" className="ftr-hober">Blog</a></li>
-            <li><a href="#" className="ftr-hober">Our Branch</a></li>
+
+
+          <li> <Link href="/faq" className="ftr-hober" >FAQ</Link></li> 
+         <li><Link href="/blog" className="ftr-hober" >Blog</Link></li>
+          <li><Link href="/gallery" className="ftr-hober" >Media</Link></li>
             <li><a href="#" className="ftr-hober">Gift Vouchers</a></li>
-            <li><a href="#" className="ftr-hober">News and Events</a></li>
-            <li><a href="#" className="ftr-hober">Special Offer</a></li>
-            <li><a href="#" className="ftr-hober">Jewellery Care Tips</a></li>
           </ul>
         </div>
 
@@ -51,7 +59,7 @@ const Footer = () => {
           <h3 className="text-gold font-semibold mb-4 uppercase">Get In Touch</h3>
           <ul className="space-y-3 text-sm">
             <li className="flex items-start gap-2">
-              <i className="fa-solid fa-location-dottext-gold mt-1"></i>
+              <i className="fas fa-map-marker text-gold mt-1"></i>
               <span>
                 Bindu Jewellery <br />
                 NH - 17, Ashwini Nagar, <br />

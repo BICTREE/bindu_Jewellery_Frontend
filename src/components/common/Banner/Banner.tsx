@@ -12,7 +12,7 @@ const Banner :React.FC<BannerProps> = ({Title}) => {
       <img
         src="/assets/images/collections-banner.png"
         alt="Gold Collections"
-        className="w-full h-[180px] sm:h-[250px] md:h-[320px] lg:h-[420px] object-cover"
+        className="w-full h-[115px] sm:h-[250px] md:h-[320px] lg:h-[280px] object-cover"
       />
 
       {/* Overlay */}
