@@ -19,7 +19,8 @@ export default function OurStory() {
 
     </>
  
-    <section className="container mx-auto px-4 sm:px-6 lg:px-12 py-12">
+    <section className=" pt-16 px-4 md:px-16 bg-white text-gray-800 ">
+      <div className="container mx-auto  ">
   <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch">
     {/* Image first on mobile */}
     <div className="lg:col-span-5 order-1 lg:order-1 flex">
@@ -69,6 +70,7 @@ export default function OurStory() {
  
       </div>
     </div>
+  </div>
   </div>
 </section>
 

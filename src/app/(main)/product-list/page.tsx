@@ -7,6 +7,7 @@ import { ChevronDown, ChevronRight, Filter, Minus, Plus } from "lucide-react";
 import { GetAllProducts } from "@/services/productService/productService";
 import { getAllCategory } from "@/services/categoryService/categorySerice";
 import { useSearchParams } from "next/navigation";
+import Pagination from "@/components/common/pagination/Pagination";
 
 
 export interface BackendSpec {
@@ -139,7 +140,7 @@ function CollectionsContent() {
   const [categoryLoading, setCategoryLoading] = useState(false);
   const searchParams = useSearchParams();
 
-  const productsPerPage = 6;
+  const productsPerPage =6;
 
   // Read query params on mount and set filters
   useEffect(() => {
@@ -291,7 +292,7 @@ function CollectionsContent() {
     <>
       <Banner Title="Collections" />
 
-      <div className="container mx-auto flex flex-col md:flex-row gap-2 md:gap-6">
+      <div className="container mx-auto relative ">
         <div className="flex items-center md:hidden justify-between w-full">
           <h2 className="block md:hidden px-4 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 pt-0">
             Our Collections
@@ -314,8 +315,9 @@ function CollectionsContent() {
           </button>
         </div>
 
-        {/* LEFT FILTER SIDEBAR */}
-        <div className="bg-white shadow-md">
+      
+        <div className="flex flex-col md:flex-row gap-2 md:gap-6 h-full pb-10">
+            {/* LEFT FILTER SIDEBAR */}
           <aside
             className={`${
               mobileFilterOpen ? "block" : "hidden"
@@ -515,10 +517,10 @@ function CollectionsContent() {
               </div>
             </div>
           </aside>
-        </div>
+        
 
         {/* MAIN CONTENT */}
-        <main className="flex-1">
+        <main className="flex-2 relative ">
           {loading ? (
             <p className="text-center py-10">Loading products...</p>
           ) : (
@@ -583,7 +585,19 @@ function CollectionsContent() {
             </div>
           )}
         </main>
+   
+</div>
+      <div className="w-full bg-white py-4 flex justify-center absolute bottom-0 left-0">
+
+      <Pagination
+        totalPages={totalPages}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
+
       </div>
+</div>
+ 
     </>
   );
 }
