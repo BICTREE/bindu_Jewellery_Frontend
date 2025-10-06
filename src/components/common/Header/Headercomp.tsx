@@ -233,13 +233,13 @@ const Header: React.FC = () => {
             <div className="hidden md:flex">
               <ul className="navbar-top-right flex flex-wrap gap-4 text-sm">
                 <li>
-                  <Link href="#" className="text-gray-700 flex items-center gap-1">
+                  <Link href="#" className="text-gray-400 flex items-center gap-1 hover:text-[#d4b262]">
                     <i className="fa-solid fa-envelope text-[#d4b262]"></i>
                     contact@bindujewellery.co.in
                   </Link>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-700 flex items-center gap-1">
+                  <a href="#" className="text-gray-400 flex items-center gap-1 hover:text-[#d4b262]">
                     <i className="fa-solid fa-phone text-[#d4b262]"></i>
                     04994 256888
                   </a>

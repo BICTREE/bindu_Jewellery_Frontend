@@ -14,8 +14,8 @@ const GiftMore = () => {
   return (
     <section className="container">
 
-    <div className="mx-auto py-5 sm:py-8 md:py-12">
-      <h2 className="text-2xl font-bold text-center">Gift & More</h2>
+    <div className="mx-auto py-7 sm:py-8 md:py-13 lg:py-15">
+      <h2 className="font-prata text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-center">Gift & More</h2>
       <p className="text-gray-500 text-center mb-10">Prepare To Elevate Your Sense Of Style With Our Latest Collection!</p>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Left side grid (2x2 images) */}
