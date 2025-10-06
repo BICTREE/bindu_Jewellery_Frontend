@@ -5,6 +5,9 @@ import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 import MobileHeader from "./MobileHeader";
 import { getAllCategory } from "@/services/categoryService/categorySerice";
+import { getMyCart } from "@/services/cartService/cartService";
+import toast from "react-hot-toast";
+import { getMyList } from "@/services/wishlistService/wishlistService";
 
 // Category type based on your API response
 type Category = {
@@ -130,6 +133,41 @@ const Header: React.FC = () => {
   const [cartOpen, setCartOpen] = useState(false);
   const { data: session, status } = useSession();
   const user = session?.user;
+const [cartCount, setCartCount] = useState<number>(0);
+const [wishlistCount, setWishlistCount] = useState<number>(0); // ✅ Added for wishlist
+const [loadingCounts, setLoadingCounts] = useState(true); // renamed for clarity
+
+useEffect(() => {
+  const fetchCounts = async () => {
+    if (!session) {
+      // ✅ Reset both counts if user not logged in
+      setCartCount(0);
+      setWishlistCount(0);
+      setLoadingCounts(false);
+      return;
+    }
+
+    try {
+      // Fetch both cart and wishlist in parallel
+      const [cart, wishlist] = await Promise.all([
+        getMyCart(),
+        getMyList(),
+      ]);
+
+      setCartCount(cart?.length || 0);
+      setWishlistCount(wishlist?.length || 0);
+    } catch (error) {
+      console.error("Error fetching counts:", error);
+      toast.error("Failed to load cart or wishlist. Please try again.");
+      setCartCount(0);
+      setWishlistCount(0);
+    } finally {
+      setLoadingCounts(false);
+    }
+  };
+
+  fetchCounts();
+}, [session]);
 
   // ✅ Fetch categories for mega menu
   useEffect(() => {
@@ -312,9 +350,14 @@ const Header: React.FC = () => {
                 </li>
 
                 {/* Wishlist */}
-                <li>
-                  <Link href="/wishlist" className="text-gray-700">
+                <li className="relative">
+                  <Link href="/wishlist" className="text-gray-700 relative">
                     <i className="fa-regular fa-heart"></i>
+                       {wishlistCount > 0 && (
+                      <span className="absolute -top-2 -right-3 bg-black text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
+                        {wishlistCount > 99 ? '99+' : wishlistCount}
+                      </span>
+                    )}
                   </Link>
                 </li>
 
@@ -322,9 +365,11 @@ const Header: React.FC = () => {
                 <li className="relative">
                   <Link href="/cart" className="text-gray-700 relative">
                     <i className="fa-solid fa-cart-shopping text-xl"></i>
-                    <span className="absolute -top-2 -right-3 bg-black text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
-                      3
-                    </span>
+                   {cartCount > 0 && (
+                      <span className="absolute -top-2 -right-3 bg-black text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
+                        {cartCount > 99 ? '99+' : cartCount}
+                      </span>
+                    )}
                   </Link>
                 </li>
               </ul>

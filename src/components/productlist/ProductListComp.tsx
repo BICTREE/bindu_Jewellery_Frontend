@@ -10,7 +10,7 @@ interface Product {
   image: string;
   hoverImg: string;
   name: string;
-  offer?: string;
+  description?: string;
   price: number;
  variantItems: VariantItem[];
 }

@@ -9,7 +9,7 @@ interface Product {
   image: string;
   hoverImg: string;
   name: string;
-  offer?: string;
+  description?: string;
   price: number;
   // ✅ Make optional since wishlist API may not return it
   variantItems?: VariantItem[];
@@ -34,7 +34,7 @@ const WishlistComp: React.FC<ProductListProps> = ({ products }) => {
             image={product.image || "/assets/images/card-img01.png"}
             hoverImg={product.hoverImg || "/assets/images/card-img01.png"}
             name={product.name}
-            offer={product.offer}
+            description={product.description}
             price={product.price}
             // ✅ Provide empty array fallback
             variantItems={product.variantItems ?? []}

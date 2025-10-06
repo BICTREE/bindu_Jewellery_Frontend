@@ -5,6 +5,8 @@ import Link from "next/link";
 import Banner from "@/components/common/Banner/Banner";
 import { getMyCart, UpdateCart, RemoveFromCart } from "@/services/cartService/cartService";
 import toast from "react-hot-toast";
+import { useSession } from "next-auth/react";
+import Loader from "@/components/loader/Loader";
 interface CartItem {
   _id: string;
   productId: string;
@@ -34,10 +36,15 @@ const CartPage = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState(true);
-
+  const { data: session } = useSession();
   // 🔹 Fetch cart from API
   useEffect(() => {
     const fetchCart = async () => {
+      if (!session) {
+        setLoading(false); // ✅ stop loading if user not logged in
+        return;
+      }
+
       try {
         const cart = await getMyCart();
         setCartItems(cart || []);
@@ -48,8 +55,11 @@ const CartPage = () => {
         setLoading(false);
       }
     };
+
     fetchCart();
-  }, []);
+  }, [session]);
+
+
 
   // 🔹 Remove item using API
   const removeItem = async (productId: string) => {
@@ -60,7 +70,7 @@ const CartPage = () => {
       toast.success("Item removed from cart.");
     } catch (error) {
       console.error("Error removing item:", error);
-toast.error("Failed to remove item. Try again.");
+      toast.error("Failed to remove item. Try again.");
 
     }
   };
@@ -77,10 +87,10 @@ toast.error("Failed to remove item. Try again.");
       setCartItems((prev) =>
         prev.map((i) => (i._id === itemId ? { ...i, quantity: newQty } : i))
       );
-        toast.success(`Quantity ${type === "inc" ? "increased" : "decreased"}.`);
+      toast.success(`Quantity ${type === "inc" ? "increased" : "decreased"}.`);
     } catch (error) {
       console.error("Error updating quantity:", error);
-       toast.error("Failed to update quantity. Try again."); toast.error("Failed to update quantity. Try again.");
+      toast.error("Failed to update quantity. Try again."); toast.error("Failed to update quantity. Try again.");
     }
   };
 
@@ -113,11 +123,7 @@ toast.error("Failed to remove item. Try again.");
   }, [cartItems, discount, appliedCoupon]);
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <p className="text-gray-600">Loading your cart...</p>
-      </div>
-    );
+    return <Loader />
   }
 
   return (
@@ -152,7 +158,7 @@ toast.error("Failed to remove item. Try again.");
               <div className="text-center text-gray-600">
                 <p className="text-lg font-medium">🛒 Your cart is empty</p>
                 <Link
-                  href="/"
+                  href="/product-list"
                   className="mt-4 inline-block px-6 py-2 bg-[#d4b262] text-white rounded-lg hover:bg-[#ce9f4e]"
                 >
                   Continue Shopping
@@ -212,7 +218,7 @@ toast.error("Failed to remove item. Try again.");
           )}
 
           {cartItems.length > 0 && (
-            <button className="mt-4 px-4 py-2 border border-[#d4b262] text-[#d4b262] hover:text-white rounded-lg hover:bg-[#d4b262] text-sm">
+            <button   className="mt-4 px-4 py-2 border border-[#d4b262] text-[#d4b262] hover:text-white rounded-lg hover:bg-[#d4b262] text-sm">
               CONTINUE SHOPPING
             </button>
           )}
@@ -269,12 +275,21 @@ toast.error("Failed to remove item. Try again.");
           </div>
 
           <div className="flex justify-center border-t border-gray-200 pt-4">
-            <Link
-              href="/checkout"
-              className="block w-60 text-center bg-[#d4b262] hover:bg-[#ce9f4e] text-white py-3 rounded-lg font-semibold"
-            >
-              CHECKOUT SECURELY
-            </Link>
+            {cartItems.length === 0 ? (
+              <button
+                disabled
+                className="w-60 text-center bg-gray-300 text-white py-3 rounded-lg font-semibold cursor-not-allowed"
+              >
+                CHECKOUT SECURELY
+              </button>
+            ) : (
+              <Link
+                href="/checkout"
+                className="block w-60 text-center bg-[#d4b262] hover:bg-[#ce9f4e] text-white py-3 rounded-lg font-semibold"
+              >
+                CHECKOUT SECURELY
+              </Link>
+            )}
           </div>
 
           <div className="pt-4 text-sm text-gray-600 border-gray-200">
