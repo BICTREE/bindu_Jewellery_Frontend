@@ -4,7 +4,7 @@ const FreeshipingComp = () => {
   return (
    <section className="bg-white">
       <div className="container ">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 items-start mx-auto px-4 py-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 items-start mx-auto px-4 py-15">
           
           {/* Free Shipping */}
           <div className="flex flex-col items-center text-center space-y-2 px-4">
