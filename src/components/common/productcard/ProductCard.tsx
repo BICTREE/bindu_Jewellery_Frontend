@@ -46,7 +46,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 }) => {
   const { data: session, status } = useSession();
   const dispatch = useDispatch<AppDispatch>();
-  console.log(variantItems, "variantItems")
+  // console.log(variantItems, "variantItems")
   const { _id: userId, wishlist, loading } = useSelector(
     (state: RootState) => state.user
   );

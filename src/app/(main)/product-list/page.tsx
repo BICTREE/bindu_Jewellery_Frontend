@@ -41,7 +41,7 @@ type Product = {
 };
 
 
-type ApiProduct = {
+export type ApiProduct = {
   _id: string;
   name: string;
   description?: string;
@@ -55,7 +55,7 @@ type ApiProduct = {
   stoneWeight?: string;
   stoneCount?: number;
   variantItems: VariantItem[];
-
+ createdAt:Date
 };
 
 type Category = {

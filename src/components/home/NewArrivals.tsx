@@ -1,74 +1,74 @@
 "use client";
+
+import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import ProductCard from "../common/productcard/ProductCard";
-import { VariantItem } from "@/app/(main)/product-list/page"; // ✅ import VariantItem type
+import ProductCardSkeleton from "../common/productcard/ProductCardSkeleton";
+import { ApiProduct, VariantItem } from "@/app/(main)/product-list/page";
+import { GetAllProducts } from "@/services/productService/productService";
 
-// ✅ Define product type for dummy data
-interface DummyProduct {
-  id: string;
+interface Product {
+  _id: string;
   name: string;
   description?: string;
-  price: string;
-  img: string;
-  img2: string;
-  variantItems?: VariantItem[]; // ✅ optional
+  price: string | number;
+  image: string;
+  hoverImg: string;
+  variantItems?: VariantItem[];
 }
 
-const products: DummyProduct[] = [
-  {
-    id: "1",
-    name: "EARRINGS, TRENDY DESIGNS",
-    description: "30% OFF MAKING CHARGES",
-    price: "₹35853.00",
-    img: "/assets/images/card-img01.png",
-    img2: "/assets/images/catmod-01.jpg",
-  },
-  {
-    id: "2",
-    name: "EARRINGS, TRENDY DESIGNS",
-    description: "30% OFF MAKING CHARGES",
-    price: "₹35853.00",
-    img: "/assets/images/card-img01.png",
-    img2: "/assets/images/catmod-01.jpg",
-  },
-  {
-    id: "3",
-    name: "EARRINGS, TRENDY DESIGNS",
-    description: "30% OFF MAKING CHARGES",
-    price: "₹35853.00",
-    img: "/assets/images/card-img01.png",
-    img2: "/assets/images/catmod-01.jpg",
-  },
-  {
-    id: "4",
-    name: "EARRINGS, TRENDY DESIGNS",
-    description: "30% OFF MAKING CHARGES",
-    price: "₹35853.00",
-    img: "/assets/images/card-img01.png",
-    img2: "/assets/images/catmod-01.jpg",
-  },
-  {
-    id: "5",
-    name: "EARRINGS, TRENDY DESIGNS",
-    description: "30% OFF MAKING CHARGES",
-    price: "₹35853.00",
-    img: "/assets/images/card-img01.png",
-    img2: "/assets/images/catmod-01.jpg",
-  },
-  {
-    id: "6",
-    name: "EARRINGS, TRENDY DESIGNS",
-    description: "30% OFF MAKING CHARGES",
-    price: "₹35853.00",
-    img: "/assets/images/card-img01.png",
-    img2: "/assets/images/catmod-01.jpg",
-  },
-];
-
 export default function NewArrivals() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchLatestProducts = async () => {
+      try {
+        const res = await GetAllProducts({
+          page: 1,
+          entries: 10,
+        });
+
+        // ✅ FIX: Use res.result (actual product list)
+        const productList = res?.result || [];
+
+        // ✅ Sort by created date (if available)
+        const sorted = [...productList].sort(
+          (a: ApiProduct, b: ApiProduct) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
+
+        // ✅ Pick latest 10
+        const latest10 = sorted.slice(0, 10);
+
+        // ✅ Format data for UI
+        const formatted = latest10.map((p: ApiProduct) => ({
+          _id: p._id,
+          name: p.name,
+          description: p.description || "",
+          price: p.price ? `₹${p.price}` : "₹0",
+           image: p.thumbnail?.location || "/assets/images/catmod-08.jpg",
+          hoverImg:
+            p.images?.[0]?.location ||
+            p.thumbnail?.location ||
+            "/assets/images/catmod-08.jpg",
+          variantItems: p.variantItems || [],
+        }));
+
+        setProducts(formatted);
+      } catch (err) {
+        console.error("Error fetching products:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLatestProducts();
+  }, []);
+
   return (
     <div className="container mx-auto py-12">
       <h2 className="text-2xl font-bold text-center">New Arrivals</h2>
@@ -81,32 +81,31 @@ export default function NewArrivals() {
         spaceBetween={30}
         slidesPerView={4}
         breakpoints={{
-          320: {
-            slidesPerView: 1,
-            centeredSlides: true, // ✅ center align on mobile
-          },
-          640: {
-            slidesPerView: 2,
-            centeredSlides: false,
-          },
+          320: { slidesPerView: 1, centeredSlides: true },
+          640: { slidesPerView: 2, centeredSlides: false },
           1024: { slidesPerView: 4 },
         }}
         className="px-4"
       >
-        {products.map((item) => (
-          <SwiperSlide key={item.id} className="flex justify-center">
-            <ProductCard
-              id={item.id}
-              image={item.img}
-              hoverImg={item.img2}
-              name={item.name}
-              description={item.description}
-              price={item.price}
-              // ✅ always pass an array so ProductCard never breaks
-              variantItems={item.variantItems ?? []}
-            />
-          </SwiperSlide>
-        ))}
+        {loading
+          ? Array.from({ length: 4 }).map((_, i) => (
+              <SwiperSlide key={i} className="flex justify-center">
+                <ProductCardSkeleton />
+              </SwiperSlide>
+            ))
+          : products.map((item) => (
+              <SwiperSlide key={item._id} className="flex justify-center">
+                <ProductCard
+                  id={item._id}
+                  image={item.image}
+                  hoverImg={item.hoverImg}
+                  name={item.name}
+                  description={item.description}
+                  price={item.price}
+                  variantItems={item.variantItems ?? []}
+                />
+              </SwiperSlide>
+            ))}
       </Swiper>
     </div>
   );
