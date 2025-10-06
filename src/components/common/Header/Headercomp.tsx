@@ -7,6 +7,7 @@ import MobileHeader from "./MobileHeader";
 import { getAllCategory } from "@/services/categoryService/categorySerice";
 import { getMyCart } from "@/services/cartService/cartService";
 import toast from "react-hot-toast";
+import { getMyList } from "@/services/wishlistService/wishlistService";
 
 // Category type based on your API response
 type Category = {
@@ -132,34 +133,41 @@ const Header: React.FC = () => {
   const [cartOpen, setCartOpen] = useState(false);
   const { data: session, status } = useSession();
   const user = session?.user;
+const [cartCount, setCartCount] = useState<number>(0);
+const [wishlistCount, setWishlistCount] = useState<number>(0); // ✅ Added for wishlist
+const [loadingCounts, setLoadingCounts] = useState(true); // renamed for clarity
 
-    const [cartCount, setCartCount] = useState<number>(0); // Dedicated state for cart count
-  const [cartLoading, setCartLoading] = useState(true);
+useEffect(() => {
+  const fetchCounts = async () => {
+    if (!session) {
+      // ✅ Reset both counts if user not logged in
+      setCartCount(0);
+      setWishlistCount(0);
+      setLoadingCounts(false);
+      return;
+    }
 
-  // ✅ Fetch cart from API
-  useEffect(() => {
-    const fetchCart = async () => {
-      if (!session) {
-        setCartLoading(false);
-  
-        setCartCount(0); // Reset count when user not logged in
-        return;
-      }
+    try {
+      // Fetch both cart and wishlist in parallel
+      const [cart, wishlist] = await Promise.all([
+        getMyCart(),
+        getMyList(),
+      ]);
 
-      try {
-        const cart = await getMyCart();
-        setCartCount(cart ? cart.length : 0); // Set the cart count
-      } catch (error) {
-        console.error("Error fetching cart:", error);
-        toast.error("Failed to load cart. Please try again.");
-        setCartCount(0); // Reset count on error
-      } finally {
-        setCartLoading(false);
-      }
-    };
+      setCartCount(cart?.length || 0);
+      setWishlistCount(wishlist?.length || 0);
+    } catch (error) {
+      console.error("Error fetching counts:", error);
+      toast.error("Failed to load cart or wishlist. Please try again.");
+      setCartCount(0);
+      setWishlistCount(0);
+    } finally {
+      setLoadingCounts(false);
+    }
+  };
 
-    fetchCart();
-  }, [session]);
+  fetchCounts();
+}, [session]);
 
   // ✅ Fetch categories for mega menu
   useEffect(() => {
@@ -342,9 +350,14 @@ const Header: React.FC = () => {
                 </li>
 
                 {/* Wishlist */}
-                <li>
-                  <Link href="/wishlist" className="text-gray-700">
+                <li className="relative">
+                  <Link href="/wishlist" className="text-gray-700 relative">
                     <i className="fa-regular fa-heart"></i>
+                       {wishlistCount > 0 && (
+                      <span className="absolute -top-2 -right-3 bg-black text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
+                        {wishlistCount > 99 ? '99+' : wishlistCount}
+                      </span>
+                    )}
                   </Link>
                 </li>
 
