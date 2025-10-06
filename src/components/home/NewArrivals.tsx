@@ -10,7 +10,7 @@ import { VariantItem } from "@/app/(main)/product-list/page"; // ✅ import Vari
 interface DummyProduct {
   id: string;
   name: string;
-  offer?: string;
+  description?: string;
   price: string;
   img: string;
   img2: string;
@@ -21,7 +21,7 @@ const products: DummyProduct[] = [
   {
     id: "1",
     name: "EARRINGS, TRENDY DESIGNS",
-    offer: "30% OFF MAKING CHARGES",
+    description: "30% OFF MAKING CHARGES",
     price: "₹35853.00",
     img: "/assets/images/card-img01.png",
     img2: "/assets/images/catmod-01.jpg",
@@ -29,7 +29,7 @@ const products: DummyProduct[] = [
   {
     id: "2",
     name: "EARRINGS, TRENDY DESIGNS",
-    offer: "30% OFF MAKING CHARGES",
+    description: "30% OFF MAKING CHARGES",
     price: "₹35853.00",
     img: "/assets/images/card-img01.png",
     img2: "/assets/images/catmod-01.jpg",
@@ -37,7 +37,7 @@ const products: DummyProduct[] = [
   {
     id: "3",
     name: "EARRINGS, TRENDY DESIGNS",
-    offer: "30% OFF MAKING CHARGES",
+    description: "30% OFF MAKING CHARGES",
     price: "₹35853.00",
     img: "/assets/images/card-img01.png",
     img2: "/assets/images/catmod-01.jpg",
@@ -45,7 +45,7 @@ const products: DummyProduct[] = [
   {
     id: "4",
     name: "EARRINGS, TRENDY DESIGNS",
-    offer: "30% OFF MAKING CHARGES",
+    description: "30% OFF MAKING CHARGES",
     price: "₹35853.00",
     img: "/assets/images/card-img01.png",
     img2: "/assets/images/catmod-01.jpg",
@@ -53,7 +53,7 @@ const products: DummyProduct[] = [
   {
     id: "5",
     name: "EARRINGS, TRENDY DESIGNS",
-    offer: "30% OFF MAKING CHARGES",
+    description: "30% OFF MAKING CHARGES",
     price: "₹35853.00",
     img: "/assets/images/card-img01.png",
     img2: "/assets/images/catmod-01.jpg",
@@ -61,7 +61,7 @@ const products: DummyProduct[] = [
   {
     id: "6",
     name: "EARRINGS, TRENDY DESIGNS",
-    offer: "30% OFF MAKING CHARGES",
+    description: "30% OFF MAKING CHARGES",
     price: "₹35853.00",
     img: "/assets/images/card-img01.png",
     img2: "/assets/images/catmod-01.jpg",
@@ -100,7 +100,7 @@ export default function NewArrivals() {
               image={item.img}
               hoverImg={item.img2}
               name={item.name}
-              offer={item.offer}
+              description={item.description}
               price={item.price}
               // ✅ always pass an array so ProductCard never breaks
               variantItems={item.variantItems ?? []}

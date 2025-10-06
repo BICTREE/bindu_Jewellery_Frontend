@@ -100,7 +100,7 @@ export default function NewArrivals() {
               image={item.img}
               hoverImg={item.img2}
               name={item.name}
-              offer={item.offer}
+              description={item.offer}
               price={item.price}
                // ✅ always pass an array so ProductCard never breaks
               variantItems={item.variantItems ?? []}
