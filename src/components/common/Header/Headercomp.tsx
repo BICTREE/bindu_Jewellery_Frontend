@@ -5,6 +5,8 @@ import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 import MobileHeader from "./MobileHeader";
 import { getAllCategory } from "@/services/categoryService/categorySerice";
+import { getMyCart } from "@/services/cartService/cartService";
+import toast from "react-hot-toast";
 
 // Category type based on your API response
 type Category = {
@@ -130,6 +132,34 @@ const Header: React.FC = () => {
   const [cartOpen, setCartOpen] = useState(false);
   const { data: session, status } = useSession();
   const user = session?.user;
+
+    const [cartCount, setCartCount] = useState<number>(0); // Dedicated state for cart count
+  const [cartLoading, setCartLoading] = useState(true);
+
+  // ✅ Fetch cart from API
+  useEffect(() => {
+    const fetchCart = async () => {
+      if (!session) {
+        setCartLoading(false);
+  
+        setCartCount(0); // Reset count when user not logged in
+        return;
+      }
+
+      try {
+        const cart = await getMyCart();
+        setCartCount(cart ? cart.length : 0); // Set the cart count
+      } catch (error) {
+        console.error("Error fetching cart:", error);
+        toast.error("Failed to load cart. Please try again.");
+        setCartCount(0); // Reset count on error
+      } finally {
+        setCartLoading(false);
+      }
+    };
+
+    fetchCart();
+  }, [session]);
 
   // ✅ Fetch categories for mega menu
   useEffect(() => {
@@ -322,9 +352,11 @@ const Header: React.FC = () => {
                 <li className="relative">
                   <Link href="/cart" className="text-gray-700 relative">
                     <i className="fa-solid fa-cart-shopping text-xl"></i>
-                    <span className="absolute -top-2 -right-3 bg-black text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
-                      3
-                    </span>
+                   {cartCount > 0 && (
+                      <span className="absolute -top-2 -right-3 bg-black text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
+                        {cartCount > 99 ? '99+' : cartCount}
+                      </span>
+                    )}
                   </Link>
                 </li>
               </ul>
