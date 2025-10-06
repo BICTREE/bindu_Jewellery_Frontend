@@ -16,7 +16,7 @@ interface Product {
   description?: string;
   price: string | number;
   image: string;
-  hoverImg: string;
+  hoverImage: string;
   variantItems?: VariantItem[];
 }
 
@@ -48,13 +48,11 @@ export default function NewArrivals() {
         const formatted = latest10.map((p: ApiProduct) => ({
           _id: p._id,
           name: p.name,
-          description: p.description || "",
+          description:  p.description || "",
           price: p.price ? `₹${p.price}` : "₹0",
-           image: p.thumbnail?.location || "/assets/images/catmod-08.jpg",
-          hoverImg:
-            p.images?.[0]?.location ||
-            p.thumbnail?.location ||
-            "/assets/images/catmod-08.jpg",
+          image: p.thumbnail?.location || "/assets/images/card-img01.png",
+          hoverImage:p.images?.[0]?.location ||
+            p.thumbnail?.location || "/assets/images/catmod-01.jpg",
           variantItems: p.variantItems || [],
         }));
 
@@ -98,7 +96,7 @@ export default function NewArrivals() {
                 <ProductCard
                   id={item._id}
                   image={item.image}
-                  hoverImg={item.hoverImg}
+                  hoverImg={item.hoverImage}
                   name={item.name}
                   description={item.description}
                   price={item.price}
