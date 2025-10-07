@@ -50,9 +50,13 @@ export default function NewArrivals() {
           name: p.name,
           description:  p.description || "",
           price: p.price ? `₹${p.price}` : "₹0",
-          image: p.thumbnail?.location || "/assets/images/card-img01.png",
-          hoverImage:p.images?.[0]?.location ||
-            p.thumbnail?.location || "/assets/images/catmod-01.jpg",
+          image:
+          //  p.thumbnail?.location ||
+            "/assets/images/card-img01.png",
+          hoverImage:
+          // p.images?.[0]?.location ||
+          //   p.thumbnail?.location ||
+             "/assets/images/catmod-01.jpg",
           variantItems: p.variantItems || [],
         }));
 
@@ -88,7 +92,7 @@ export default function NewArrivals() {
         className="px-4"
       >
         {loading
-          ? Array.from({ length: 4 }).map((_, i) => (
+          ? Array.from({ length: 5 }).map((_, i) => (
               <SwiperSlide key={i} className="flex justify-center">
                 <ProductCardSkeleton />
               </SwiperSlide>
