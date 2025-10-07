@@ -5,14 +5,12 @@ const SubscribeNewsletter = () => {
   return (
  
 
-       <section className="bg-black mx-auto py-5 sm:py-8 md:py-12 my-6 sm:my-10 md:my-15">
+       <section className="bg-black mx-auto py-5 sm:py-8 md:py-12 ">
       <div className="container mx-auto text-center px-4">
         {/* Heading */}
-        <h2 className="text-2xl md:text-3xl font-bold text-white mb-6">
-         
-
-          Exclusive jewellery updates, crafted just for you — <br /> straight to your inbox.
-        </h2>
+    <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-white mb-6">
+  Exclusive jewellery updates, crafted just for you — <br /> straight to your inbox.
+</h2>
 
         {/* Email Form */}
       <form
