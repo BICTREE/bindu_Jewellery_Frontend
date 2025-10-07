@@ -5,10 +5,23 @@ import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 import MobileHeader from "./MobileHeader";
 import { getAllCategory } from "@/services/categoryService/categorySerice";
-import { getMyCart } from "@/services/cartService/cartService";
 import toast from "react-hot-toast";
-import { getMyList } from "@/services/wishlistService/wishlistService";
+import { useAppDispatch, useAppSelector } from "@/hooks/reduxHook";
+import { fetchUser } from "@/redux/store/wishlistSlice";
+import { fetchCart } from "@/redux/store/cartSlice";
 
+// Create a type for the global Redux dispatch methods
+type ReduxDispatchMethods = {
+  refreshCart: () => void;
+  refreshUser: () => void;
+};
+
+// Extend the Window interface to include our custom property
+declare global {
+  interface Window {
+    reduxDispatch?: ReduxDispatchMethods;
+  }
+}
 // Category type based on your API response
 type Category = {
   _id: string;
@@ -129,45 +142,58 @@ const Header: React.FC = () => {
   const menuRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLLIElement>(null);
   const navRef = useRef<HTMLUListElement>(null);
+  
   const [userOpen, setUserOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
+  
   const { data: session, status } = useSession();
-  const user = session?.user;
-const [cartCount, setCartCount] = useState<number>(0);
-const [wishlistCount, setWishlistCount] = useState<number>(0); // ✅ Added for wishlist
-const [loadingCounts, setLoadingCounts] = useState(true); // renamed for clarity
 
+  // ✅ Redux state
+  const dispatch = useAppDispatch();
+  const cart = useAppSelector((state) => state.cart);
+  const user = useAppSelector((state) => state.user);
+
+  // Calculate counts from Redux state
+  const cartCount = cart.count || 0;
+  const wishlistCount = user.wishlist?.length || 0;
+
+  console.log("Cart count from Redux:", cartCount);
+  console.log("Wishlist count from Redux:", wishlistCount);
+
+  // ✅ Fetch user data and cart when session changes
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (!session) {
+        // User is logged out - counts will be reset by redux
+        return;
+      }
+
+      try {
+        await Promise.all([
+          dispatch(fetchUser()), // This will fetch user with wishlist
+          dispatch(fetchCart())  // This will fetch cart count
+        ]);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        toast.error("Failed to load user data. Please try again.");
+      }
+    };
+
+    fetchUserData();
+  }, [session, dispatch]);
+
+// Then in your useEffect:
 useEffect(() => {
-  const fetchCounts = async () => {
-    if (!session) {
-      // ✅ Reset both counts if user not logged in
-      setCartCount(0);
-      setWishlistCount(0);
-      setLoadingCounts(false);
-      return;
-    }
-
-    try {
-      // Fetch both cart and wishlist in parallel
-      const [cart, wishlist] = await Promise.all([
-        getMyCart(),
-        getMyList(),
-      ]);
-
-      setCartCount(cart?.length || 0);
-      setWishlistCount(wishlist?.length || 0);
-    } catch (error) {
-      console.error("Error fetching counts:", error);
-      toast.error("Failed to load cart or wishlist. Please try again.");
-      setCartCount(0);
-      setWishlistCount(0);
-    } finally {
-      setLoadingCounts(false);
-    }
-  };
-
-  fetchCounts();
-}, [session]);
+  if (typeof window !== 'undefined') {
+    // Make these available globally for other components to use
+    window.reduxDispatch = {
+      // Cart actions
+      refreshCart: () => dispatch(fetchCart()),
+      // User/wishlist actions
+      refreshUser: () => dispatch(fetchUser()),
+    };
+  }
+}, [dispatch]);
 
   // ✅ Fetch categories for mega menu
   useEffect(() => {
@@ -303,7 +329,7 @@ useEffect(() => {
                   {userOpen && (
                     <div className="absolute left-0 top-[80px] mt-1 -translate-y-1/2 w-44 bg-white rounded-lg shadow-lg p-2 z-80">
                       <ul className="text-[16px]">
-                        {!user && (
+                        {!session?.user && (
                           <>
                             <li>
                               <Link
@@ -324,7 +350,7 @@ useEffect(() => {
                           </>
                         )}
 
-                        {user && (
+                        {session?.user && (
                           <>
                             <li>
                               <Link
@@ -353,7 +379,7 @@ useEffect(() => {
                 <li className="relative">
                   <Link href="/wishlist" className="text-gray-700 relative">
                     <i className="fa-regular fa-heart"></i>
-                       {wishlistCount > 0 && (
+                    {wishlistCount > 0 && (
                       <span className="absolute -top-2 -right-3 bg-black text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
                         {wishlistCount > 99 ? '99+' : wishlistCount}
                       </span>
@@ -365,7 +391,7 @@ useEffect(() => {
                 <li className="relative">
                   <Link href="/cart" className="text-gray-700 relative">
                     <i className="fa-solid fa-cart-shopping text-xl"></i>
-                   {cartCount > 0 && (
+                    {cartCount > 0 && (
                       <span className="absolute -top-2 -right-3 bg-black text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
                         {cartCount > 99 ? '99+' : cartCount}
                       </span>
@@ -517,8 +543,6 @@ useEffect(() => {
                           href="#"
                           className="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#d4b262] font-medium"
                         >
-
-                          
                           Akshaynidhi
                         </Link>
                       </li>
@@ -661,85 +685,6 @@ useEffect(() => {
                         ))}
                       </ul>
                     </div>
-
-                    {/* Column 4 - Other Categories */}
-                    {/* <div>
-                      <h4 className="font-bold text-[#d4b262] border-b border-amber-200 pb-2 mb-3 text-lg">
-                        MORE CATEGORIES
-                      </h4>
-                      <ul className="space-y-2">
-                        {otherParentCategories.slice(0, 6).map((parentCat) => (
-                          <li key={parentCat._id}>
-                            <Link
-                              href={`/collections?category=${parentCat._id}`}
-                              className="text-gray-700 hover:text-amber-600 block py-1 transition-colors duration-200 font-medium"
-                            >
-                              {parentCat.name}
-                              {parentCat.productIds && parentCat.productIds.length > 0 && (
-                                <span className="text-xs text-gray-400 ml-1">
-                                  ({parentCat.productIds.length})
-                                </span>
-                              )}
-                            </Link>
-                          
-                            <ul className="ml-3 mt-1 space-y-1">
-                              {childCategories
-                                .filter(childCat => childCat.parent?._id === parentCat._id)
-                                .slice(0, 2)
-                                .map((childCat) => (
-                                  <li key={childCat._id}>
-                                    <Link
-                                      href={`/collections?category=${childCat._id}`}
-                                      className="text-gray-600 hover:text-amber-500 block py-0.5 text-sm transition-colors duration-200"
-                                    >
-                                      {childCat.name}
-                                      {childCat.productIds && childCat.productIds.length > 0 && (
-                                        <span className="text-xs text-gray-400 ml-1">
-                                          ({childCat.productIds.length})
-                                        </span>
-                                      )}
-                                    </Link>
-                                  </li>
-                                ))}
-                            </ul>
-                          </li>
-                        ))}
-                      </ul>
-                    </div> */}
-
-                    {/* If there are more categories, show them in additional rows */}
-                    {/* {otherParentCategories.length > 6 && (
-                      <div className="col-span-full mt-6">
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 border-t pt-6">
-                          {otherParentCategories.slice(6).map((parentCat) => (
-                            <div key={parentCat._id} className="bg-white">
-                              <h4 className="font-bold text-[#d4b262] border-b border-amber-200 pb-2 mb-3 text-lg">
-                                {parentCat.name}
-                              </h4>
-                              <ul className="space-y-2">
-                                {childCategories
-                                  .filter(childCat => childCat.parent?._id === parentCat._id)
-                                  .map((childCat) => (
-                                    <li key={childCat._id}>
-                                      <Link
-                                        href={`/collections?category=${childCat._id}`}
-                                        className="text-gray-700 hover:text-amber-600 block py-1 transition-colors duration-200"
-                                      >
-                                        {childCat.name}
-                                        {childCat.productIds && childCat.productIds.length > 0 && (
-                                          <span className="text-xs text-gray-400 ml-1">
-                                            ({childCat.productIds.length})
-                                          </span>
-                                        )}
-                                      </Link>
-                                    </li>
-                                  ))}
-                              </ul>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )} */}
 
                     {/* Promotion Column */}
                     <div className="col-span-full lg:col-span-1 bg-[#d4b262] text-center text-black flex flex-col justify-center items-center">

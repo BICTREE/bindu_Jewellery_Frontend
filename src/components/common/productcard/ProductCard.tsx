@@ -9,6 +9,7 @@ import { RootState, AppDispatch } from "@/redux/store";
 import { fetchUser, toggleWishlist } from "@/redux/store/wishlistSlice";
 import { AddToCart } from "@/services/cartService/cartService";
 import { VariantItem } from "@/app/(main)/product-list/page";
+import { incrementCartCountIfNew } from "@/redux/store/cartSlice";
 
 
 // What we actually send to API
@@ -50,6 +51,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const { _id: userId, wishlist, loading } = useSelector(
     (state: RootState) => state.user
   );
+
 
   const inWishlist = wishlist.includes(id);
 
@@ -114,6 +116,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
     try {
       await AddToCart(cartItem);
+      // ✅ Update Redux store count immediately
+      dispatch(incrementCartCountIfNew({ productId: id }));
+
       toast.success("Added to cart!");
     } catch (err: unknown) {
       if (err instanceof Error) {
