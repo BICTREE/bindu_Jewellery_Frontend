@@ -11,9 +11,9 @@ const Footer = () => {
         
         {/* Logo + QR + Apps */}
         <div className="flex flex-col items-center md:items-center sm:items-end text-center md:text-left">
-          <img src="/assets/logo/brand-logo.png" alt="Bindu Jewellery" className="h-35 mb-3" />
+          <img src="/assets/images/footer-icon.png" alt="Bindu Jewellery" className=" mb-3" />
           <p className="text-sm mb-3">Download The App Now</p>
-          <img src="/assets/logo/qr-img.png" alt="QR Code" className="h-28 mb-3 w-[110px]" />
+          <img src="/assets/logo/qr-img.png" alt="QR Code" className="h-20 mb-3 " />
           <div className="flex gap-2">
             <img src="/assets/logo/apple-store.png" alt="App Store" className="h-10" />
             <img src="/assets/logo/playstore.png" alt="Google Play" className="h-10" />

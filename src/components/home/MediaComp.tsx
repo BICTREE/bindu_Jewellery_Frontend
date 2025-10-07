@@ -16,9 +16,9 @@ const products = [
 export default function MediaComp() {
   return (
     <section className="container ">
-<div className="mx-auto py-5 sm:py-8 md:py-12">
+<div className="mx-auto  pb-15">
 
-      <h2 className="text-2xl font-bold text-center mb-2">Media</h2>
+      <h2 className="font-prata text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-center">Media</h2>
     <p className="text-gray-500 text-center mb-4 sm:mb-6 md:mb-10">
   Prepare To Elevate Your Sense Of Style With Our Latest Collection!
 </p>
