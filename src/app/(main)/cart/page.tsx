@@ -7,6 +7,9 @@ import { getMyCart, UpdateCart, RemoveFromCart } from "@/services/cartService/ca
 import toast from "react-hot-toast";
 import { useSession } from "next-auth/react";
 import Loader from "@/components/loader/Loader";
+import { decrementCartCount } from "@/redux/store/cartSlice";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/redux/store";
 interface CartItem {
   _id: string;
   productId: string;
@@ -37,6 +40,8 @@ const CartPage = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState(true);
   const { data: session } = useSession();
+const dispatch = useDispatch<AppDispatch>();
+
   // 🔹 Fetch cart from API
   useEffect(() => {
     const fetchCart = async () => {
@@ -66,6 +71,7 @@ const CartPage = () => {
     try {
       const itemId = productId
       await RemoveFromCart({ itemId });
+      dispatch(decrementCartCount())
       setCartItems((prev) => prev.filter((item) => item._id !== productId));
       toast.success("Item removed from cart.");
     } catch (error) {

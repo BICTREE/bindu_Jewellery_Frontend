@@ -4,11 +4,14 @@ import Banner from "@/components/common/Banner/Banner";
 import TryOn from "@/components/common/TryOn";
 import JewelleryDetails from "@/components/jewellerydetails/JewelleryDetails";
 import MayLikethis from "@/components/maylikethis/MayLikethis";
+import { AppDispatch } from "@/redux/store";
+import { incrementCartCountIfNew } from "@/redux/store/cartSlice";
 import { AddToCart } from "@/services/cartService/cartService";
 import { GetProductById } from "@/services/productService/productService";
 import { useParams } from "next/navigation";
 import React, { useState, useRef, useEffect } from "react";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
 
 // 🔍 Zoom Lens Component
 const ProductImageWithLens = ({ src }: { src: string }) => {
@@ -226,6 +229,7 @@ const ProductPage = () => {
   const [selectedVariants, setSelectedVariants] = useState<Record<string, string>>({});
   const [showVariantWarning, setShowVariantWarning] = useState(false);
   const [tryOnOpen, setTryOnOpen] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     // Handle the slug which can be string or string[]
     const productId = Array.isArray(slug) ? slug[0] : slug;
@@ -375,6 +379,8 @@ const ProductPage = () => {
       console.log("🛒 Sending payload:", payload);
 
       const response = await AddToCart(payload);
+      // ✅ Update Redux store count immediately
+      dispatch(incrementCartCountIfNew({ productId: product._id }));
       toast.success("Product added to cart!");
       console.log("Cart response:", response);
     } catch (err) {
