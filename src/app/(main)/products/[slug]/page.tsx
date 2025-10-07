@@ -1,6 +1,7 @@
 "use client";
 
 import Banner from "@/components/common/Banner/Banner";
+import TryOn from "@/components/common/TryOn";
 import JewelleryDetails from "@/components/jewellerydetails/JewelleryDetails";
 import MayLikethis from "@/components/maylikethis/MayLikethis";
 import { AddToCart } from "@/services/cartService/cartService";
@@ -224,7 +225,7 @@ const ProductPage = () => {
   const [quantity, setQuantity] = useState(1);
   const [selectedVariants, setSelectedVariants] = useState<Record<string, string>>({});
   const [showVariantWarning, setShowVariantWarning] = useState(false);
-
+  const [tryOnOpen, setTryOnOpen] = useState(false);
   useEffect(() => {
     // Handle the slug which can be string or string[]
     const productId = Array.isArray(slug) ? slug[0] : slug;
@@ -346,40 +347,40 @@ const ProductPage = () => {
   };
 
   // Handle Add to Cart click
- const handleAddToCart = async () => {
-  if (Object.keys(groupedVariants).length > 0 && !hasAllRequiredVariants) {
-    setShowVariantWarning(true);
-    return;
-  }
+  const handleAddToCart = async () => {
+    if (Object.keys(groupedVariants).length > 0 && !hasAllRequiredVariants) {
+      setShowVariantWarning(true);
+      return;
+    }
 
-  try {
-    if (!product) return;
+    try {
+      if (!product) return;
 
-    // Build `specs` array from selected variants
-    const specs = Object.entries(selectedVariants).map(([variationName, optionId]) => {
-      const variationId = groupedVariants[variationName]?.variationId;
-      return {
-        variationId,
-        optionId,
+      // Build `specs` array from selected variants
+      const specs = Object.entries(selectedVariants).map(([variationName, optionId]) => {
+        const variationId = groupedVariants[variationName]?.variationId;
+        return {
+          variationId,
+          optionId,
+        };
+      });
+
+      const payload = {
+        productId: product._id,
+        quantity,
+        specs,
+        giftWrap: false, // or add UI toggle
       };
-    });
 
-    const payload = {
-      productId: product._id,
-      quantity,
-      specs,
-      giftWrap: false, // or add UI toggle
-    };
+      console.log("🛒 Sending payload:", payload);
 
-    console.log("🛒 Sending payload:", payload);
-
-    const response = await AddToCart(payload);
-    toast.success("Product added to cart!");
-    console.log("Cart response:", response);
-  } catch (err) {
-    toast.error("Failed to add product to cart");
-  }
-};
+      const response = await AddToCart(payload);
+      toast.success("Product added to cart!");
+      console.log("Cart response:", response);
+    } catch (err) {
+      toast.error("Failed to add product to cart");
+    }
+  };
 
   if (loading) return <div className="text-center py-20">Loading...</div>;
   if (!product) return <div className="text-center py-20">Product not found</div>;
@@ -551,7 +552,9 @@ const ProductPage = () => {
 
               {/* Action Buttons */}
               <div className="flex items-center gap-4 mb-6">
-                <button className="group border border-gray-300 rounded-full px-3 sm:px-4 py-2 hover:bg-[#d4b262] flex items-center gap-2 text-sm sm:text-base transition">
+                <button
+                  onClick={() => setTryOnOpen(true)}
+                  className="group border border-gray-300 rounded-full px-3 sm:px-4 py-2 hover:bg-[#d4b262] flex items-center gap-2 text-sm sm:text-base transition">
                   <i className="fa fa-camera text-[#d4b262] group-hover:text-white transition"></i>
                   <span className="text-[#d4b262] group-hover:text-white transition">
                     Try It On
@@ -610,6 +613,13 @@ const ProductPage = () => {
 
       <JewelleryDetails product={product} />
       <MayLikethis />
+      {tryOnOpen && (
+        <TryOn
+          productImage={selectedImage} // make sure it's a PNG with transparent background
+          onClose={() => setTryOnOpen(false)}
+
+        />
+      )}
     </>
   );
 };
