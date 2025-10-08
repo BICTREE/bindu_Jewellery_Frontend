@@ -15,8 +15,9 @@ interface Product {
   description?: string;
   price: string;
   image: string;
-  hoverImage: string;
+  hoverImg: string;
   variantItems?: VariantItem[];
+  
 }
 
 export default function NewArrivals() {
@@ -30,20 +31,17 @@ export default function NewArrivals() {
         console.log(allProducts, "darfa")
         const shuffled = allProducts.result.sort(() => 0.5 - Math.random());
         const randomTen = shuffled.slice(0, 10);
-
         const formatted = randomTen.map((p: ApiProduct) => ({
           _id: p._id,
           name: p.name,
           description: p.description || "",
           price: `₹${p.price}`,
-          image: p.thumbnail?.location || "/assets/images/catmod-08.jpg",
-          hoverImg:
-            p.images?.[0]?.location ||
-            p.thumbnail?.location ||
-            "/assets/images/catmod-08.jpg",
+          image:   p.images?.[0]?.location || "/assets/images/catmod-08.jpg",
+          hoverImg: p.thumbnail?.location ,
           variantItems: p.variantItems || [],
         }));
-
+        
+        console.log(formatted,"data")
         setProducts(formatted);
       } catch (err) {
         console.error("Failed to fetch products:", err);
@@ -84,7 +82,7 @@ export default function NewArrivals() {
               <ProductCard
                 id={item._id}
                 image={item.image}
-                hoverImg={item.hoverImage}
+                hoverImg={item.hoverImg}
                 name={item.name}
                 description={item.description}
                 price={item.price}
