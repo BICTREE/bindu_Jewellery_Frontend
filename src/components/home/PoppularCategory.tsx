@@ -47,7 +47,9 @@ export default function PopularCategory() {
         const formatted: Category[] = childCategories.map((cat) => ({
           _id: cat._id,
           name: cat.name,
-          image: cat.hoverImage || "/assets/images/card-img01.png",
+          image: cat.hoverImage  ||
+          // cat.image?.location || 
+          "/assets/images/card-img01.png",
           hoverImage: cat.hoverImage || "/assets/images/catmod-01.jpg",
         }));
 
