@@ -44,5 +44,8 @@ export const AddToCartApi = '/users/carts/add';
 export const RemoveCartApi = '/users/carts/remove';
 export const UpdateCartApi = '/users/carts/update';
 
+// Media
+
+export const GetMediaApi = '/media';
 
 
