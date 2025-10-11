@@ -193,6 +193,7 @@ type Product = {
   __v: number;
   stock: number;
   reviewCount?: number; // not in API but useful if you add reviews later
+  totalGoldPrice:number
 };
 
 // Type definitions for variant items
@@ -314,7 +315,7 @@ const ProductPage = () => {
 
   // Calculate final price with variant extra price
   const calculateFinalPrice = () => {
-    const basePrice = product?.price || 0;
+    const basePrice = product?.totalGoldPrice || 0;
     const makingCharges = product?.makingCharges || 0;
     const stonePrice = product?.stonePrice || 0;
     const gstPercentage = product?.gst || 0;
