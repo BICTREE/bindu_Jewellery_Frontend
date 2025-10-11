@@ -25,11 +25,8 @@ const SubscribeNewsletter = () => {
     placeholder="your email"
     className="w-full px-4 py-3 rounded-l-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500"
   />
- <button
-  type="submit"
-  className="bg-yellow-600 hover:bg-yellow-700 text-white font-semibold px-6 py-3 rounded-r-md whitespace-nowrap"
->
-  Subscribe Now
+ <button type="submit" className="bg-yellow-600 hover:bg-yellow-700 text-white font-semibold px-6 py-3 rounded-r-md whitespace-nowrap"
+> Subscribe Now
 </button>
 </form>
 

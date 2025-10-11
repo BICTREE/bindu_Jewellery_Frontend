@@ -36,8 +36,8 @@ const Footer = () => {
 
 
 
-            <li><a href="#" className="ftr-hober"></a></li>
-            <li><a href="#" className="ftr-hober">Terms & Conditions</a></li>
+        
+            <li><a href="/termsandconditions">Terms & Conditions</a></li>
           </ul>
         </div>
 

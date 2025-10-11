@@ -19,7 +19,7 @@ export default function OurStory() {
 
     </>
  
-    <section className=" pt-16 px-4 md:px-16 bg-white text-gray-800 ">
+    <section className=" py-16 px-4 md:px-16 bg-white text-gray-800 ">
       <div className="container mx-auto  ">
   <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch">
     {/* Image first on mobile */}
@@ -37,35 +37,30 @@ export default function OurStory() {
         </p>
 
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-900 mb-6 leading-snug">
-         Bindu Jewellery: A Legacy of Trust and Craftsmanship
+       Bindu Jewellery: A Legacy of Trust and Craftsmanship
         </h2>
 
         <p className="leading-relaxed mb-6 text-sm sm:text-base font-semibold text-gray-700 ">
-         Since 1981, Bindu Jewellery has been a name synonymous with purity,  quality, and trust. 
-         Founded by Mr. K.V. Kunhikannan, born in Pilicode  village near Nileshwaram, Kasaragod, 
-         the journey began with his passion  for goldsmithing and dedication to 
-         offering customers only the finest.
+       Since 1981, Bindu Jewellery has been more than a name—it is a symbol of purity, trust, and
+timeless elegance. Founded by Mr. K.V. Kunhikannan in Pilicode village near Nileshwaram,
+Kasaragod, Bindu Jewellery began with a dream: to craft jewellery that celebrates life’s precious
+moments with unparalleled quality and care.
         </p>
 
         <p className="font-normal  mb-4 text-sm sm:text-base text-gray-500 ">
-          What started as a small retail showroom on Court Road, Kasaragod, soon
-          grew into a trusted destination for jewellery lovers. By 1994, the
-          original 200 sq. ft. showroom was expanded into a spacious 1000 sq. ft.
-          store, a testament to the brand’s growing reputation.
+         From a modest 200 sq. ft. showroom on Court Road, the brand grew into a 1000 sq. ft. store
+by 1994, and later, a landmark 5000 sq. ft. showroom at Ashwini Nagar in 2006, reflecting the
+trust and loyalty of generations of customers
         </p>
 
         <p className="font-normal mb-4 text-sm sm:text-base text-gray-500 ">
-          Carrying forward their father’s vision, Mr. Abilash K.V. and Mr.
-          Ajithesh K.V. joined the family business. In 2006, Bindu Jewellery
-          marked a new milestone by opening a 5000 sq. ft. showroom at Ashwini
-          Nagar, Kasaragod, further strengthening its legacy.
+         Today, over 40 years later, Bindu Jewellery is a trusted family jeweller across Kerala and
+Karnataka, renowned for exceptional craftsmanship, fair pricing, and a promise that lasts a
+lifetime. Every piece tells a story—of tradition, artistry, and the bond between our family and
+yours.
         </p>
 
-        <p className="font-normal text-gray-500 mb-4 text-sm sm:text-base">
-          With decades of dedication, superior craftsmanship, and a commitment to
-          fair pricing, Bindu Jewellery has grown from humble beginnings into one
-          of the foremost jewellery brands in Kasaragod.
-        </p>
+     
 
  
       </div>

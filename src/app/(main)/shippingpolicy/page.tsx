@@ -17,61 +17,23 @@ export default function ShippingPolicy() {
 
           {/* Section 1 */}
           <section className="mb-6">
-              <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2">
-                  Processing Time
-              </h2>
-              <p className="text-gray-600 leading-relaxed">
-                  All orders are processed within <span className="font-bold">2–3 business days</span>.
-                  Orders are not shipped or delivered on weekends or holidays. If we are
-                  experiencing a high volume of orders, shipments may be delayed by a few days.
-                  Please allow additional days in transit for delivery.
-              </p>
+        <ul className="list-none p-0 m-0">
+      <li className="relative pl-6 mb-3 text-gray-700 leading-relaxed">
+        <span className="absolute left-0 top-2 w-2.5 h-2.5 bg-[#d4b262] rounded-full"></span>
+        Secure delivery to all locations with tracking available.
+      </li>
+      <li className="relative pl-6 mb-3 text-gray-700 leading-relaxed">
+        <span className="absolute left-0 top-2 w-2.5 h-2.5 bg-[#d4b262] rounded-full"></span>
+        Timelines vary based on location and product availability.
+      </li>
+      <li className="relative pl-6 mb-3 text-gray-700 leading-relaxed">
+        <span className="absolute left-0 top-2 w-2.5 h-2.5 bg-[#d4b262] rounded-full"></span>
+        Special arrangements available for high-value or bulk orders.
+      </li>
+    </ul>
           </section>
 
-          {/* Section 2 */}
-          <section className="mb-6">
-              <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2">
-                  Shipping Rates & Delivery Estimates
-              </h2>
-              <p className="text-gray-600 leading-relaxed">
-                  Shipping charges for your order will be calculated and displayed at checkout.
-                  Delivery estimates vary based on your location and selected shipping method.
-              </p>
-          </section>
-
-          {/* Section 3 */}
-          <section className="mb-6">
-              <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2">
-                  Shipment Confirmation & Tracking
-              </h2>
-              <p className="text-gray-600 leading-relaxed">
-                  You will receive a shipment confirmation email once your order has shipped
-                  containing your tracking number(s). The tracking number will be active within 24 hours.
-              </p>
-          </section>
-
-          {/* Section 4 */}
-          <section className="mb-6">
-              <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2">
-                  International Shipping
-              </h2>
-              <p className="text-gray-600 leading-relaxed">
-                  We currently ship to select international locations. Shipping fees and delivery
-                  times will vary depending on the destination country. Any customs duties, taxes,
-                  or import fees are the responsibility of the customer.
-              </p>
-          </section>
-
-          {/* Section 5 */}
-          <section>
-              <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2">
-                  Contact Us
-              </h2>
-              <p className="text-gray-600 leading-relaxed">
-                  If you have any questions regarding this Shipping Policy, please contact our
-                  support team at <a href="mailto:contact@bindujewellery.co.in" className="text-[#d4b262] hover:underline">contact@bindujewellery.co.in</a>.
-              </p>
-          </section>
+     
       </div></>
   );
 }
