@@ -19,6 +19,7 @@ type Product = {
   gst: number;
   color?: string;
   clarity?: string;
+  totalGoldPrice:number
 };
 
 type JewelleryTabsProps = {
@@ -30,7 +31,7 @@ export default function JewelleryTabs({ product }: JewelleryTabsProps) {
 
   // Calculate total price
   const calculateTotalPrice = () => {
-    const basePrice = product.price || 0;
+    const basePrice = product.totalGoldPrice || 0;
     const makingCharges = product.makingCharges || 0;
     const stonePrice = product.stonePrice || 0;
     const gstPercentage = product.gst || 0;
@@ -41,7 +42,7 @@ export default function JewelleryTabs({ product }: JewelleryTabsProps) {
   };
 
   const totalPrice = calculateTotalPrice();
-  const gstAmount = ((product.price + product.makingCharges + (product.stonePrice || 0)) * product.gst) / 100;
+  const gstAmount = ((product.totalGoldPrice + product.makingCharges + (product.stonePrice || 0)) * product.gst) / 100;
 
   // Format currency in Indian format
   const formatCurrency = (amount: number) => {
@@ -164,7 +165,7 @@ export default function JewelleryTabs({ product }: JewelleryTabsProps) {
                 <tbody>
                   <tr className="border-b">
                     <td className="py-2 pr-4 font-medium">Gold Price</td>
-                    <td className="py-2">₹ {formatCurrency(product.price)}</td>
+                    <td className="py-2">₹ {formatCurrency(product.totalGoldPrice)}</td>
                   </tr>
                   <tr className="border-b">
                     <td className="py-2 pr-4 font-medium">Making Charges</td>
