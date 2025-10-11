@@ -494,19 +494,19 @@ useEffect(() => {
                     <ul className="absolute left-0 bg-white shadow-lg rounded-md w-48 top-full py-2 z-50">
                       <li>
                         <Link
-                          href="#"
+                          href="/kisnadiamond"
                           className="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#d4b262] font-medium"
                         >
                           Kisna
                         </Link>
                       </li>
                       <li>
-                        <a
-                          href="#"
+                        <Link
+                          href="/mybluediamond#"
                           className="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#d4b262] font-medium"
                         >
                           My blue Diamond
-                        </a>
+                        </Link>
                       </li>
                     </ul>
                   )}
