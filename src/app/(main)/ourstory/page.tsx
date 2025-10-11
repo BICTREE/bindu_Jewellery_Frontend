@@ -37,20 +37,31 @@ export default function OurStory() {
         </p>
 
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-900 mb-6 leading-snug">
-       Bindu Jewellery: A Legacy of Trust and Craftsmanship
+       Bindu Jewellery – A Promise of Lifetime
         </h2>
-
+<h3 className="text-[22px] sm:text-sm md:text-base lg:text-lg text-[#d4b262] font-semibold">Celebrating 40 Years of Legacy, Trust, and Timeless Craftsmanship
+</h3>
         <p className="leading-relaxed mb-6 text-sm sm:text-base font-semibold text-gray-700 ">
-       Since 1981, Bindu Jewellery has been more than a name—it is a symbol of purity, trust, and
-timeless elegance. Founded by Mr. K.V. Kunhikannan in Pilicode village near Nileshwaram,
-Kasaragod, Bindu Jewellery began with a dream: to craft jewellery that celebrates life’s precious
-moments with unparalleled quality and care.
+      For over four decades, <b>Bindu Jewellery</b> has been more than a brand — it has
+       been an emotion, a symbol of purity, and a reflection of 
+       lifelong relationships built on trust. Established in 1981, 
+       Bindu has grown from a humble beginning into one of the most 
+       admired and respected jewellery houses in Southern India. Every
+        ornament crafted at Bindu carries not just beauty and brilliance, 
+        but a soul — a promise of timeless elegance and unwavering integrity.
+
         </p>
 
         <p className="font-normal  mb-4 text-sm sm:text-base text-gray-500 ">
-         From a modest 200 sq. ft. showroom on Court Road, the brand grew into a 1000 sq. ft. store
-by 1994, and later, a landmark 5000 sq. ft. showroom at Ashwini Nagar in 2006, reflecting the
-trust and loyalty of generations of customers
+      Across generations, families have celebrated their most special 
+      moments with Bindu Jewellery — weddings, anniversaries, festivals, 
+      and milestones. What began as a small family venture has evolved into 
+      a heritage brand known for <b>quality, transparency, 
+      and craftsmanship.</b> Even today, every Bindu creation is
+       made with the same passion and sincerity that marked 
+       our very first piece of jewellery — because for us, every
+       design is more than gold and stones; it’s a <b>promise of lifetime.</b>
+
         </p>
 
         <p className="font-normal mb-4 text-sm sm:text-base text-gray-500 ">

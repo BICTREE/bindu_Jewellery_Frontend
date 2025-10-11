@@ -106,8 +106,8 @@ export default function MobileHeader() {
     {
       label: "DIAMOND",
       children: [
-        { label: "Kisna", href: "/diamond/kisna" },
-        { label: "My blue Diamond", href: "/diamond/my-blue-diamond" },
+        { label: "Kisna", href: "/kisnadiamond" },
+        { label: "My blue Diamond", href: "/mybluediamond" },
       ],
     },
     { label: "CSR", href: "/csr" },
