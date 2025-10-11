@@ -10,18 +10,26 @@ type FAQItem = {
 
 const faqs: FAQItem[] = [
   {
-    question: "What is the basher vera?",
+    question: "Are all products hallmarked?",
     answer:
-      "If your control element is targeting a single collapsible element – i.e. the data-target attribute is pointing to an id selector – you should add the aria-controls attribute to the control element, containing the id of the collapsible element. Modern screen readers and similar assistive technologies make use of this attribute to provide users with additional shortcuts to navigate directly to the collapsible element itself.",
+      "Yes, all gold jewellery is BIS Hallmarked for guaranteed purity",
   },
   {
-    question: "What is the potar vera?",
-    answer: "This is the answer for the potar vera question.",
+    question: "Can I exchange jewellery?",
+    answer: "Jewellery can be exchanged within 4 days without deductions. Customized orders are non-returnable ",
   },
   {
-    question: "How pota work?",
-    answer: "This is the answer for how pota works.",
+    question: "What schemes do you offer?",
+    answer: "We provide Akshaya Nidhi and Swarna Bindu, designed for flexible gold investment and ownership.",
   },
+
+  {
+    question: "How can I shop online?",
+    answer: "Visit our online store to explore KISNA & My Blue Diamonds and place secure orders",
+  },
+
+
+
 ];
 
 export default function FAQPage() {

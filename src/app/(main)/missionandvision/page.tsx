@@ -20,7 +20,7 @@ export default function MissionVision() {
       Our Mission And Vision
     </p>
     <h2 className="text-2xl md:text-3xl font-bold mt-2">
-      Bindu Jewellery: A Legacy Of Trust And Craftsmanship
+     Our Motto: “A Promise of a Lifetime.
     </h2>
   </div>
 
@@ -38,21 +38,12 @@ export default function MissionVision() {
     <div>
       <h3 className="text-lg md:text-xl font-semibold mb-4">Our Mission</h3>
       <p className="text-gray-600 leading-relaxed mb-4 text-sm md:text-base">
-        At Bindu Jewellery, our mission is to craft and offer a wide range of exquisite
-        gold, diamond, birthstone, and silver pieces that beautifully blend traditional
-        artistry with modern design. We are dedicated to making every customer’s
-        experience memorable through personalized service and meaningful creations for
-        life’s special moments. Rooted in the legacy of trust since 1981, we continue
-        to uphold the values of quality, integrity, and craftsmanship in everything we do.
+       At Bindu Jewellery, we are committed to creating exquisite gold, diamond, birthstone, and
+silver pieces that beautifully blend traditional artistry with contemporary design. Our mission is
+to make every customer experience extraordinary through personalized service, meaningful
+creations, and lifelong memories.
       </p>
-      <p className="text-gray-600 leading-relaxed text-sm md:text-base">
-        At Bindu Jewellery, our mission is to craft and offer a wide range of exquisite
-        gold, diamond, birthstone, and silver pieces that beautifully blend traditional
-        artistry with modern design. We are dedicated to making every customer’s
-        experience memorable through personalized service and meaningful creations for
-        life’s special moments. Rooted in the legacy of trust since 1981, we continue
-        to uphold the values of quality, integrity, and craftsmanship in everything we do.
-      </p>
+
     </div>
   </div>
 
@@ -71,21 +62,12 @@ export default function MissionVision() {
   <div className="order-2 md:order-1">
     <h3 className="text-lg md:text-xl font-semibold mb-4">Our Vision</h3>
     <p className="text-gray-600 leading-relaxed mb-4 text-sm md:text-base">
-      At Bindu Jewellery, our vision is to craft and offer a wide range of exquisite
-      gold, diamond, birthstone, and silver pieces that beautifully blend traditional
-      artistry with modern design. We are dedicated to making every customer’s
-      experience memorable through personalized service and meaningful creations for
-      life’s special moments. Rooted in the legacy of trust since 1981, we continue
-      to uphold the values of quality, integrity, and craftsmanship in everything we do.
+    To emerge as the most trusted family jeweller of Southern India, expanding our presence
+while preserving the essence of traditional craftsmanship. We aim to stay deeply connected to
+the community through celebrations, CSR initiatives, and lasting relationships, making
+jewellery an experience, not just an ornament.
     </p>
-    <p className="text-gray-600 leading-relaxed text-sm md:text-base">
-      At Bindu Jewellery, our vision is to craft and offer a wide range of exquisite
-      gold, diamond, birthstone, and silver pieces that beautifully blend traditional
-      artistry with modern design. We are dedicated to making every customer’s
-      experience memorable through personalized service and meaningful creations for
-      life’s special moments. Rooted in the legacy of trust since 1981, we continue
-      to uphold the values of quality, integrity, and craftsmanship in everything we do.
-    </p>
+   
   </div>
 </div>
 
