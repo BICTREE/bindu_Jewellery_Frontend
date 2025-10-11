@@ -520,7 +520,7 @@ useEffect(() => {
 
                 <li className="liclass">
                   <Link
-                    href="#"
+                    href="/csr"
                     className="text-gray-800 hover:text-[#d4b262] font-semibold block py-2 px-4"
                   >
                     CSR
@@ -540,7 +540,7 @@ useEffect(() => {
                     <ul className="absolute left-0 top-full bg-white shadow-lg rounded-md w-48 py-2 z-50">
                       <li>
                         <Link
-                          href="#"
+                          href="/akshayanidhi"
                           className="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#d4b262] font-medium"
                         >
                           Akshaynidhi

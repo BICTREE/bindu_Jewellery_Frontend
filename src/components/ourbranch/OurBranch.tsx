@@ -3,9 +3,9 @@
 import React from "react";
 
 const branches = [
-  { name: "Kasaragod", img: "/assets/images/branch_pic.png" },
-  { name: "Sullia", img: "/assets/images/branch_pic.png" },
-  { name: "Mangalore", img: "/assets/images/branch_pic.png" },
+  { name: "Kasaragod", img: "/assets/images/kasarkode-branch.png" },
+  { name: "Sullia", img: "/assets/images/Sullia_branch.png" },
+  { name: "Mangalore", img: "/assets/images/mangalore_branch.png" },
 ];
 
 export default function BranchesSection() {

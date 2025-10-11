@@ -4,7 +4,7 @@ import React from "react";
 
 export default function ExperienceSection() {
   return (
-    <section className="bg-black text-white">
+    <section className="bg-black text-white ">
       <div className="grid grid-cols-1 md:grid-cols-2">
         {/* Left Content - Centered Vertically */}
         <div className="flex items-center px-6 md:px-16 py-12 md:py-0">

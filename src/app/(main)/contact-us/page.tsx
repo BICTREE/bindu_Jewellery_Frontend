@@ -186,19 +186,28 @@ const Page = () => {
           {/* Address Section */}
           <div className="lg:col-span-1 space-y-8">
             <div>
-              <h3 className="font-bold text-lg text-gray-900">Kerala</h3>
+              <h3 className="font-bold text-lg text-gray-900">Kasaragod</h3>
               <p className="text-gray-700">Bindu Jewellery</p>
-              <p className="text-gray-700">NH - 17, Ashwini Nagar, Kasaragod</p>
+              <p className="text-gray-700">NH-17, Ashwini Nagar. Call: 9847020400</p>
               <p className="text-gray-700 mt-2">04994256888</p>
-              <p className="text-gray-700">Contact@Bindujewellery.Co</p>
+              <p className="text-gray-700"> bindujewellery916@gmail.com</p>
             </div>
             <div>
-              <h3 className="font-bold text-lg text-gray-900">Karnataka</h3>
+              <h3 className="font-bold text-lg text-gray-900">Sullia</h3>
               <p className="text-gray-700">Bindu Jewellery</p>
-              <p className="text-gray-700">NH - 17, Ashwini Nagar, Kasaragod</p>
+              <p className="text-gray-700">Opposite Police Station, Sullia-574239</p>
               <p className="text-gray-700 mt-2">04994256888</p>
-              <p className="text-gray-700">Contact@Bindujewellery.Co</p>
+              <p className="text-gray-700"> bindujewellerymangalore@gmail.com</p>
             </div>
+
+  <div>
+              <h3 className="font-bold text-lg text-gray-900">Mangaluru </h3>
+              <p className="text-gray-700">Bindu Jewellery</p>
+              <p className="text-gray-700"> Near SCS Hospital, Bendoor</p>
+              <p className="text-gray-700 mt-2">04994256888</p>
+              <p className="text-gray-700"> bindujewellerymangalore@gmail.com</p>
+            </div>
+
           </div>
 
           {/* Branch Images */}
