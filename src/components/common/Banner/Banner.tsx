@@ -5,13 +5,13 @@ type BannerProps = {
   Title: string;
 };
 
-const Banner :React.FC<BannerProps> = ({Title}) => {
+const Banner: React.FC<BannerProps> = ({ Title }) => {
   return (
     <section className="relative w-full">
       {/* Background image */}
       <img
         src="/assets/images/collections-banner.png"
-        alt="Gold Collections"
+        alt={Title}
         className="w-full h-[115px] sm:h-[250px] md:h-[320px] lg:h-[280px] object-cover"
       />
 
@@ -28,15 +28,10 @@ const Banner :React.FC<BannerProps> = ({Title}) => {
           >
             Home
           </a>{" "}
+         
+      
           /{" "}
-          <a
-            href="#"
-            className="hover:underline hover:text-yellow-400 transition-colors"
-          >
-            Jewellery
-          </a>{" "}
-          /{" "}
-          <span className="text-gray-200">Gold Collections</span>
+          <span className="text-gray-200">{Title}</span>
         </div>
 
         {/* Title - middle left */}
@@ -47,9 +42,7 @@ const Banner :React.FC<BannerProps> = ({Title}) => {
         </div>
 
         {/* (Optional) Bottom placeholder */}
-        <div className="text-white text-sm"> {/* you can remove this div if not needed */}
-          {/* Example bottom text or button */}
-        </div>
+        <div className="text-white text-sm"> {/* you can remove this div if not needed */}</div>
       </div>
     </section>
   );

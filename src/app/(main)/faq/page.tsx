@@ -41,7 +41,8 @@ export default function FAQPage() {
 
   return (
   
-      <><Banner
+      <>
+      <Banner
           Title="FAQ" />
           
           <main className=" container min-h-screen py-12 px-4">

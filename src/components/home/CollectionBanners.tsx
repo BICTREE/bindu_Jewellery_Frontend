@@ -8,7 +8,7 @@ const CollectionBanners = () => {
           
           {/* Classic Diamond Collection */}
           <a
-            href="/classic-diamond"
+            href="/mybluediamond"
             className="relative group block overflow-hidden"
           >
             <img
@@ -18,17 +18,17 @@ const CollectionBanners = () => {
             />
             <div className="absolute inset-0 bg-black/40 flex flex-col justify-center items-start p-6">
               <h3 className="text-white text-2xl font-semibold mb-4">
-                CLASSIC DIAMOND <br /> COLLECTION
+               MY BLUE  DIAMOND <br /> COLLECTION
               </h3>
-              <span className="inline-block border border-white px-4 py-2 text-white text-sm font-medium hover:bg-white hover:text-black transition">
-                Shop Now
-              </span>
+              <li className="inline-block border border-white px-4 py-2 text-white text-sm font-medium hover:bg-white hover:text-black transition">
+               View More
+              </li>
             </div>
           </a>
 
           {/* Gemstones Collection */}
           <a
-            href="/gemstones"
+            href="/kisnadiamond"
             className="relative group block overflow-hidden"
           >
             <img
@@ -38,10 +38,10 @@ const CollectionBanners = () => {
             />
             <div className="absolute inset-0 bg-black/40 flex flex-col justify-center items-start p-6">
               <h3 className="text-white text-2xl font-semibold mb-4">
-                GEMSTONES <br /> COLLECTION
+               KISNA DIAMOND <br /> COLLECTION
               </h3>
               <span className="inline-block border border-white px-4 py-2 text-white text-sm font-medium hover:bg-white hover:text-black transition">
-                Shop Now
+               View More
               </span>
             </div>
           </a>

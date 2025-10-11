@@ -38,11 +38,24 @@ export default function MissionVision() {
     <div>
       <h3 className="text-lg md:text-xl font-semibold mb-4">Our Mission</h3>
       <p className="text-gray-600 leading-relaxed mb-4 text-sm md:text-base">
-       At Bindu Jewellery, we are committed to creating exquisite gold, diamond, birthstone, and
-silver pieces that beautifully blend traditional artistry with contemporary design. Our mission is
-to make every customer experience extraordinary through personalized service, meaningful
-creations, and lifelong memories.
-      </p>
+     At Bindu Jewellery, our mission is to create jewellery 
+     that goes beyond aesthetics — pieces that carry emotion, 
+     meaning, and memories. Each creation we design is a tribute to 
+     the artistry of our ancestors and the evolving tastes of today’s 
+     generation. We believe that jewellery should not only enhance one’s 
+     beauty but also tell a story — a story of family, tradition, and love. 
+     Through our collections in gold, diamonds, silver, and birthstones, 
+     we strive to bring together the authentic charm of heritage and the 
+     innovation of modern craftsmanship.
+</p>
+<p>We are dedicated to building an experience rooted in trust, 
+  transparency, and heartfelt connection. From the purity of every
+   metal to the intricacy of every design, our mission is to uphold 
+   the highest standards of quality and ethics. Each Bindu customer 
+   is treated as family — valued, respected, and cared for with warmth. 
+   Because when you choose Bindu, you are not just purchasing 
+   jewellery; you are becoming part of a 40-year legacy of honesty and craftsmanship.
+</p>
 
     </div>
   </div>
@@ -62,11 +75,20 @@ creations, and lifelong memories.
   <div className="order-2 md:order-1">
     <h3 className="text-lg md:text-xl font-semibold mb-4">Our Vision</h3>
     <p className="text-gray-600 leading-relaxed mb-4 text-sm md:text-base">
-    To emerge as the most trusted family jeweller of Southern India, expanding our presence
-while preserving the essence of traditional craftsmanship. We aim to stay deeply connected to
-the community through celebrations, CSR initiatives, and lasting relationships, making
-jewellery an experience, not just an ornament.
+   Bindu Jewellery envisions becoming Southern India’s most trusted 
+   family jeweller, known for both its traditional excellence and 
+   innovative spirit. We aspire to preserve our timeless artistry 
+   while expanding our reach — building meaningful relationships 
+   with customers, empowering local artisans, and continuously 
+   raising the bar in purity and design.
     </p>
+
+    <p>Our vision extends beyond commerce — we see jewellery as a bridge between 
+      generations, a keepsake that carries emotions and blessings. 
+      As we step into the future, we aim to blend classic craftsmanship with 
+      contemporary elegance, creating pieces that inspire pride and confidence. 
+      Bindu Jewellery will continue to shine as a beacon of trust, elegance, 
+      and Indian heritage — forever keeping alive the golden spirit that began in 1981.</p>
    
   </div>
 </div>
