@@ -14,12 +14,12 @@ const SplOfferbanner = () => {
     {/* Overlay content */}
     <div className="absolute bottom-4 sm:bottom-6 md:bottom-12 left-1/2 transform -translate-x-1/2 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 px-2 sm:px-4">
       {/* Shop Now button */}
-      <a
+      {/* <a
         href="#"
         className="inline-block bg-white text-black px-4 py-2 sm:px-5 sm:py-3 md:px-6 md:py-3 font-medium rounded shadow hover:bg-[#d4b262] hover:text-white transition"
       >
         Shop Now
-      </a>
+      </a> */}
     </div>
   </div>
 </section>
