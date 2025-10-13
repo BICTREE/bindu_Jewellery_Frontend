@@ -3,7 +3,7 @@ import FreeshipingComp from "@/components/home/FreeshipingComp";
 import Image from "next/image";
 import CollectionBanners from "@/components/home/CollectionBanners";
 import NewArrivals from "@/components/home/NewArrivals";
-import QrBanner from "@/components/common/qrbanner/QrBanner";
+// import QrBanner from "@/components/common/qrbanner/QrBanner";
 import SplOfferbanner from "@/components/common/offerbanner/SplOfferbanner";
 import PoppularCategory from "@/components/home/PoppularCategory";
 import SubscribeNewsletter from "@/components/home/SubscribeNewsletter";
@@ -18,7 +18,7 @@ export default function Home() {
      <FreeshipingComp/>
      <CollectionBanners/>
      <NewArrivals/>
-     <QrBanner/>
+     {/* <QrBanner/> */}
      <SplOfferbanner/>
      <PoppularCategory/>
      <SubscribeNewsletter/>

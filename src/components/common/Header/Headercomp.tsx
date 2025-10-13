@@ -548,7 +548,7 @@ useEffect(() => {
                       </li>
                       <li>
                         <Link
-                          href="#"
+                          href="/swarnabindu"
                           className="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#d4b262] font-medium"
                         >
                           Swarna Bindu
