@@ -4,7 +4,7 @@ import React, { useState } from "react";
 const Hero = () => {
   const slides = [
     {
-      img: "/assets/images/hero.jpg",
+      img: "/assets/images/hero2.jpg",
       mobileImg: "/assets/images/mob-hero01.png",
       title: "First slide label",
     },
