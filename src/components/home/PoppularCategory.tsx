@@ -100,7 +100,7 @@ export default function PopularCategory() {
             {/* Custom Arrows */}
             <button
               ref={prevRef}
-              className="w-8 h-8 absolute top-1/2 -left-6 -translate-y-1/2 flex items-center justify-center border border-gray-300 text-black rounded-full bg-white hover:bg-[#d4b262] hover:text-white transition-colors z-10"
+              className="w-8 h-8 absolute top-1/2 left-0 -translate-y-1/2 flex items-center justify-center border border-gray-300 text-black rounded-full bg-white hover:bg-[#d4b262] hover:text-white transition-colors z-10"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -120,7 +120,7 @@ export default function PopularCategory() {
 
             <button
               ref={nextRef}
-              className="w-8 h-8 absolute top-1/2 -right-6 -translate-y-1/2 flex items-center justify-center border border-gray-300 text-black rounded-full bg-white hover:bg-[#d4b262] hover:text-white transition-colors z-10"
+              className="w-8 h-8 absolute top-1/2 right-0 -translate-y-1/2 flex items-center justify-center border border-gray-300 text-black rounded-full bg-white hover:bg-[#d4b262] hover:text-white transition-colors z-10"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
