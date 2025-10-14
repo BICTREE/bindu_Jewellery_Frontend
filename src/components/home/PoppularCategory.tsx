@@ -15,7 +15,10 @@ interface CategoryApi {
     location?: string;
     name?: string;
   };
-  hoverImage?: string;
+  hoverImage?: {
+    location?: string;
+    name?: string;
+  };
   parent?: {
     _id: string | null;
     name?: string;
@@ -47,10 +50,8 @@ export default function PopularCategory() {
         const formatted: Category[] = childCategories.map((cat) => ({
           _id: cat._id,
           name: cat.name,
-          image: cat.hoverImage  ||
-          // cat.image?.location || 
-          "/assets/images/card-img01.png",
-          hoverImage: cat.hoverImage || "/assets/images/catmod-01.jpg",
+          image: cat.image?.location  || "/assets/images/No_image_available.svg.png",
+          hoverImage: cat.hoverImage?.location ||  "/assets/images/No_image_available.svg.png",
         }));
 
         setCategories(formatted);
