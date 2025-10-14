@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
+import type { Swiper as SwiperType } from "swiper"; // ✅ Import the Swiper type
 import "swiper/css";
 import "swiper/css/navigation";
 import PoppularCard from "../common/poppularcategory/PoppularCard";
@@ -38,7 +39,9 @@ export default function PopularCategory() {
 
   const prevRef = useRef<HTMLButtonElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
-  const [swiperInstance, setSwiperInstance] = useState<any>(null);
+
+  // ✅ Properly typed Swiper instance
+  const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -71,11 +74,13 @@ export default function PopularCategory() {
     fetchCategories();
   }, []);
 
-  // Attach refs to swiper navigation after mount
+  // ✅ Safe Swiper navigation setup
   useEffect(() => {
     if (swiperInstance && prevRef.current && nextRef.current) {
-      swiperInstance.params.navigation.prevEl = prevRef.current;
-      swiperInstance.params.navigation.nextEl = nextRef.current;
+      if (swiperInstance.params.navigation && typeof swiperInstance.params.navigation !== "boolean") {
+        swiperInstance.params.navigation.prevEl = prevRef.current;
+        swiperInstance.params.navigation.nextEl = nextRef.current;
+      }
       swiperInstance.navigation.init();
       swiperInstance.navigation.update();
     }
@@ -97,10 +102,10 @@ export default function PopularCategory() {
           <p className="text-center text-gray-500">No categories found.</p>
         ) : (
           <div className="relative">
-            {/* Custom Arrows */}
+            {/* Left Arrow */}
             <button
               ref={prevRef}
-              className="w-8 h-8 absolute top-1/2 left-0 -translate-y-1/2 flex items-center justify-center border border-gray-300 text-black rounded-full bg-white hover:bg-[#d4b262] hover:text-white transition-colors z-10"
+              className="w-8 h-8 absolute top-1/2 -left-6 -translate-y-1/2 flex items-center justify-center border border-gray-300 text-black rounded-full bg-white hover:bg-[#d4b262] hover:text-white transition-colors z-10"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -118,9 +123,10 @@ export default function PopularCategory() {
               </svg>
             </button>
 
+            {/* Right Arrow */}
             <button
               ref={nextRef}
-              className="w-8 h-8 absolute top-1/2 right-0 -translate-y-1/2 flex items-center justify-center border border-gray-300 text-black rounded-full bg-white hover:bg-[#d4b262] hover:text-white transition-colors z-10"
+              className="w-8 h-8 absolute top-1/2 -right-6 -translate-y-1/2 flex items-center justify-center border border-gray-300 text-black rounded-full bg-white hover:bg-[#d4b262] hover:text-white transition-colors z-10"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -145,7 +151,7 @@ export default function PopularCategory() {
               slidesPerView={5}
               breakpoints={{
                 320: { slidesPerView: 1, centeredSlides: true },
-                640: { slidesPerView: 2, centeredSlides: false },
+                640: { slidesPerView: 2 },
                 1024: { slidesPerView: 5 },
               }}
               onSwiper={(swiper) => setSwiperInstance(swiper)}
