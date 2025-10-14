@@ -1,9 +1,9 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import { Navigation } from "swiper/modules";
 import PoppularCard from "../common/poppularcategory/PoppularCard";
 import { getAllCategory } from "@/services/categoryService/categorySerice";
 
@@ -11,15 +11,9 @@ interface CategoryApi {
   _id: string;
   name: string;
   description?: string;
-  image?: {
-    location?: string;
-    name?: string;
-  };
+  image?: { location?: string; name?: string };
   hoverImage?: string;
-  parent?: {
-    _id: string | null;
-    name?: string;
-  } | null;
+  parent?: { _id: string | null; name?: string } | null;
 }
 
 interface Category {
@@ -33,13 +27,16 @@ export default function PopularCategory() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const prevRef = useRef<HTMLButtonElement>(null);
+  const nextRef = useRef<HTMLButtonElement>(null);
+  const [swiperInstance, setSwiperInstance] = useState<any>(null);
+
   useEffect(() => {
     const fetchCategories = async () => {
       try {
         const res = await getAllCategory();
         const allCategories: CategoryApi[] = res || [];
 
-        // ✅ Filter only child categories (those with parent._id)
         const childCategories = allCategories
           .filter((cat) => cat.parent && cat.parent._id)
           .slice(0, 10);
@@ -47,9 +44,7 @@ export default function PopularCategory() {
         const formatted: Category[] = childCategories.map((cat) => ({
           _id: cat._id,
           name: cat.name,
-          image: cat.hoverImage  ||
-          // cat.image?.location || 
-          "/assets/images/card-img01.png",
+          image: cat.hoverImage || "/assets/images/card-img01.png",
           hoverImage: cat.hoverImage || "/assets/images/catmod-01.jpg",
         }));
 
@@ -64,9 +59,19 @@ export default function PopularCategory() {
     fetchCategories();
   }, []);
 
+  // Attach refs to swiper navigation after mount
+  useEffect(() => {
+    if (swiperInstance && prevRef.current && nextRef.current) {
+      swiperInstance.params.navigation.prevEl = prevRef.current;
+      swiperInstance.params.navigation.nextEl = nextRef.current;
+      swiperInstance.navigation.init();
+      swiperInstance.navigation.update();
+    }
+  }, [swiperInstance]);
+
   return (
-    <section className="container mx-auto">
-      <div className="mx-auto py-7 sm:py-8 md:py-13 lg:py-15">
+    <section className="container mx-auto relative">
+      <div className="mx-auto">
         <h2 className="font-prata text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-center">
           Popular Category
         </h2>
@@ -79,27 +84,66 @@ export default function PopularCategory() {
         ) : categories.length === 0 ? (
           <p className="text-center text-gray-500">No categories found.</p>
         ) : (
-          <Swiper
-            modules={[Navigation]}
-            spaceBetween={10}
-            slidesPerView={5}
-            breakpoints={{
-              320: { slidesPerView: 1, centeredSlides: true },
-              640: { slidesPerView: 2, centeredSlides: false },
-              1024: { slidesPerView: 5 },
-            }}
-          >
-            {categories.map((item) => (
-              <SwiperSlide key={item._id} className="flex justify-center">
-                <PoppularCard
-                  id = {item._id}
-                  name={item.name}
-                  image={item.image}
-                  hoverImg={item.hoverImage}
-                />
-              </SwiperSlide>
-            ))}
-          </Swiper>
+          <div className="relative">
+            {/* Custom Arrows */}
+          <button
+  ref={prevRef}
+  className="w-8 h-8 absolute top-1/2 -left-6 -translate-y-1/2 flex items-center justify-center border border-gray-300 text-black rounded-full bg-white hover:bg-[#d4b262] hover:text-white transition-colors z-10"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="w-5 h-5"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
+    <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+  </svg>
+</button>
+ 
+ 
+ <button
+  ref={nextRef}
+  className="w-8 h-8 absolute top-1/2 -right-6 -translate-y-1/2 flex items-center justify-center border border-gray-300 text-black rounded-full bg-white hover:bg-[#d4b262] hover:text-white transition-colors z-10"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="w-5 h-5"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
+    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+  </svg>
+</button>
+
+
+            {/* Swiper */}
+            <Swiper
+              modules={[Navigation]}
+              spaceBetween={10}
+              slidesPerView={5}
+              breakpoints={{
+                320: { slidesPerView: 1, centeredSlides: true },
+                640: { slidesPerView: 2, centeredSlides: false },
+                1024: { slidesPerView: 5 },
+              }}
+              onSwiper={(swiper) => setSwiperInstance(swiper)}
+            >
+              {categories.map((item) => (
+                <SwiperSlide key={item._id} className="flex justify-center">
+                  <PoppularCard
+                    id={item._id}
+                    name={item.name}
+                    image={item.image}
+                    hoverImg={item.hoverImage}
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
         )}
       </div>
     </section>
