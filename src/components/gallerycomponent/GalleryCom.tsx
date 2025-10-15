@@ -82,12 +82,12 @@ export default function GalleryCom() {
 
   const renderThumbnail = (item: Media, index: number) => {
     const thumbnailSrc = getThumbnailSource(item);
-    
+
     return (
       <div className="relative aspect-square overflow-hidden rounded-2xl bg-gradient-to-br from-amber-50/20 to-rose-50/10 group cursor-pointer transform transition-all duration-700 hover:scale-[1.02] hover:shadow-2xl border border-amber-200/30">
         {/* Shimmer effect */}
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-amber-50/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 z-10" />
-        
+
         {item.filetype === "image" && (
           <img
             src={thumbnailSrc}
@@ -98,7 +98,7 @@ export default function GalleryCom() {
             }}
           />
         )}
-        
+
         {(item.filetype === "video" || item.filetype === "youtube") && (
           <>
             <img
@@ -116,10 +116,10 @@ export default function GalleryCom() {
             </div>
           </>
         )}
-        
+
         {/* Gold overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-amber-900/60 via-amber-800/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
-        
+
         {/* Content overlay */}
         <div className="absolute bottom-1 left-0 right-0 p-6 z-20 transform translate-y-6 group-hover:translate-y-0 transition-transform duration-500">
           <h3 className="text-white font-bold text-lg mb-2 font-playfair">
@@ -193,18 +193,17 @@ export default function GalleryCom() {
 
       {/* Filter Buttons */}
       <div className="flex flex-wrap justify-center gap-4 mb-12">
-        {["all", "image", "video", "youtube"].map((type) => (
+        {(["all", "image", "video", "youtube"] as const).map((type) => (
           <button
             key={type}
             onClick={() => {
-              setFilter(type as any);
+              setFilter(type);
               setSelectedIndex(null);
             }}
-            className={`px-6 py-2.5 rounded-full text-sm font-semibold border transition-all duration-300 ${
-              filter === type
+            className={`px-6 py-2.5 rounded-full text-sm font-semibold border transition-all duration-300 ${filter === type
                 ? "bg-[#d4b262] text-white border-[#d4b262] shadow-md"
                 : "border-[#d4b262] text-[#2e2b1f] hover:bg-[#d4b262] hover:text-white"
-            }`}
+              }`}
           >
             {type === "youtube" ? "YouTube" : type[0].toUpperCase() + type.slice(1)}
           </button>
@@ -282,7 +281,7 @@ export default function GalleryCom() {
                 )}
               </div> */}
             </div>
-            
+
           </div>
         </div>
       )}
