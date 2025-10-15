@@ -9,7 +9,7 @@ export default function GalleryPage() {
   
     <main>
             <Banner
-      Title="Title"
+      Title="Our Media"
       />
       <GalleryCom />
     </main>

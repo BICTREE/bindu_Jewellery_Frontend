@@ -1,7 +1,7 @@
 "use client";
 import { GetAllMedia } from "@/services/mediaService/mediaService";
 import { useState, useEffect } from "react";
-
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 type MediaFile = {
   name: string;
@@ -13,8 +13,8 @@ type MediaFile = {
 type Media = {
   _id: string;
   filetype: "image" | "video" | "youtube";
-  file?: MediaFile; // For images and videos
-  youtubeLink?: string; // For YouTube videos
+  file?: MediaFile;
+  youtubeLink?: string;
   title: string;
   description: string;
   tags: string[];
@@ -30,7 +30,6 @@ export default function GalleryCom() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [filter, setFilter] = useState<"all" | "image" | "video" | "youtube">("all");
 
-  // Fetch media data
   useEffect(() => {
     const fetchMedia = async () => {
       try {
@@ -39,255 +38,189 @@ export default function GalleryCom() {
         setMediaItems(data || []);
       } catch (err) {
         setError("Failed to load media");
-        console.error("Error fetching media:", err);
       } finally {
         setLoading(false);
       }
     };
-
     fetchMedia();
   }, []);
 
-  // Extract YouTube ID from URL
   const getYouTubeId = (url: string): string => {
     const regex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
     const match = url.match(regex);
     return match ? match[1] : "";
   };
 
-  // Get media source based on filetype
   const getMediaSource = (item: Media): string => {
-    if (item.filetype === "youtube" && item.youtubeLink) {
-      return getYouTubeId(item.youtubeLink);
-    }
-    if ((item.filetype === "image" || item.filetype === "video") && item.file) {
-      return item.file.location;
-    }
+    if (item.filetype === "youtube" && item.youtubeLink) return getYouTubeId(item.youtubeLink);
+    if (item.file?.location) return item.file.location;
     return "";
   };
 
-  // Get thumbnail source based on filetype
   const getThumbnailSource = (item: Media): string => {
-    if (item.filetype === "youtube" && item.youtubeLink) {
+    if (item.filetype === "youtube" && item.youtubeLink)
       return `https://img.youtube.com/vi/${getYouTubeId(item.youtubeLink)}/0.jpg`;
-    }
-    if ((item.filetype === "image" || item.filetype === "video") && item.file) {
-      return item.file.location;
-    }
-    return "";
+    return item.file?.location || "";
   };
 
   const filteredItems =
-    filter === "all" 
-      ? mediaItems 
-      : mediaItems.filter((item) => item.filetype === filter);
-
+    filter === "all" ? mediaItems : mediaItems.filter((item) => item.filetype === filter);
   const selected = selectedIndex !== null ? filteredItems[selectedIndex] : null;
 
   const prevItem = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (selectedIndex !== null) {
+    if (selectedIndex !== null)
       setSelectedIndex((prev) => (prev! - 1 + filteredItems.length) % filteredItems.length);
-    }
   };
 
   const nextItem = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (selectedIndex !== null) {
+    if (selectedIndex !== null)
       setSelectedIndex((prev) => (prev! + 1) % filteredItems.length);
-    }
   };
 
-  // Render thumbnail based on filetype
+
   const renderThumbnail = (item: Media, index: number) => {
     const thumbnailSrc = getThumbnailSource(item);
     
-    switch (item.filetype) {
-      case "image":
-        return (
+    return (
+      <div className="relative aspect-square overflow-hidden rounded-2xl bg-gradient-to-br from-amber-50/20 to-rose-50/10 group cursor-pointer transform transition-all duration-700 hover:scale-[1.02] hover:shadow-2xl border border-amber-200/30">
+        {/* Shimmer effect */}
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-amber-50/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 z-10" />
+        
+        {item.filetype === "image" && (
           <img
             src={thumbnailSrc}
-            alt={item.title || `Image ${index + 1}`}
-            className="w-full h-48 object-cover transform group-hover:scale-110 transition duration-500"
+            alt={item.title || `Jewelry ${index + 1}`}
+            className="w-full h-full object-cover transform group-hover:scale-110 transition duration-1000 ease-out"
             onError={(e) => {
-              // Fallback for broken images
               e.currentTarget.src = "/assets/images/placeholder.jpg";
             }}
           />
-        );
-      
-      case "video":
-        return (
-          <div className="relative w-full h-48 overflow-hidden bg-gray-900">
-            {/* Video thumbnail with play icon */}
+        )}
+        
+        {(item.filetype === "video" || item.filetype === "youtube") && (
+          <>
             <img
               src={thumbnailSrc}
-              alt={item.title || `Video ${index + 1}`}
-              className="w-full h-full object-cover transform group-hover:scale-110 transition duration-500"
+              alt={item.title || `${item.filetype} ${index + 1}`}
+              className="w-full h-full object-cover transform group-hover:scale-110 transition duration-1000 ease-out"
               onError={(e) => {
-                // Fallback for broken video thumbnails
                 e.currentTarget.src = "/assets/images/video-placeholder.jpg";
               }}
             />
-            <div className="absolute inset-0 flex items-center justify-center text-white text-3xl pointer-events-none">
-              ▶
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-10 h-10 bg-gradient-to-br from-amber-400/90 to-rose-400/90 backdrop-blur-sm rounded-full flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-500 shadow-2xl">
+                <div className="w-0 h-0 border-l-[16px] border-l-white border-y-[10px] border-y-transparent ml-1" />
+              </div>
+            </div>
+          </>
+        )}
+        
+        {/* Gold overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-amber-900/60 via-amber-800/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
+        
+        {/* Content overlay */}
+        <div className="absolute bottom-1 left-0 right-0 p-6 z-20 transform translate-y-6 group-hover:translate-y-0 transition-transform duration-500">
+          <h3 className="text-white font-bold text-lg mb-2 font-playfair">
+            {item.title}
+          </h3>
+          <div className="flex items-center justify-between">
+            <span className="text-amber-200 text-sm bg-amber-900/40 backdrop-blur-sm px-3 py-1.5 rounded-full capitalize border border-amber-500/30">
+              {item.filetype}
+            </span>
+            <div className="flex items-center space-x-1 text-amber-200">
+              <span className="text-xs">View</span>
+              <div className="w-2 h-2 border-r-2 border-t-2 border-amber-200 rotate-45 transform group-hover:translate-x-1 transition-transform duration-300" />
             </div>
           </div>
-        );
-      
-      case "youtube":
-        return (
-          <div className="relative w-full h-48 overflow-hidden">
-            <img
-              src={thumbnailSrc}
-              alt={item.title || `YouTube Video ${index + 1}`}
-              className="w-full h-full object-cover transform group-hover:scale-110 transition duration-500"
-              onError={(e) => {
-                // Fallback for broken YouTube thumbnails
-                e.currentTarget.src = "/assets/images/video-placeholder.jpg";
-              }}
-            />
-            <div className="absolute inset-0 flex items-center justify-center text-white text-3xl pointer-events-none">
-              ▶
-            </div>
-          </div>
-        );
-      
-      default:
-        return (
-          <div className="w-full h-48 bg-gray-200 flex items-center justify-center">
-            <span className="text-gray-500">Unsupported media type</span>
-          </div>
-        );
-    }
+        </div>
+
+        {/* Corner accents */}
+        <div className="absolute top-3 left-3 w-6 h-6 border-t-2 border-l-2 border-amber-400/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className="absolute top-3 right-3 w-6 h-6 border-t-2 border-r-2 border-amber-400/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className="absolute bottom-3 left-3 w-6 h-6 border-b-2 border-l-2 border-amber-400/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className="absolute bottom-3 right-3 w-6 h-6 border-b-2 border-r-2 border-amber-400/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      </div>
+    );
   };
 
-  // Render lightbox content based on filetype
+
   const renderLightboxContent = (item: Media) => {
-    const mediaSrc = getMediaSource(item);
-    
+    const src = getMediaSource(item);
     switch (item.filetype) {
       case "image":
-        return (
-          <img
-            src={mediaSrc}
-            alt={item.title}
-            className="w-full h-auto max-h-[80vh] object-contain"
-            onError={(e) => {
-              e.currentTarget.src = "/assets/images/placeholder.jpg";
-            }}
-          />
-        );
-      
+        return <img src={src} alt={item.title} className="rounded-xl max-h-[80vh] mx-auto shadow-2xl" />;
       case "video":
         return (
-          <div className="w-full max-w-full aspect-video mx-auto">
-            <video
-              src={mediaSrc}
-              controls
-              autoPlay
-              className="w-full h-full rounded-xl shadow-lg"
-              onError={(e) => {
-                console.error("Error loading video:", mediaSrc);
-              }}
-            >
-              Your browser does not support the video tag.
-            </video>
-          </div>
+          <video
+            src={src}
+            controls
+            autoPlay
+            className="w-full max-h-[80vh] rounded-xl shadow-2xl"
+          ></video>
         );
-      
       case "youtube":
         return (
-          <div className="w-full max-w-full aspect-video mx-auto">
-            <iframe
-              src={`https://www.youtube.com/embed/${mediaSrc}?autoplay=1`}
-              title={item.title}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              className="w-full h-full rounded-xl shadow-lg"
-            ></iframe>
-          </div>
-        );
-      
-      default:
-        return (
-          <div className="w-full h-64 bg-gray-200 flex items-center justify-center rounded-xl">
-            <span className="text-gray-500">Unsupported media type</span>
-          </div>
+          <iframe
+            src={`https://www.youtube.com/embed/${src}?autoplay=1`}
+            title={item.title}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="w-full aspect-video rounded-xl shadow-2xl"
+          ></iframe>
         );
     }
   };
 
-  if (loading) {
+  if (loading)
     return (
-      <div className="py-10 px-4 md:px-10 lg:px-20">
-        <div className="flex justify-center items-center h-64">
-          <div className="text-lg text-gray-600">Loading gallery...</div>
-        </div>
+      <div className="py-20 text-center text-gray-500 text-lg animate-pulse">
+        Loading exquisite pieces...
       </div>
     );
-  }
 
-  if (error) {
+  if (error)
     return (
-      <div className="py-10 px-4 md:px-10 lg:px-20">
-        <div className="flex justify-center items-center h-64">
-          <div className="text-lg text-red-600">{error}</div>
-        </div>
-      </div>
+      <div className="py-20 text-center text-red-500 font-semibold">{error}</div>
     );
-  }
 
   return (
-    <div className="py-10 px-4 md:px-10 lg:px-20">
-      <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">
-        Our Media Gallery
-      </h2>
+    <section className="py-20 px-6 md:px-20 bg-gradient-to-b from-[#fff9f2] via-[#fff6ec] to-[#fff1e1]">
+      {/* <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-12 text-[#2e2b1f] tracking-wide">
+       Our <span className="text-[#d4b262]"> Media</span>
+      </h2> */}
 
       {/* Filter Buttons */}
-      <div className="flex justify-center gap-4 mb-8">
+      <div className="flex flex-wrap justify-center gap-4 mb-12">
         {["all", "image", "video", "youtube"].map((type) => (
           <button
             key={type}
-            className={`px-4 py-2 rounded-lg font-semibold ${
-              filter === type ? "bg-[#d4b262] text-white" : "bg-black text-white"
-            }`}
             onClick={() => {
-              setFilter(type as "all" | "image" | "video" | "youtube");
-              setSelectedIndex(null); // Reset selection when filter changes
+              setFilter(type as any);
+              setSelectedIndex(null);
             }}
+            className={`px-6 py-2.5 rounded-full text-sm font-semibold border transition-all duration-300 ${
+              filter === type
+                ? "bg-[#d4b262] text-white border-[#d4b262] shadow-md"
+                : "border-[#d4b262] text-[#2e2b1f] hover:bg-[#d4b262] hover:text-white"
+            }`}
           >
-            {type === "youtube" ? "YouTube" : type.charAt(0).toUpperCase() + type.slice(1)}
+            {type === "youtube" ? "YouTube" : type[0].toUpperCase() + type.slice(1)}
           </button>
         ))}
       </div>
 
-      {/* Grid Layout */}
+      {/* Gallery Grid */}
       {filteredItems.length === 0 ? (
-        <div className="text-center py-10 text-gray-500">
-          No media found for the selected filter.
+        <div className="text-center py-16 text-gray-500 text-lg">
+          No media found for this category.
         </div>
       ) : (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {filteredItems.map((item, i) => (
-            <div
-              key={item._id}
-              className="relative cursor-pointer group overflow-hidden rounded-2xl shadow-md"
-              onClick={() => setSelectedIndex(i)}
-            >
+            <div key={item._id} onClick={() => setSelectedIndex(i)}>
               {renderThumbnail(item, i)}
-              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-500 flex items-center justify-center text-white font-semibold">
-                View
-              </div>
-              {/* Title overlay */}
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-3">
-                <p className="text-white text-sm font-medium truncate">
-                  {item.title}
-                </p>
-                <p className="text-white text-xs opacity-90 capitalize">
-                  {item.filetype}
-                </p>
-              </div>
             </div>
           ))}
         </div>
@@ -296,63 +229,63 @@ export default function GalleryCom() {
       {/* Lightbox Modal */}
       {selected && (
         <div
-          className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 px-4"
+          className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-50 p-4 animate-fadeIn"
           onClick={() => setSelectedIndex(null)}
         >
-          <div className="relative w-full max-w-4xl">
-            {/* Previous Button */}
+          <div
+            className="relative max-w-5xl w-full mt-10  bg-gradient-to-b from-[#fff9f2]/95 to-[#fff3e1]/95 rounded-3xl p-3 shadow-[0_8px_40px_rgba(0,0,0,0.3)] border border-[#d4b262]/20"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button */}
             <button
-              onClick={(e) => prevItem(e)}
-              className="absolute left-0 top-1/2 -translate-y-1/2 px-4 py-2 bg-gray-800/50 text-white rounded-l-lg hover:bg-gray-800 z-10"
+              onClick={() => setSelectedIndex(null)}
+              className="absolute top-1 right-1 bg-[#d4b262] hover:bg-[#c5a44e] text-white p-2 rounded-full transition"
             >
-              &#8592;
+              <X size={20} />
             </button>
 
-            {/* Next Button */}
+            {/* Navigation */}
             <button
-              onClick={(e) => nextItem(e)}
-              className="absolute right-0 top-1/2 -translate-y-1/2 px-4 py-2 bg-gray-800/50 text-white rounded-r-lg hover:bg-gray-800 z-10"
+              onClick={prevItem}
+              className="absolute left-2 top-1/2 -translate-y-1/2 bg-[#d4b262]/90 hover:bg-[#c5a44e] text-white p-3 rounded-full"
             >
-              &#8594;
+              <ChevronLeft size={24} />
+            </button>
+            <button
+              onClick={nextItem}
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#d4b262]/90 hover:bg-[#c5a44e] text-white p-3 rounded-full"
+            >
+              <ChevronRight size={24} />
             </button>
 
-            {/* Media Content */}
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+            {/* Content */}
+            <div className="flex flex-col items-center space-y-2">
               {renderLightboxContent(selected)}
-              
-              {/* Media Info */}
-              <div className="p-4">
-                <h3 className="text-xl font-bold text-gray-800 mb-2">
+              {/* <div className="flex flex-col items-start ">
+                <h3 className="text-xl font-bold text-[#2e2b1f]">
                   {selected.title}
                 </h3>
                 {selected.description && (
-                  <p className="text-gray-600 mb-3">{selected.description}</p>
+                  <p className="text-gray-600 mt-1">{selected.description}</p>
                 )}
-                <div className="flex justify-between items-center mb-3">
-                  <span className="text-sm text-gray-500 capitalize">
-                    Type: {selected.filetype}
-                  </span>
-                  <span className="text-sm text-gray-500">
-                    {new Date(selected.createdAt).toLocaleDateString()}
-                  </span>
-                </div>
-                {selected.tags && selected.tags.length > 0 && (
-                  <div className="flex flex-wrap gap-2">
-                    {selected.tags.map((tag, index) => (
+                {selected.tags?.length > 0 && (
+                  <div className="flex flex-wrap justify-center gap-2 mt-3">
+                    {selected.tags.map((tag, idx) => (
                       <span
-                        key={index}
-                        className="px-2 py-1 bg-gray-200 text-gray-700 text-sm rounded-full"
+                        key={idx}
+                        className="px-3 py-1 text-xs bg-[#d4b262]/20 text-[#2e2b1f] rounded-full border border-[#d4b262]/40"
                       >
-                        {tag}
+                        #{tag}
                       </span>
                     ))}
                   </div>
                 )}
-              </div>
+              </div> */}
             </div>
+            
           </div>
         </div>
       )}
-    </div>
+    </section>
   );
 }
