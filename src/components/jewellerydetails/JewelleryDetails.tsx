@@ -19,7 +19,8 @@ type Product = {
   gst: number;
   color?: string;
   clarity?: string;
-  totalGoldPrice:number
+  totalGoldPrice:number;
+   thumbnail?: { location: string };
 };
 
 type JewelleryTabsProps = {
@@ -146,9 +147,9 @@ export default function JewelleryTabs({ product }: JewelleryTabsProps) {
                 Product Description
               </h3>
               <img
-                src="/assets/images/price-image.png"
+                src={product.thumbnail?.location   || "/assets/images/price-image.png" }
                 alt="Brand Logo"
-                className="mb-4"
+                className="mb-4 max-h-[320px] rounded-lg object-cover"
               />
               <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
                 {product.description || "No description available."}
@@ -192,9 +193,9 @@ export default function JewelleryTabs({ product }: JewelleryTabsProps) {
             {/* Right-side Image */}
             <div className="flex-1">
               <img
-                src="/assets/images/price-image.png"
+              src={product.thumbnail?.location  || "/assets/images/price-image.png"}
                 alt="Jewellery"
-                className="w-full h-auto rounded-lg object-cover"
+                className=" max-h-[320px] rounded-lg object-cover"
               />
             </div>
           </div>
