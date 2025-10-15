@@ -254,12 +254,11 @@ useEffect(() => {
         params.tag = filters.stoneType.map((s) => s.toLowerCase()).join(",");
       }
 
-      console.log("API Params:", params);
 
       const res = await GetAllProducts(params);
       const apiProducts = res?.result || [];
       const total = res?.pagination?.total || 0;
-
+        console.log(apiProducts,"data api")
       const normalized: Product[] = apiProducts.map((p: ApiProduct) => ({
         id: p._id,
         name: p.name,
@@ -271,11 +270,8 @@ useEffect(() => {
         stoneWeight: p.stoneWeight,
         stoneCount: p.stoneCount,
         description: p.description,
-        image: p.thumbnail?.location || "/assets/images/catmod-08.jpg",
-        hoverImg:
-          p.images?.[0]?.location ||
-          p.thumbnail?.location ||
-          "/assets/images/catmod-08.jpg",
+        image:   p.images?.[0]?.location ,
+          hoverImg: p.thumbnail?.location ,
         variantItems: p.variantItems || [],
       }));
 
@@ -554,9 +550,9 @@ const handlePriceChange = (type: "minPrice" | "maxPrice", value: number) => {
                 </div>
                 <ProductListComp
                   products={products.map((p) => ({
-                    ...p,
-                    image: "/assets/images/card-img01.png",
-                    hoverImg: "/assets/images/catmod-01.jpg",
+                    ...p
+                    // image: "/assets/images/card-img01.png",
+                    // hoverImg: "/assets/images/catmod-01.jpg",
                   }))}
                 />
               </>
