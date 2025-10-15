@@ -45,19 +45,19 @@ export default function OfferPopup() {
     <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
       <div
         ref={popupRef}
-        className="bg-white shadow-lg p-4 max-w-md w-full relative"
+        className="bg-white shadow-lg p-1  w-full max-w-full sm:max-w-[500px] md:max-w-[600px] lg:max-w-[700px] relative mx-auto"
       >
         {/* Close Button */}
         <button
           onClick={() => setShowPopup(false)}
-          className="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-xl bg-white p-1"
+          className="absolute top-0 right-0 text-gray-500 hover:text-gray-800 text-xl bg-white p-1"
         >
           ✕
         </button>
 
         {/* Banner Image */}
         <img
-          src="/assets/images/popup-banner.jpg" // place your banner in /public folder in Next.js
+          src="/assets/images/offerbanner_old.jpg" // place your banner in /public folder in Next.js
           alt="Special Offer - Book Your Gold in Advance"
           className=" w-full h-auto"
         />

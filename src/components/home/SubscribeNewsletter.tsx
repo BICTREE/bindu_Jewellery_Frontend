@@ -1,38 +1,54 @@
-"use client";  
-import React from 'react'
+"use client";
+import React from "react";
+import { ArrowRight } from "lucide-react";
 
-const SubscribeNewsletter = () => {
+const NewsletterSection = () => {
   return (
- 
-
-       <section className="bg-black mx-auto py-5 sm:py-8 md:py-12 ">
-      <div className="container mx-auto text-center px-4">
-        {/* Heading */}
-    <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-white mb-6">
-  Exclusive jewellery updates, crafted just for you — <br /> straight to your inbox.
-</h2>
-
-        {/* Email Form */}
-      <form
-  onSubmit={(e) => {
-    e.preventDefault();
-    alert("Subscribed!");
-  }}
-  className="flex justify-center max-w-3xl mx-auto bg-white rounded-md p-1"
->
-  <input
-    type="email"
-    placeholder="your email"
-    className="w-full px-4 py-3 rounded-l-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500"
-  />
- <button type="submit" className="bg-yellow-600 hover:bg-yellow-700 text-white font-semibold px-6 py-3 rounded-r-md whitespace-nowrap"
-> Subscribe Now
-</button>
-</form>
-
+    <section className="bg-[#fbfbfb] py-16 my-16 px-6 md:px-16  ">
+      <div className="container flex flex-col md:flex-row justify-between items-center gap-10">
+      {/* Left Section */}
+      <div className="md:w-1/2 text-center md:text-left">
+        <h2 className=" font-prata text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#000000] flex items-center justify-center md:justify-start gap-3">
+          <span>
+            Stay Up-to-date with  <br className="hidden sm:block" />
+             Bindu Jewellery
+          </span>
+          {/* <ArrowRight className="w-8 h-8 text-gray-800" /> */}
+        </h2>
       </div>
-    </section>
-  )
-}
 
-export default SubscribeNewsletter
+  {/* Right Section */}
+<div className="md:w-1/2 text-center md:text-right">
+  <p className="text-gray-600 text-base mb-4 text-center md:text-right">
+   Sign up for our newsletter to stay updated on our latest collections, gold saving schemes, and exclusive offers from Bindu Jewellery.
+  </p>
+
+  <form
+    onSubmit={(e) => {
+      e.preventDefault();
+      alert("Subscribed!");
+    }}
+    className="flex items-center border border-gray-300 rounded-full overflow-hidden w-full max-w-md ml-auto" // 👈 right aligned form
+  >
+    <input
+      type="email"
+      placeholder="Type your Email"
+      className="flex-1 px-5 py-3 text-gray-700 focus:outline-none bg-transparent w-full"
+      required
+    />
+    <button
+      type="submit"
+      className="px-6 py-3 bg-transparent border-l border-gray-300 text-gray-800 font-semibold hover:bg-gray-100 transition-all"
+    >
+      Sign Up
+    </button>
+  </form>
+</div>
+
+</div>
+      
+    </section>
+  );
+};
+
+export default NewsletterSection;

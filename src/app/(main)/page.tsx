@@ -15,7 +15,7 @@ export default function Home() {
     <div className=" ">
          <OfferPopup />
      <Hero/>
-     <FreeshipingComp/>
+    
      <CollectionBanners/>
      <NewArrivals/>
      {/* <QrBanner/> */}
@@ -24,6 +24,7 @@ export default function Home() {
      <SubscribeNewsletter/>
      <GiftMore/>
      <MediaComp/>
+      <FreeshipingComp/>
     </div>
   );
 }
