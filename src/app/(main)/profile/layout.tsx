@@ -26,7 +26,7 @@ export default function ProfileLayout({
     { href: '/profile/address', label: 'Addresses', icon: MapPin },
     { href: '/profile/payment', label: 'Payments', icon: CreditCard },
     { href: '/profile/orderhistory', label: 'Order History', icon: Receipt },
-    { href: '/profile/wishlist', label: 'Wishlist', icon: Heart },
+    { href: '/wishlist', label: 'Wishlist', icon: Heart },
     { href: '/profile/settings', label: 'Settings', icon: Settings },
   ];
 
