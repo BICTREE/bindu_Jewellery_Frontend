@@ -2,7 +2,7 @@ import React from "react";
 
 const SplOfferbanner = () => {
   return (
-<section className="w-full relative hidden sm:block">
+<section className="w-full relative hidden sm:block py-7 sm:py-8 md:py-13 lg:py-15">
   <div className="relative w-full h-[200px] sm:h-[250px] md:h-[420px] lg:h-[520px] bg-cover bg-center">
     {/* Banner Image */}
     <img

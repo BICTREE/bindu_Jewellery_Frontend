@@ -74,7 +74,7 @@ export default function NewArrivals() {
   return (
     <div className="container">
 
-      <div className="mx-auto py-7 sm:py-8 md:py-13 lg:py-15">
+      <div className="mx-auto ">
       <h2 className="font-prata text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-center">New Arrivals</h2>
       <p className="text-gray-500 text-center mb-10">
         Prepare To Elevate Your Sense Of Style With Our Latest Collection!

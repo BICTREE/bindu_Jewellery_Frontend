@@ -2,7 +2,7 @@ import React from 'react'
 
 const CollectionBanners = () => {
   return (
-<section className="bg-white ">
+<section className="bg-white py-7 sm:py-8 md:py-13 lg:py-15">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           
