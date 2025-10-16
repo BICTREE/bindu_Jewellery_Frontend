@@ -21,6 +21,15 @@ type Banner = {
   updatedAt: string;
 };
 
+type Slide = {
+  img: string;
+  title: string;
+  subtitle: string;
+  buttonText: string;
+  buttonLink: string;
+  originalImg?: string;
+};
+
 // Fallback images
 const FALLBACK_IMAGES = {
   desktop: "/assets/images/hero2.jpg",
@@ -67,7 +76,7 @@ const Hero = () => {
   const homeBanners = banners.filter(banner => banner.panel === "home");
 
   // Get slides based on screen type - SEPARATE for desktop and mobile
-  const getDesktopSlides = () => {
+  const getDesktopSlides = (): Slide[] => {
     const desktopBanners = homeBanners
       .filter(banner => banner.screenType === "desktop")
       .sort((a, b) => a.index - b.index);
@@ -96,7 +105,7 @@ const Hero = () => {
     }));
   };
 
-  const getMobileSlides = () => {
+  const getMobileSlides = (): Slide[] => {
     const mobileBanners = homeBanners
       .filter(banner => banner.screenType === "mobile")
       .sort((a, b) => a.index - b.index);
@@ -152,7 +161,7 @@ const Hero = () => {
   }, [slides.length]);
 
   // Get the actual image source considering errors
-  const getImageSource = (slide: any) => {
+  const getImageSource = (slide: Slide): string => {
     const fallbackUrl = typeof window !== 'undefined' && window.innerWidth < 768 
       ? FALLBACK_IMAGES.mobile 
       : FALLBACK_IMAGES.desktop;
@@ -177,14 +186,6 @@ const Hero = () => {
             alt="Loading..."
             className="w-full h-full object-cover"
           />
-          
-          {/* Loading overlay with spinner */}
-          {/* <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-            <div className="text-center">
-              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-white mb-4"></div>
-              <div className="text-white text-lg font-semibold">Loading banners...</div>
-            </div>
-          </div> */}
         </div>
       </div>
     );
