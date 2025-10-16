@@ -8,7 +8,9 @@ const NewsletterSection = () => {
       <div className="container flex flex-col md:flex-row justify-between items-center gap-10">
       {/* Left Section */}
       <div className="md:w-1/2 text-center md:text-left">
-        <h2 className=" font-prata text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#000000] flex items-center justify-center md:justify-start gap-3">
+        <h2 className=" font-prata text-2xl sm:text-2xl md:text-3xl lg:text-4xl 
+             font-bold text-[#000000] flex items-center justify-center 
+             md:justify-start gap-3 leading-snug sm:leading-tight md:leading-[1.3]">
           <span>
             Stay Up-to-date with  <br className="hidden sm:block" />
              Bindu Jewellery
