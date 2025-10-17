@@ -9,7 +9,7 @@ export default function MissionVision() {
   return (
     <>
         <>
-      <Banner Title="Our Story"/>
+      <Banner Title="Mission And Vision"/>
 
 
     </>

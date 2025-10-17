@@ -195,7 +195,7 @@ const Page = () => {
       {[
         {
           title: "Kasaragod",
-          address: `Bindu Jewellery
+          address: `
 NH-17, Ashwini Nagar,
 Kasaragod, Kerala - 671121`,
           Mob: "Mob:+91 98 470 20 400",
@@ -208,14 +208,14 @@ Kasaragod, Kerala - 671121`,
         },
         {
           title: "Sullia",
-          address: `Bindu Jewellery,
+          address: `
 Opposite Police Station, Sullia-574239`,
           tel: "Tel: +91 4994256888",
           Email: "Email:bindujewellerymangalore@gmail.com",
         },
         {
           title: "Mangaluru",
-          address: `Bindu Jewellery,
+          address: `
 Near SCS Hospital, Bendoor`,
           tel: "Tel: +91 499 4256 888",
           Email: "Email:bindujewellerymangalore@gmail.com",
