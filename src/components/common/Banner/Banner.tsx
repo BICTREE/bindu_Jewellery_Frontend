@@ -27,7 +27,7 @@ const Banner: React.FC<BannerProps> = ({ Title }) => {
     kisnadiamond:"/assets/images/collections-banner.png",
     mybluediamond: "/assets/images/collections-banner.png",
     csr: "/assets/images/collections-banner.png",
-    akshayanidhi: "/assets/images/collections-banner.png",
+    akshayanidhi: "/assets/images/akshaya-nidhi-banner.jpg",
     swarnabindu: "/assets/images/collections-banner.png",
     gallery: "/assets/images/collections-banner.png",
     contact: "/assets/images/collections-banner.png",
