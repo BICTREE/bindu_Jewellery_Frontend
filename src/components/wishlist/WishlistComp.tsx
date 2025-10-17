@@ -31,8 +31,8 @@ const WishlistComp: React.FC<ProductListProps> = ({ products }) => {
           <ProductCard
             key={product._id}
             id={product._id}
-            image={product.image || "/assets/images/card-img01.png"}
-            hoverImg={product.hoverImg || "/assets/images/card-img01.png"}
+            image={product.image }
+            hoverImg={product.hoverImg }
             name={product.name}
             description={product.description}
             price={product.price}
