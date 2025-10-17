@@ -98,8 +98,32 @@ export default function GalleryCom() {
             }}
           />
         )}
+             {item.filetype === "video" && (
+          <>
+            <video
+              src={thumbnailSrc}
+              className="w-full h-full object-cover transform group-hover:scale-110 transition duration-1000 ease-out"
+              muted
+              playsInline
+              onError={(e) => {
+                // Fallback if video fails to load
+                const video = e.currentTarget;
+                video.style.display = 'none';
+                const fallback = document.createElement('div');
+                fallback.className = 'w-full h-full bg-gray-200 flex items-center justify-center';
+                fallback.innerHTML = '<span class="text-gray-500">Video not available</span>';
+                video.parentNode?.appendChild(fallback);
+              }}
+            />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-10 h-10 bg-gradient-to-br from-amber-400/90 to-rose-400/90 backdrop-blur-sm rounded-full flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-500 shadow-2xl">
+                <div className="w-0 h-0 border-l-[16px] border-l-white border-y-[10px] border-y-transparent ml-1" />
+              </div>
+            </div>
+          </>
+        )}
 
-        {(item.filetype === "video" || item.filetype === "youtube") && (
+        {( item.filetype === "youtube") && (
           <>
             <img
               src={thumbnailSrc}
