@@ -2,8 +2,7 @@
 import Banner from "@/components/common/Banner/Banner";
 
 import FreeshipingComp from "@/components/home/FreeshipingComp";
-import SubscribeNewsletter from "@/components/home/SubscribeNewsletter";
-import OurBranch from "@/components/ourbranch/OurBranch";
+
 import OurExperience from "@/components/ourexperience/OurExperience";
 
 import Image from "next/image";
@@ -24,8 +23,8 @@ export default function OurStory() {
   <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch">
     {/* Image first on mobile */}
     <div className="lg:col-span-5 order-1 lg:order-1 flex">
-      <div className="w-full h-56 sm:h-72 md:h-80 lg:h-auto relative shadow-md rounded-md overflow-hidden flex-1">
-        <Image src="/assets/images/about-img.png" alt="About us" fill className="object-cover rounded-md" />
+      <div className="w-full h-[420px] sm:h-[480px] md:h-[520px] lg:h-auto relative overflow-hidden flex-1">
+        <Image src="/assets/images/about-img.png" alt="About us" fill className="object-cover " />
       </div>
     </div>
 
@@ -81,8 +80,8 @@ yours.
 </section>
 
 <OurExperience/>
-<OurBranch/>
-<SubscribeNewsletter/>
+{/* <OurBranch/>
+<SubscribeNewsletter/> */}
 <FreeshipingComp/>
     </>
   );

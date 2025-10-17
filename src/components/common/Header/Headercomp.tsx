@@ -569,7 +569,7 @@ useEffect(() => {
 
                 <li className="liclass">
                   <Link
-                    href="/contact-us"
+                    href="/contact"
                     className="text-gray-800 hover:text-[#d4b262] font-semibold block py-2 px-4"
                   >
                     CONTACT US

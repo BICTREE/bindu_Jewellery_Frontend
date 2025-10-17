@@ -119,7 +119,7 @@ export default function MobileHeader() {
       ],
     },
     { label: "MEDIA", href: "/gallery" },
-    { label: "CONTACT US", href: "/contact-us" },
+    { label: "CONTACT US", href: "/contact" },
   ];
 
   const toggleSubmenu = (label: string) => {
