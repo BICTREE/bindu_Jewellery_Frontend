@@ -195,8 +195,7 @@ const Page = () => {
       {[
         {
           title: "Kasaragod",
-          address: `
-NH-17, Ashwini Nagar,
+          address: `NH-17, Ashwini Nagar,
 Kasaragod, Kerala - 671121`,
           Mob: "Mob:+91 98 470 20 400",
           tel: "Tel:+91 499 4256 888",
@@ -208,15 +207,13 @@ Kasaragod, Kerala - 671121`,
         },
         {
           title: "Sullia",
-          address: `
-Opposite Police Station, Sullia-574239`,
+          address: `Opposite Police Station, Sullia-574239`,
           tel: "Tel: +91 4994256888",
           Email: "Email:bindujewellerymangalore@gmail.com",
         },
         {
           title: "Mangaluru",
-          address: `
-Near SCS Hospital, Bendoor`,
+          address: `Near SCS Hospital, Bendoor`,
           tel: "Tel: +91 499 4256 888",
           Email: "Email:bindujewellerymangalore@gmail.com",
         },
@@ -225,7 +222,7 @@ Near SCS Hospital, Bendoor`,
           <h3 className="text-lg font-semibold text-[#d4b262] mb-2 uppercase">
             {item.title}
           </h3>
-          <p className="text-gray-700 whitespace-pre-line text-sm leading-relaxed">
+          <p className="text-gray-700  text-sm leading-relaxed">
             {item.address}
           </p>
           {item.tel && (
