@@ -13,6 +13,9 @@ interface Product {
   price: number;
   image: string;
   hoverImg: string;
+  // optional fields that may come from the API
+  images?: { location?: string }[];
+  thumbnail?: { location?: string };
   purity?: string;
   stone?: string;
   weight?: string;
@@ -69,14 +72,14 @@ const Collections = () => {
             <p className="text-center py-12">Your wishlist is empty.</p>
           ) : (
             <>
-              <ProductListComp
-                products={currentProducts.map((p) => ({
-                  ...p,
-                    price: p.price, // ✅ keep string if UI expects it
-                  image: p.image || "/assets/images/card-img01.png",
-                  hoverImg: p.hoverImg || "/assets/images/catmod-01.jpg",
-                }))}
-              />
+          <ProductListComp
+            products={currentProducts.map((p) => ({
+              ...p,
+              price: p.price, // ✅ keep number if UI expects it
+              image: p.images?.[0]?.location ?? "",
+              hoverImg: p.thumbnail?.location ?? "",
+            }))}
+          />
 
               {/* Pagination */}
               {totalPages > 1 && (
