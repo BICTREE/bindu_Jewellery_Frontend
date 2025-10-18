@@ -16,7 +16,7 @@ const GiftMore = () => {
 
     <div className="mx-auto ">
       <h2 className="font-prata text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-center">Gift & More</h2>
-      <p className="text-gray-500 text-center mb-10">Prepare To Elevate Your Sense Of Style With Our Latest Collection!</p>
+      <p className="text-gray-500 text-center mb-10 pt-2">Prepare To Elevate Your Sense Of Style With Our Latest Collection!</p>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Left side grid (2x2 images) */}
         <div className="grid grid-cols-2 grid-rows-2 gap-4">

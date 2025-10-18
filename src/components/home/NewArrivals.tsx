@@ -96,13 +96,13 @@ export default function NewArrivals() {
 
       <div className="mx-auto relative ">
       <h2 className="font-prata text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-center">New Arrivals</h2>
-      <p className="text-gray-500 text-center mb-10">
+      <p className="text-gray-500 text-center mb-10 pt-2">
         Prepare To Elevate Your Sense Of Style With Our Latest Collection!
       </p>
    {/* Left Arrow */}
             <button
               ref={prevRef}
-              className="w-8 h-8 absolute top-1/2 -left-1 sm:-left-4 md:-left-6 lg:-left-8 -translate-y-1/2 -translate-y-1/2 flex items-center justify-center border border-gray-300 text-black rounded-full bg-white hover:bg-[#d4b262] hover:text-white transition-colors z-10"
+              className="w-8 h-8 absolute top-1/2 -left-1 sm:-left-4 md:-left-6 lg:-left-8 -translate-y-1/2  flex items-center justify-center border border-gray-300 text-black rounded-full bg-white hover:bg-[#d4b262] hover:text-white transition-colors z-10"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
