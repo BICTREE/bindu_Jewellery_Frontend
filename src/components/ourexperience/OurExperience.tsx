@@ -5,7 +5,7 @@ const ExperienceSection = () => {
   return (
       <section
       className="relative w-full overflow-hidden flex items-center md:items-start bg-[#f8f4ef] 
-                 min-h-[600px] sm:min-h-[700px] md:min-h-[90vh]"
+                 min-h-[450px] sm:min-h-[700px] md:min-h-[90vh]"
     >
       {/* ✅ Background Images */}
 
@@ -32,7 +32,7 @@ const ExperienceSection = () => {
         <img
           src="/assets/images/ourstory-bgimage.png"
           alt="Desktop Background"
-          className="w-full h-full object-cover object-bottom"
+          className="w-full h-full object-cover object-bottom "
         />
       </div>
 
@@ -43,7 +43,7 @@ const ExperienceSection = () => {
       <div className="relative z-20 container mx-auto px-4 sm:px-8 lg:px-0 
                       py-10 md:py-10 flex flex-col md:flex-row items-center 
                       justify-between gap-10 md:gap-16">
-        <div className="w-full sm:w-4/5 md:w-3/5 lg:w-1/2 max-w-2xl text-center md:text-left space-y-5 md:px-8 lg:px-16">
+        <div className="w-full sm:w-4/5 md:w-3/5 lg:w-1/1 max-w-2xl text-center md:text-left space-y-5 md:px-8 lg:px-16">
           <h2 className="text-2xl sm:text-3xl md:text-5xl font-semibold text-[#3c1e1e] leading-snug">
             Our Experience Allows <br className="hidden sm:block" /> To Bring{" "}
             <span className="font-bold">Disruptive</span>
