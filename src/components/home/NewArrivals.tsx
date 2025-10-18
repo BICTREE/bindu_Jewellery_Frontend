@@ -91,7 +91,7 @@ export default function NewArrivals() {
 
       <div className="mx-auto relative ">
       <h2 className="font-prata text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-center">New Arrivals</h2>
-      <p className="text-gray-500 text-center mb-10">
+      <p className="text-gray-500 text-center mb-10 pt-2">
         Prepare To Elevate Your Sense Of Style With Our Latest Collection!
       </p>
    {/* Left Arrow */}

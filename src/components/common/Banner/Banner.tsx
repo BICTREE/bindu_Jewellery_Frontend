@@ -14,17 +14,17 @@ const Banner: React.FC<BannerProps> = ({ Title }) => {
   const segments = pathname.split("/").filter(Boolean);
 
   const [productName, setProductName] = useState<string>("");
-  const [bannerImage, setBannerImage] = useState<string>("/assets/images/default-banner.jpg");
+  const [bannerImage, setBannerImage] = useState<string>("/assets/images/collections-banner.png");
 
   // ✅ Define banner images per route
   const bannerMap: Record<string, string> = {
     home: "/assets/images/home-banner.jpg",
-   ourstory: "/assets/images/ourstory.png",
-   missionandvision: "/assets/images/ourstory.png",
-   ourleadership: "/assets/images/ourstory.png",
+    ourstory: "/assets/images/ourstory.png",
+    missionandvision: "/assets/images/ourstory.png",
+    ourleadership: "/assets/images/ourstory.png",
     "product-list": "/assets/images/collections-banner.png",
     products: "/assets/images/collections-banner.png",
-    kisnadiamond:"/assets/images/collections-banner.png",
+    kisnadiamond: "/assets/images/collections-banner.png",
     mybluediamond: "/assets/images/collections-banner.png",
     csr: "/assets/images/collections-banner.png",
     akshayanidhi: "/assets/images/akshaya-nidhi-banner.jpg",
@@ -33,12 +33,22 @@ const Banner: React.FC<BannerProps> = ({ Title }) => {
     contact: "/assets/images/collections-banner.png",
     blog: "/assets/images/collections-banner.png",
     faq: "/assets/images/collections-banner.png",
-    
- 
   };
 
+  const defaultBanner = "/assets/images/collections-banner.png";
+
+  // ✅ Single useEffect for banner logic
   useEffect(() => {
-    // 🔹 Fetch product name dynamically
+    const key = segments[0]?.toLowerCase() || "home";
+    if (bannerMap[key]) {
+      setBannerImage(bannerMap[key]);
+    } else {
+      setBannerImage(defaultBanner);
+    }
+  }, [segments]);
+
+  // ✅ Fetch product name dynamically
+  useEffect(() => {
     const fetchProductName = async () => {
       if (segments[0] === "products" && segments[1]) {
         try {
@@ -52,17 +62,7 @@ const Banner: React.FC<BannerProps> = ({ Title }) => {
     fetchProductName();
   }, [segments]);
 
-  useEffect(() => {
-    // 🔹 Set banner based on first segment (fallback to default)
-    if (segments.length === 0) {
-      setBannerImage(bannerMap["home"]);
-    } else {
-      const key = segments[0].toLowerCase();
-      setBannerImage(bannerMap[key] || bannerMap["home"]);
-    }
-  }, [segments]);
-
-  // 🔹 Breadcrumb logic
+  // ✅ Breadcrumb logic
   const breadcrumbs = segments.map((segment, index) => {
     if (segment === "products") {
       return { href: "/product-list", label: "Product" };
@@ -83,7 +83,7 @@ const Banner: React.FC<BannerProps> = ({ Title }) => {
       <img
         src={bannerImage}
         alt={Title || productName || "Banner"}
-        className="w-full h-[115px] sm:h-[250px] md:h-[320px] lg:h-[280px] object-cover"
+        className="w-full h-[115px] sm:h-[250px] md:h-[320px] lg:h-[280px] object-cover transition-opacity duration-500"
       />
       <div className="absolute top-0 left-0 w-full h-full bg-black/10"></div>
 
