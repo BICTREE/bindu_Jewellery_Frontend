@@ -153,7 +153,7 @@ const BlogDetails = () => {
               </div>
 
               {/* Right: Share Icons */}
-              <div className="flex md:flex-col items-center gap-3">
+              {/* <div className="flex md:flex-col items-center gap-3">
                 <span className="text-gray-600 text-sm font-medium">Share:</span>
                 <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"
                    className="w-9 h-9 flex items-center justify-center bg-blue-600 text-white rounded-full hover:bg-blue-700 transition">
@@ -171,12 +171,12 @@ const BlogDetails = () => {
                    className="w-9 h-9 flex items-center justify-center bg-red-600 text-white rounded-full hover:bg-red-700 transition">
                   <i className="fab fa-pinterest-p"></i>
                 </a>
-              </div>
+              </div> */}
             </div>
 
             {/* Blog Content */}
             <div 
-              className="mt-6 text-gray-600 leading-relaxed blog-content"
+              className="mt-6 text-gray-600 leading-relaxed blog-content prose prose-lg max-w-none"
               dangerouslySetInnerHTML={createMarkup(blog.content)}
             />
 
@@ -285,36 +285,6 @@ const BlogDetails = () => {
           </div>
         </div>
       </div>
-
-      {/* Add some basic styling for the blog content */}
-      <style jsx>{`
-        .blog-content h1,
-        .blog-content h2,
-        .blog-content h3,
-        .blog-content h4,
-        .blog-content h5,
-        .blog-content h6 {
-          margin-top: 1.5rem;
-          margin-bottom: 1rem;
-          font-weight: bold;
-          color: #1f2937;
-        }
-        .blog-content h2 {
-          font-size: 1.5rem;
-        }
-        .blog-content p {
-          margin-bottom: 1rem;
-          line-height: 1.6;
-        }
-        .blog-content ul, 
-        .blog-content ol {
-          margin-left: 1.5rem;
-          margin-bottom: 1rem;
-        }
-        .blog-content li {
-          margin-bottom: 0.5rem;
-        }
-      `}</style>
     </>
   );
 };
