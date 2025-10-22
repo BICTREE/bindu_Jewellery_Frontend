@@ -60,7 +60,7 @@ export default function MediaComp() {
         <img
           src={item.img}
           alt={`Media ${item.id}`}
-          className="rounded-xl max-h-[80vh] mx-auto shadow-2xl"
+          className="rounded-xl  aspect-[18/9] mx-auto shadow-2xl"
         />
       );
     }
@@ -70,7 +70,7 @@ export default function MediaComp() {
           src={item.video}
           controls
           autoPlay
-          className="rounded-xl max-h-[80vh] mx-auto shadow-2xl"
+          className="rounded-xl mx-auto  shadow-2xl aspect-[18/9]  overflow-hidden"
         />
       );
     }
@@ -78,7 +78,7 @@ export default function MediaComp() {
       return (
         <iframe
           src={item.youtubeLink.replace("watch?v=", "embed/")}
-          className="w-full h-[60vh] rounded-xl shadow-2xl mx-auto"
+          className="w-full rounded-xl shadow-2xl mx-auto aspect-[18/9] overflow-hidden"
           title="YouTube Video"
           allowFullScreen
         />
@@ -98,7 +98,7 @@ export default function MediaComp() {
       >
         <div
           className="relative max-w-5xl w-full mt-10 bg-gradient-to-b from-[#fff9f2]/95 to-[#fff3e1]/95 rounded-3xl p-3 shadow-[0_8px_40px_rgba(0,0,0,0.3)] border border-[#d4b262]/20"
-          onClick={(e) => e.stopPropagation()}
+          onClick={(e) => e.stopPropagation()} 
         >
           <button
             onClick={() => setLightboxOpen(false)}
