@@ -6,12 +6,13 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import Image from "next/image";
+import { Swiper as SwiperType } from "swiper"; // ✅ import the Swiper type
 
 const ReviewsSection = () => {
   const [activeTab, setActiveTab] = useState<"clients" | "press">("clients");
   const [slidesPerView, setSlidesPerView] = useState(1);
   const [activeSlide, setActiveSlide] = useState(0); // absolute slide index
-  const swiperRef = useRef<any>(null);
+ const swiperRef = useRef<SwiperType | null>(null);
 
   // Set slidesPerView based on window width
   const getSlidesPerView = () => {
