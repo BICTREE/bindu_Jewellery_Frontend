@@ -10,10 +10,10 @@ const diamondShapes = [
   { name: "Round", img: "/assets/images/round.png" },
   { name: "Oval", img: "/assets/images/oval.png" },
   { name: "Cushion", img: "/assets/images/cushion.png" },
-  { name: "Princess", img: "/assets/images/princess.png" },
+  { name: "Princess", img: "/assets/images/Princess.png" },
   { name: "Pear", img: "/assets/images/pear.png" },
-  { name: "Emerald", img: "/assets/images/emerald.png" },
-  { name: "Marquise", img: "/assets/images/marquise.png" },
+  { name: "Emerald", img: "/assets/images/Emerald.png" },
+  { name: "Marquise", img: "/assets/images/Marquise.png" },
   { name: "Heart", img: "/assets/images/heart.png" },
 ];
 
