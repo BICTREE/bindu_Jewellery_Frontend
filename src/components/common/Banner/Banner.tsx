@@ -20,8 +20,8 @@ const Banner: React.FC<BannerProps> = ({ Title }) => {
   const bannerMap: Record<string, string> = {
     home: "/assets/images/home-banner.jpg",
     ourstory: "/assets/images/ourstory.png",
-    missionandvision: "/assets/images/ourstory.png",
-    ourleadership: "/assets/images/ourstory.png",
+    missionandvision: "/assets/images/collections-banner.png",
+    ourleadership: "/assets/images/collections-banner.png",
     "product-list": "/assets/images/collections-banner.png",
     products: "/assets/images/collections-banner.png",
     kisnadiamond: "/assets/images/collections-banner.png",
