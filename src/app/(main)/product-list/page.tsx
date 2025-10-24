@@ -337,11 +337,11 @@ const handlePriceChange = (type: "minPrice" | "maxPrice", value: number) => {
         </div>
 
 
-        <div className="flex flex-col md:flex-row gap-2 md:gap-6 h-full pb-10">
+        <div className="flex flex-col md:flex-row gap-2 md:gap-6 h-full ">
           {/* LEFT FILTER SIDEBAR */}
           <aside
             className={`${mobileFilterOpen ? "block" : "hidden"
-              } md:block md:w-64 w-full p-4 md:p-6 space-y-6 self-start sticky top-24`}
+              } md:block md:w-64 w-full p-4 md:p-6 space-y-6 self-start sticky top-24 shadow-lg`}
           >
             {/* Category Filter */}
             <div>
@@ -545,7 +545,7 @@ const handlePriceChange = (type: "minPrice" | "maxPrice", value: number) => {
               <Loader />
             ) : (
               <>
-                <div className="mb-4 text-gray-600 px-4">
+                <div className="mt-10 text-gray-600 px-4">
                   Showing {products.length} of {totalProducts} products
                 </div>
                 <ProductListComp
@@ -601,10 +601,8 @@ const handlePriceChange = (type: "minPrice" | "maxPrice", value: number) => {
                 </button>
               </div>
             )} */}
-          </main>
 
-        </div>
-        <div className="w-full bg-white py-4 flex justify-center absolute bottom-0 left-0">
+                <div className="w-full bg-white py-4 flex justify-center absolute bottom-0 left-0">
 
           <Pagination
             totalPages={totalPages}
@@ -613,8 +611,12 @@ const handlePriceChange = (type: "minPrice" | "maxPrice", value: number) => {
           />
 
         </div>
-      </div>
+          </main>
 
+        </div>
+   
+      </div>
+ 
     </>
   );
 }
