@@ -210,7 +210,7 @@ export default function GalleryCom() {
     );
 
   return (
-    <section className="py-20 px-6 md:px-20 bg-gradient-to-b from-[#fff9f2] via-[#fff6ec] to-[#fff1e1]">
+    <section className="py-20 px-6 md:px-20 bg-gradient-to-b">
       {/* <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-12 text-[#2e2b1f] tracking-wide">
        Our <span className="text-[#d4b262]"> Media</span>
       </h2> */}

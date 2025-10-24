@@ -5,7 +5,7 @@ const ExperienceSection = () => {
   return (
       <section
       className="relative w-full overflow-hidden flex items-center md:items-start bg-[#f8f4ef] 
-                 min-h-[450px] sm:min-h-[700px] md:min-h-[90vh]"
+                 min-h-[450px] sm:min-h-[700px] md:min-h-[90vh] mb-15"
     >
       {/* ✅ Background Images */}
 
