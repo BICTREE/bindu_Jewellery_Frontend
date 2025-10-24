@@ -32,7 +32,7 @@ type MediaItem = {
 // Loading Skeleton Component
 const MediaSkeleton = () => {
   return (
-    <section className="container mx-auto py-10">
+    <section className="container mx-auto py-15">
       <div className="animate-pulse">
         {/* Title Skeleton */}
         <div className="text-center mb-8">
