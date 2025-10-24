@@ -75,7 +75,7 @@ const MediaSkeleton = () => {
 // Enhanced Loading Skeleton with Shimmer Effect
 const MediaSkeletonWithShimmer = () => {
   return (
-    <section className="container mx-auto py-10">
+    <section className="container mx-auto py-15">
       {/* Title Skeleton */}
       <div className="text-center mb-8">
         <div className="h-8 bg-gray-200 rounded w-48 mx-auto mb-2 animate-pulse"></div>
@@ -383,7 +383,7 @@ export default function MediaComp() {
 
   if (error) {
     return (
-      <section className="container mx-auto py-10">
+      <section className="container mx-auto py-15">
         <h2 className="font-prata text-2xl sm:text-3xl md:text-4xl font-bold text-center">
           Media
         </h2>
@@ -399,7 +399,7 @@ export default function MediaComp() {
 
   if (mediaItems.length === 0) {
     return (
-      <section className="container mx-auto py-10">
+      <section className="container mx-auto py-15">
         <h2 className="font-prata text-2xl sm:text-3xl md:text-4xl font-bold text-center">
           Media
         </h2>
@@ -414,7 +414,7 @@ export default function MediaComp() {
   }
 
   return (
-    <section className="container mx-auto py-10">
+    <section className="container mx-auto py-15">
       <h2 className="font-prata text-2xl sm:text-3xl md:text-4xl font-bold text-center">
         Media
       </h2>
