@@ -36,9 +36,9 @@ const Banner: React.FC<BannerProps> = ({
 
         {/* Title */}
         <div className="flex-1 flex items-center">
-          <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white capitalize">
+          {/* <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white capitalize">
             {Title}
-          </h1>
+          </h1> */}
         </div>
       </div>
     </section>
