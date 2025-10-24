@@ -174,7 +174,7 @@ export default function GalleryCom() {
     const src = getMediaSource(item);
     switch (item.filetype) {
       case "image":
-        return <img src={src} alt={item.title} className="rounded-xl max-h-[80vh] mx-auto shadow-2xl" />;
+        return <img src={src} alt={item.title} className="rounded-xl max-h-[50vh] mx-auto shadow-2xl" />;
       case "video":
         return (
           <video
