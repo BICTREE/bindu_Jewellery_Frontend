@@ -61,7 +61,7 @@ const Footer = () => {
             <li className="flex items-start gap-2">
               <i className="fas fa-map-marker text-gold mt-1"></i>
               <span>
-                Bindu Jewellery <br />
+              
                 NH - 17, Ashwini Nagar, <br />
                 Kasaragod, Kerala, India
               </span>

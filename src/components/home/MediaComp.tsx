@@ -32,7 +32,7 @@ type MediaItem = {
 // Loading Skeleton Component
 const MediaSkeleton = () => {
   return (
-    <section className="container mx-auto py-10">
+    <section className="container mx-auto py-15">
       <div className="animate-pulse">
         {/* Title Skeleton */}
         <div className="text-center mb-8">
@@ -75,7 +75,7 @@ const MediaSkeleton = () => {
 // Enhanced Loading Skeleton with Shimmer Effect
 const MediaSkeletonWithShimmer = () => {
   return (
-    <section className="container mx-auto py-10">
+    <section className="container mx-auto py-15">
       {/* Title Skeleton */}
       <div className="text-center mb-8">
         <div className="h-8 bg-gray-200 rounded w-48 mx-auto mb-2 animate-pulse"></div>
@@ -251,7 +251,7 @@ export default function MediaComp() {
           src={item.file.location}
           controls
           autoPlay
-          className="rounded-xl max-h-[80vh] mx-auto shadow-2xl"
+          className="rounded-xl mx-auto  shadow-2xl aspect-[18/9]  overflow-hidden"
         />
       );
     }
@@ -263,10 +263,9 @@ export default function MediaComp() {
 
       return (
         <iframe
-          src={embedUrl}
+          src={item.youtubeLink.replace("watch?v=", "embed/")}
           className="w-full h-[60vh] rounded-xl shadow-2xl mx-auto"
-          title={item.title}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          title="YouTube Video"
           allowFullScreen
         />
       );
@@ -336,7 +335,7 @@ export default function MediaComp() {
       >
         <div
           className="relative max-w-5xl w-full mt-10 bg-gradient-to-b from-[#fff9f2]/95 to-[#fff3e1]/95 rounded-3xl p-3 shadow-[0_8px_40px_rgba(0,0,0,0.3)] border border-[#d4b262]/20"
-          onClick={(e) => e.stopPropagation()}
+          onClick={(e) => e.stopPropagation()} 
         >
           <button
             onClick={() => setLightboxOpen(false)}
@@ -384,7 +383,7 @@ export default function MediaComp() {
 
   if (error) {
     return (
-      <section className="container mx-auto py-10">
+      <section className="container mx-auto py-15">
         <h2 className="font-prata text-2xl sm:text-3xl md:text-4xl font-bold text-center">
           Media
         </h2>
@@ -400,7 +399,7 @@ export default function MediaComp() {
 
   if (mediaItems.length === 0) {
     return (
-      <section className="container mx-auto py-10">
+      <section className="container mx-auto py-15">
         <h2 className="font-prata text-2xl sm:text-3xl md:text-4xl font-bold text-center">
           Media
         </h2>
@@ -415,7 +414,7 @@ export default function MediaComp() {
   }
 
   return (
-    <section className="container mx-auto py-10">
+    <section className="container mx-auto py-15">
       <h2 className="font-prata text-2xl sm:text-3xl md:text-4xl font-bold text-center">
         Media
       </h2>

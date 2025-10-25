@@ -57,7 +57,7 @@ export default function OfferPopup() {
 
         {/* Banner Image */}
         <img
-          src="/assets/images/offerbanner_old.jpg" // place your banner in /public folder in Next.js
+          src="/assets/images/popup0125.jpg" // place your banner in /public folder in Next.js
           alt="Special Offer - Book Your Gold in Advance"
           className=" w-full h-auto"
         />
