@@ -47,6 +47,7 @@ export const UpdateCartApi = '/users/carts/update';
 // Media
 
 export const GetMediaApi = '/media';
+export const GetGroupMediaApi = '/media-groups';
 
 
 export const GetAllBlogsApi = '/blogs';
