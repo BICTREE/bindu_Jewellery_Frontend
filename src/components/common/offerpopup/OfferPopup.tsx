@@ -3,6 +3,7 @@ import React, { useEffect, useState, useRef } from "react";
 
 export default function OfferPopup() {
   const [showPopup, setShowPopup] = useState(false);
+  const [shake, setShake] = useState(false);
   const popupRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -39,27 +40,47 @@ export default function OfferPopup() {
     };
   }, [showPopup]);
 
+  // Shake popup on scroll
+  useEffect(() => {
+    function handleScroll() {
+      if (!shake) {
+        setShake(true);
+        setTimeout(() => setShake(false), 1000);
+      }
+    }
+
+    if (showPopup) {
+      window.addEventListener("scroll", handleScroll);
+    }
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [showPopup, shake]);
+
   if (!showPopup) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
+    <div className="fixed inset-0 bg-black/50 z-50 flex items-end justify-center">
       <div
         ref={popupRef}
-        className="bg-white shadow-lg p-1  w-full max-w-full sm:max-w-[500px] md:max-w-[600px] lg:max-w-[700px] relative mx-auto"
+        className={`bg-white shadow-lg p-1 w-[90%] sm:w-[450px] md:w-[550px] rounded-t-lg relative mb-6 transition-transform duration-500 ${
+          shake ? "animate-shake" : ""
+        }`}
       >
         {/* Close Button */}
         <button
           onClick={() => setShowPopup(false)}
-          className="absolute top-0 right-0 text-gray-500 hover:text-gray-800 text-xl bg-white p-1"
+          className="absolute top-0 right-0 text-gray-500 hover:text-gray-800 text-xl bg-white p-1 rounded-full"
         >
           ✕
         </button>
 
         {/* Banner Image */}
         <img
-          src="/assets/images/popup0125.jpg" // place your banner in /public folder in Next.js
+          src="/assets/images/popup0125.jpg"
           alt="Special Offer - Book Your Gold in Advance"
-          className=" w-full h-auto"
+          className="w-full h-auto rounded-md"
         />
       </div>
     </div>
