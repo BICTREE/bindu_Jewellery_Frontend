@@ -8,7 +8,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { X, ChevronLeft, ChevronRight, Play, Image as ImageIcon, Youtube } from "lucide-react";
 import Link from "next/link";
-import { GetAllMedia } from "@/services/mediaService/mediaService";
+import { GetAllGroupMedia } from "@/services/mediaService/mediaService";
 
 type MediaItem = {
   _id: string;
@@ -24,6 +24,19 @@ type MediaItem = {
   description: string;
   tags: string[];
   isArchived: boolean;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+  groupName?: string; // Added to track which group this media belongs to
+};
+
+type MediaGroup = {
+  _id: string;
+  name: string;
+  description: string;
+  media: MediaItem[];
+  isArchived: boolean;
+  order: number;
   createdAt: string;
   updatedAt: string;
   __v: number;
@@ -151,6 +164,25 @@ export default function MediaComp() {
   const prevRef = useRef<HTMLButtonElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
 
+  // Function to get random media items from all groups
+  const getRandomMediaItems = (groups: MediaGroup[], count: number = 10): MediaItem[] => {
+    // Flatten all media items from all groups and add group name
+    const allMediaItems: MediaItem[] = [];
+    
+    groups.forEach(group => {
+      group.media.forEach(mediaItem => {
+        allMediaItems.push({
+          ...mediaItem,
+          groupName: group.name // Add group name for reference
+        });
+      });
+    });
+
+    // Shuffle the array and get random items
+    const shuffled = [...allMediaItems].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, count);
+  };
+
   // Fetch media data
   useEffect(() => {
     const fetchMedia = async () => {
@@ -158,14 +190,13 @@ export default function MediaComp() {
         setLoading(true);
         setError(null);
         
-        // Get latest 10 media items
-        const data = await GetAllMedia({ 
-          page: 1, 
-          entries: 10 
-        });
+        // Get all media groups
+        const data = await GetAllGroupMedia();
         
         if (data && Array.isArray(data)) {
-          setMediaItems(data);
+          // Get random 10 media items from all groups
+          const randomMediaItems = getRandomMediaItems(data, 10);
+          setMediaItems(randomMediaItems);
         } else {
           setMediaItems([]);
         }
@@ -238,36 +269,71 @@ export default function MediaComp() {
   const renderLightboxContent = (item: MediaItem) => {
     if (item.filetype === "image" && item.file?.location) {
       return (
-        <img
-          src={item.file.location}
-          alt={item.title}
-          className="rounded-xl max-h-[80vh] mx-auto shadow-2xl"
-        />
+        <div className="flex flex-col items-center">
+          <img
+            src={item.file.location}
+            alt={item.title}
+            className="rounded-xl max-h-[70vh] mx-auto shadow-2xl object-contain"
+          />
+          <div className="mt-4 text-center max-w-2xl">
+            <h3 className="text-lg font-semibold text-white">{item.title}</h3>
+            {item.description && (
+              <p className="text-gray-300 mt-1">{item.description}</p>
+            )}
+            {item.groupName && (
+              <p className="text-gray-400 text-sm mt-1">From: {item.groupName}</p>
+            )}
+          </div>
+        </div>
       );
     }
     if (item.filetype === "video" && item.file?.location) {
       return (
-        <video
-          src={item.file.location}
-          controls
-          autoPlay
-          className="rounded-xl mx-auto  shadow-2xl aspect-[18/9]  overflow-hidden"
-        />
+        <div className="flex flex-col items-center">
+          <video
+            src={item.file.location}
+            controls
+            autoPlay
+            className="rounded-xl mx-auto shadow-2xl max-h-[70vh]"
+          />
+          <div className="mt-4 text-center max-w-2xl">
+            <h3 className="text-lg font-semibold text-white">{item.title}</h3>
+            {item.description && (
+              <p className="text-gray-300 mt-1">{item.description}</p>
+            )}
+            {item.groupName && (
+              <p className="text-gray-400 text-sm mt-1">From: {item.groupName}</p>
+            )}
+          </div>
+        </div>
       );
     }
     if (item.filetype === "youtube" && item.youtubeLink) {
       const embedUrl = item.youtubeLink
         .replace('watch?v=', 'embed/')
         .replace('youtu.be/', 'youtube.com/embed/')
-        .split('&')[0]; // Remove any additional parameters
+        .split('&')[0];
 
       return (
-        <iframe
-          src={item.youtubeLink.replace("watch?v=", "embed/")}
-          className="w-full h-[60vh] rounded-xl shadow-2xl mx-auto"
-          title="YouTube Video"
-          allowFullScreen
-        />
+        <div className="flex flex-col items-center">
+          <div className="w-full max-w-4xl aspect-video">
+            <iframe
+              src={embedUrl}
+              className="w-full h-full rounded-xl shadow-2xl"
+              title="YouTube Video"
+              allowFullScreen
+            />
+          </div>
+          <div className="mt-4 text-center max-w-2xl">
+            <h3 className="text-lg font-semibold text-white">{item.title}</h3>
+            {item.description && (
+              <p className="text-gray-300 mt-1">{item.description}</p>
+            )}
+            {item.groupName && (
+              <p className="text-gray-400 text-sm mt-1">From: {item.groupName}</p>
+            )}
+          </div>
+        </div>
       );
     }
     return (
@@ -302,7 +368,6 @@ export default function MediaComp() {
     }
     if (item.filetype === "youtube" && item.youtubeLink) {
       const thumbnailUrl = getYoutubeThumbnail(item.youtubeLink);
-      console.log('YouTube URL:', item.youtubeLink, 'Thumbnail:', thumbnailUrl); // Debug log
       
       return (
         <img
@@ -310,7 +375,6 @@ export default function MediaComp() {
           alt={item.title}
           className="w-full h-full object-cover"
           onError={(e) => {
-            console.log('YouTube thumbnail failed to load, using placeholder');
             (e.target as HTMLImageElement).src = '/assets/images/placeholder.jpg';
           }}
         />
@@ -323,7 +387,7 @@ export default function MediaComp() {
     );
   };
 
-  // EXACT ORIGINAL LIGHTBOX UI
+  // Lightbox UI
   const renderLightbox = () => {
     if (!lightboxOpen) return null;
     const selected = mediaItems[currentIndex];
@@ -437,9 +501,7 @@ export default function MediaComp() {
             modules={[Navigation]}
             spaceBetween={20}
             slidesPerView={3}
-            // centeredSlides={true}
             onSwiper={setSwiperInstance}
-            // loop={mediaItems.length > 1}
             className="flex justify-center items-center"
             breakpoints={{
               320: { slidesPerView: 1, spaceBetween: 10 },
@@ -449,7 +511,7 @@ export default function MediaComp() {
           >
             {mediaItems.map((item, index) => (
               <SwiperSlide
-                key={item._id}
+                key={`${item._id}-${index}`}
                 className="flex justify-center items-center overflow-hidden rounded-lg"
               >
                 <div
@@ -478,6 +540,11 @@ export default function MediaComp() {
                     <p className="text-white text-sm font-medium truncate">
                       {item.title}
                     </p>
+                    {item.groupName && (
+                      <p className="text-white text-xs opacity-80 truncate">
+                        {item.groupName}
+                      </p>
+                    )}
                   </div>
                 </div>
               </SwiperSlide>
