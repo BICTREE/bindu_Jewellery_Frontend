@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Prata&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Belgrano&display=swap');
 @import "variable";
 @import "mixins";
 @import "footer";
@@ -23,5 +24,10 @@
   font-family: 'Poppins', sans-serif;
 }
 
+.belgrano-regular {
+  font-family: "Belgrano", serif;
+  font-weight: 400;
+  font-style: normal;
+}
 
 
