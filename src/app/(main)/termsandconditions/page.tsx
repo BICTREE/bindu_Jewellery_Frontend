@@ -15,11 +15,11 @@ export default function TermsAndConditions() {
 
         <div className="text-gray-700 leading-relaxed space-y-6 mb-10">
           <p>
-            BinduJewellery.co.in ("Bindu Jewellery" or "website" or "we" or
-            "our") is the shopping website of CGD Private Limited allowing
-            consumers to browse, select, and perform purchase transactions
-            pertaining to precious stones and/or gold jewellery and accessories
-            (“Products” or “Goods”) from the website.
+            BinduJewellery.co.in (&quot;Bindu Jewellery&quot; or &quot;website&quot; or
+            &quot;we&quot; or &quot;our&quot;) is the shopping website of CGD Private
+            Limited allowing consumers to browse, select, and perform purchase
+            transactions pertaining to precious stones and/or gold jewellery and
+            accessories (&quot;Products&quot; or &quot;Goods&quot;) from the website.
           </p>
 
           <p>
@@ -39,9 +39,9 @@ export default function TermsAndConditions() {
           </p>
 
           <p>
-            If you would like to provide feedback about the
-            BinduJewellery.co.in website, or recommend a way we can improve your
-            shopping experience, please contact us at{" "}
+            If you would like to provide feedback about the BinduJewellery.co.in
+            website, or recommend a way we can improve your shopping experience,
+            please contact us at{" "}
             <a
               href="mailto:contact@bindujewellery.co.in"
               className="text-[#d4b262] underline"
@@ -66,27 +66,21 @@ export default function TermsAndConditions() {
 
         {/* Store Terms List */}
         <ul className="list-none p-0 m-0">
-          <li className="relative pl-6 mb-3 text-gray-700 leading-relaxed">
-            <span className="absolute left-0 top-2 w-2.5 h-2.5 bg-[#d4b262] rounded-full"></span>
-            All jewellery sold is BIS Hallmarked.
-          </li>
-          <li className="relative pl-6 mb-3 text-gray-700 leading-relaxed">
-            <span className="absolute left-0 top-2 w-2.5 h-2.5 bg-[#d4b262] rounded-full"></span>
-            Prices include transparency in weight, making charges, and stone
-            value.
-          </li>
-          <li className="relative pl-6 mb-3 text-gray-700 leading-relaxed">
-            <span className="absolute left-0 top-2 w-2.5 h-2.5 bg-[#d4b262] rounded-full"></span>
-            Products are subject to availability and market rates.
-          </li>
-          <li className="relative pl-6 mb-3 text-gray-700 leading-relaxed">
-            <span className="absolute left-0 top-2 w-2.5 h-2.5 bg-[#d4b262] rounded-full"></span>
-            Customized designs are final and non-refundable.
-          </li>
-          <li className="relative pl-6 mb-3 text-gray-700 leading-relaxed">
-            <span className="absolute left-0 top-2 w-2.5 h-2.5 bg-[#d4b262] rounded-full"></span>
-            By purchasing, you agree to our store policies.
-          </li>
+          {[
+            "All jewellery sold is BIS Hallmarked.",
+            "Prices include transparency in weight, making charges, and stone value.",
+            "Products are subject to availability and market rates.",
+            "Customized designs are final and non-refundable.",
+            "By purchasing, you agree to our store policies.",
+          ].map((item, index) => (
+            <li
+              key={index}
+              className="relative pl-6 mb-3 text-gray-700 leading-relaxed"
+            >
+              <span className="absolute left-0 top-2 w-2.5 h-2.5 bg-[#d4b262] rounded-full"></span>
+              {item}
+            </li>
+          ))}
         </ul>
       </div>
     </>
