@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useMemo, useEffect } from "react";
-import { X } from "lucide-react";
+// import { X } from "lucide-react";
 import Link from "next/link";
 import Banner from "@/components/common/Banner/Banner";
 import { getMyCart, UpdateCart, RemoveFromCart } from "@/services/cartService/cartService";
@@ -40,8 +40,8 @@ const CartPage = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState(true);
   const { data: session } = useSession();
-const dispatch = useDispatch<AppDispatch>();
-
+  const dispatch = useDispatch<AppDispatch>();
+  const [showPromo, setShowPromo] = useState(false);
   // 🔹 Fetch cart from API
   useEffect(() => {
     const fetchCart = async () => {
@@ -153,112 +153,165 @@ const dispatch = useDispatch<AppDispatch>();
       )}
 
       <div className="container mx-auto px-4 py-6 grid md:grid-cols-3 gap-6">
+
+        
         {/* Cart Items */}
-        <div className="md:col-span-2 space-y-4">
-          <h2 className="text-sm font-semibold text-gray-600 mt-4 md:mt-0">
-            TOTAL ITEMS {cartItems.length}
-          </h2>
+       <div className="md:col-span-2 space-y-6">
+  <h2 className="text-sm font-semibold text-gray-600 mt-4 md:mt-0">
+    TOTAL ITEMS {cartItems.length}
+  </h2>
 
-          {cartItems.length === 0 ? (
-            <div className="flex items-center justify-center h-full">
-              <div className="text-center text-gray-600">
-                <p className="text-lg font-medium">🛒 Your cart is empty</p>
-                <Link
-                  href="/product-list"
-                  className="mt-4 inline-block px-6 py-2 bg-[#d4b262] text-white rounded-lg hover:bg-[#ce9f4e]"
-                >
-                  Continue Shopping
-                </Link>
-              </div>
-            </div>
-          ) : (
-            cartItems.map((item) => (
-              <div
-                key={item._id}
-                className="flex items-start relative bg-white p-6 rounded-lg shadow-[0_0_5px_rgba(0,0,0,0.1)]"
+  {cartItems.length === 0 ? (
+    <div className="flex items-center justify-center h-full">
+      <div className="text-center text-gray-600">
+        <p className="text-lg font-medium">🛒 Your cart is empty</p>
+        <Link
+          href="/product-list"
+          className="mt-4 inline-block px-6 py-2 bg-[#d4b262] text-white rounded-lg hover:bg-[#ce9f4e]"
+        >
+          Continue Shopping
+        </Link>
+      </div>
+    </div>
+  ) : (
+    cartItems.map((item) => (
+      <div
+        key={item._id}
+        className="flex flex-col md:flex-row items-center justify-between border-b border-gray-200 pb-6 mb-4"
+      >
+        {/* Left side: Image + Details */}
+        <div className="flex items-center gap-4 w-full md:w-1/2">
+          <img
+            src={item.thumbnail?.location}
+            alt={item.name}
+            className="w-28 h-28 object-contain border border-gray-200 rounded-md"
+          />
+          <div>
+            <p className="text-sm text-gray-500">{item.name || "Chocker"}</p>
+            <h3 className="text-lg font-semibold text-gray-800">
+              {item.name || "Temple Chocker"}
+            </h3>
+            <span className="inline-block mt-1 text-xs text-green-700 bg-green-100 border border-green-300 rounded-full px-2 py-0.5">
+              In stock
+            </span>
+            <div className="flex gap-4 text-sm text-gray-500 mt-2">
+              {/* <button className="hover:text-[#d4b262]">Edit</button> */}
+              <button
+                onClick={() => removeItem(item._id)}
+                className="hover:text-[#d4b262]"
               >
-                <img
-                  src={item.thumbnail?.location}
-                  alt={item.name}
-                  className="w-32 h-32 object-contain"
-                />
-                <div className="ml-4 flex-1">
-                  <h3 className="text-gray-800 font-semibold">{item.name}</h3>
-                  <div className="text-sm text-gray-600 mt-1 space-y-1">
-                    {item.specs?.map((spec, idx) => (
-                      <p key={idx}>
-                        {spec.variationName}: {spec.optionValue}
-                      </p>
-                    ))}
-
-                    <div className="mt-2 flex items-center gap-2">
-                      <button
-                        onClick={() => updateQty(item._id, "dec")}
-                        className="px-3 py-1 border border-[#d4b262] rounded hover:bg-[#d4b262] text-[#d4b262] hover:text-white hover:border-[#d4b262]"
-                      >
-                        -
-                      </button>
-                      <span className="px-2">{item.quantity}</span>
-                      <button
-                        onClick={() => updateQty(item._id, "inc")}
-                        className="px-3 py-1 border border-[#d4b262] rounded hover:bg-[#d4b262] text-[#d4b262] hover:text-white hover:border-[#d4b262]"
-                      >
-                        +
-                      </button>
-                    </div>
-                  </div>
-                  <div className="mt-2">
-                    <span className="text-[#d4b262] font-semibold">
-                      ₹{(item.price + item.extraPrice + item.tax).toLocaleString("en-IN")}
-                    </span>
-                  </div>
-                </div>
-                <button
-                  onClick={() => removeItem(item._id)}
-                  className="absolute top-2 right-2 text-gray-400 hover:text-[#d4b262]"
-                >
-                  <X size={18} />
-                </button>
-              </div>
-            ))
-          )}
-
-          {cartItems.length > 0 && (
-            <button   className="mt-4 px-4 py-2 border border-[#d4b262] text-[#d4b262] hover:text-white rounded-lg hover:bg-[#d4b262] text-sm">
-              CONTINUE SHOPPING
-            </button>
-          )}
+                Delete
+              </button>
+              <button className="hover:text-[#d4b262]">Move to Wishlist</button>
+            </div>
+          </div>
         </div>
+
+        {/* Right side: Price Info */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between w-full md:w-1/2 mt-4 md:mt-0 text-sm text-gray-800 md:text-right gap-4 md:gap-8">
+          <div className="flex flex-col md:items-end">
+            <p className="text-gray-500 mb-1">Item Price</p>
+            <p className="font-medium text-gray-800">
+              ₹{(item.price + item.extraPrice + item.tax).toLocaleString("en-IN")}/-
+            </p>
+          </div>
+
+<div className="flex flex-col md:items-end">
+  <p className="text-gray-500 mb-1">Quantity</p>
+  <div className="flex items-center border border-gray-800 rounded w-fit">
+    {/* Decrease button */}
+    <button
+      onClick={() => updateQty(item._id, "dec")}
+      className="px-2 py-1 text-gray-700 hover:text-white hover:bg-[#000000] transition rounded-l  border-r-1"
+    >
+      −
+    </button>
+
+    {/* Quantity Display */}
+    <span className="px-3 py-1 text-gray-900 font-medium text-center w-8">
+      {item.quantity}
+    </span>
+
+    {/* Increase button */}
+    <button
+      onClick={() => updateQty(item._id, "inc")}
+      className="px-2 py-1 text-gray-700 hover:text-white hover:bg-[#000000] transition rounded-r  border-l-1"
+    >
+      +
+    </button>
+  </div>
+</div>
+
+
+          <div className="flex flex-col md:items-end">
+            <p className="text-gray-500 mb-1">Total</p>
+            <p className="font-semibold text-gray-900">
+              ₹{(
+                (item.price + item.extraPrice + item.tax) * item.quantity
+              ).toLocaleString("en-IN")}
+              /-
+            </p>
+          </div>
+        </div>
+      </div>
+    ))
+  )}
+
+  {cartItems.length > 0 && (
+    <button className="mt-4 px-4 py-2 border border-[#d4b262] text-[#d4b262] hover:text-white rounded-lg hover:bg-[#d4b262] text-sm">
+      CONTINUE SHOPPING
+    </button>
+  )}
+</div>
+
 
         {/* Order Summary */}
         <div className="bg-white p-6 rounded-lg shadow-[0_0_5px_rgba(0,0,0,0.1)] space-y-4">
-          <div>
-            <p className="text-sm text-gray-700 font-medium">Apply Offer / Voucher</p>
+       <div>
 
-            {appliedCoupon ? (
-              <p className="text-green-600 text-sm mt-1">
-                Coupon {appliedCoupon} Applied Successfully
-              </p>
-            ) : (
-              <div className="flex items-center gap-2 mt-2">
-                <input
-                  type="text"
-                  value={coupon}
-                  onChange={(e) => setCoupon(e.target.value)}
-                  placeholder="Enter coupon code"
-                  className="border-gray-200 border rounded-md px-2 py-1 text-sm w-full focus:ring-1 focus:ring-[#ce9f4e] focus:outline-none"
-                />
-                <button
-                  onClick={handleApply}
-                  className="bg-[#d4b262] text-white text-sm px-3 py-1 rounded-md hover:bg-[#ce9f4e]"
-                >
-                  Apply
-                </button>
-              </div>
-            )}
-          </div>
 
-          <div className="text-sm text-gray-700 space-y-2 border-t pt-4 border-gray-200">
+  {appliedCoupon ? (
+    <p className="text-green-600 text-sm mt-1">
+      Coupon {appliedCoupon} Applied Successfully
+    </p>
+  ) : (
+    <>
+      {showAlert && (
+        <p className="text-red-500 text-sm mt-1">Invalid coupon. Try again.</p>
+      )}
+
+      {/** Show promo input if user clicked link */}
+      {showPromo && (
+        <div className="flex items-center gap-2 mt-2">
+          <input
+            type="text"
+            value={coupon}
+            onChange={(e) => setCoupon(e.target.value)}
+            placeholder="Enter coupon code"
+            className="border border-gray-200 rounded-md px-2 py-1 text-sm w-full focus:ring-1 focus:ring-[#ce9f4e] focus:outline-none"
+          />
+          <button
+            onClick={handleApply}
+            className="bg-[#d4b262] text-white text-sm px-3 py-1 rounded-md hover:bg-[#ce9f4e]"
+          >
+            Apply
+          </button>
+        </div>
+      )}
+
+      {!showPromo && (
+        <button
+          onClick={() => setShowPromo(true)}
+          className="font-semibold text-gray-800 cursor-pointer"
+        >
+          Use Promo Code
+        </button>
+      )}
+    </>
+  )}
+</div>
+
+ <div className="text-sm text-gray-700 space-y-2 border-t pt-4 border-gray-200">
             <div className="flex justify-between">
               <span>Item total</span>
               <span>₹{itemTotal.toLocaleString("en-IN")}</span>
@@ -291,7 +344,7 @@ const dispatch = useDispatch<AppDispatch>();
             ) : (
               <Link
                 href="/checkout"
-                className="block w-60 text-center bg-[#d4b262] hover:bg-[#ce9f4e] text-white py-3 rounded-lg font-semibold"
+                className="block w-60 text-center bg-[#000000] hover:bg-[#ce9f4e] text-white py-3 rounded-lg font-semibold"
               >
                 CHECKOUT SECURELY
               </Link>
