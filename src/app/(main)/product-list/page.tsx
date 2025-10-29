@@ -449,9 +449,9 @@ const handlePriceChange = (type: "minPrice" | "maxPrice", value: number) => {
               const isOpen = sectionOpen[section];
 
               return (
-                <div key={section}>
+                <div key={section} >
                   <div
-                    className="flex justify-between items-center cursor-pointer"
+                    className="flex justify-between items-center cursor-pointer "
                     onClick={() =>
                       setSectionOpen({
                         ...sectionOpen,
@@ -468,7 +468,7 @@ const handlePriceChange = (type: "minPrice" | "maxPrice", value: number) => {
                   </div>
 
                   {isOpen && (
-                    <ul className="space-y-2 text-gray-700 text-sm">
+                    <ul className="space-y-2 text-gray-700 text-sm border-l-1 border-[#d4b262] pl-3">
                       {options.map((opt) => (
                         <li key={opt}>
                           <label className="flex items-center">
