@@ -115,12 +115,11 @@ export default function JewelleryTabs({ product }: JewelleryTabsProps) {
                       <td className="py-2">{product.stoneWeight}</td>
                     </tr>
                   )}
-                  {product.stoneCount && (
                     <tr className="border-b">
                       <td className="py-2 pr-4 font-medium">Stone Count</td>
-                      <td className="py-2">{product.stoneCount}</td>
+                      <td className="py-2">{product.stoneCount || 0}</td>
                     </tr>
-                  )}
+                  
                   <tr className="border-b">
                     <td className="py-2 pr-4 font-medium">Metal Type</td>
                     <td className="py-2">{product.metalType || "N/A"}</td>
@@ -172,12 +171,12 @@ export default function JewelleryTabs({ product }: JewelleryTabsProps) {
                     <td className="py-2 pr-4 font-medium">Making Charges</td>
                     <td className="py-2">₹ {formatCurrency(product.makingCharges)}</td>
                   </tr>
-                  {product.stonePrice && product.stonePrice > 0 && (
+                
                     <tr className="border-b">
                       <td className="py-2 pr-4 font-medium">Stone Price</td>
-                      <td className="py-2">₹ {formatCurrency(product.stonePrice)}</td>
+                      <td className="py-2">₹ {formatCurrency(product.stonePrice || 0)}</td>
                     </tr>
-                  )}
+      
                   <tr className="border-b">
                     <td className="py-2 pr-4 font-medium">GST ({product.gst}%)</td>
                     <td className="py-2">₹ {formatCurrency(gstAmount)}</td>
