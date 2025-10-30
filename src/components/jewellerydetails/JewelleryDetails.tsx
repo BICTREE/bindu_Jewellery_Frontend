@@ -19,8 +19,8 @@ type Product = {
   gst: number;
   color?: string;
   clarity?: string;
-  totalGoldPrice:number;
-   thumbnail?: { location: string };
+  totalGoldPrice: number;
+  thumbnail?: { location: string };
 };
 
 type JewelleryTabsProps = {
@@ -36,7 +36,7 @@ export default function JewelleryTabs({ product }: JewelleryTabsProps) {
     const makingCharges = product.makingCharges || 0;
     const stonePrice = product.stonePrice || 0;
     const gstPercentage = product.gst || 0;
-    
+
     const subtotal = basePrice + makingCharges + stonePrice;
     const gstAmount = (subtotal * gstPercentage) / 100;
     return subtotal + gstAmount;
@@ -64,21 +64,19 @@ export default function JewelleryTabs({ product }: JewelleryTabsProps) {
         <div className="flex justify-center mb-8">
           <div className="flex border rounded-full overflow-hidden">
             <button
-              className={`px-6 py-2 text-sm sm:text-base font-medium transition ${
-                activeTab === "details"
+              className={`px-6 py-2 text-sm sm:text-base font-medium transition ${activeTab === "details"
                   ? "bg-black text-white"
                   : "bg-white text-gray-700"
-              }`}
+                }`}
               onClick={() => setActiveTab("details")}
             >
               Product Details
             </button>
             <button
-              className={`px-6 py-2 text-sm sm:text-base font-medium transition ${
-                activeTab === "price"
+              className={`px-6 py-2 text-sm sm:text-base font-medium transition ${activeTab === "price"
                   ? "bg-black text-white"
                   : "bg-white text-gray-700"
-              }`}
+                }`}
               onClick={() => setActiveTab("price")}
             >
               Price Breakup
@@ -115,11 +113,11 @@ export default function JewelleryTabs({ product }: JewelleryTabsProps) {
                       <td className="py-2">{product.stoneWeight}</td>
                     </tr>
                   )}
-                    <tr className="border-b">
-                      <td className="py-2 pr-4 font-medium">Stone Count</td>
-                      <td className="py-2">{product.stoneCount || 0}</td>
-                    </tr>
-                  
+                  <tr className="border-b">
+                    <td className="py-2 pr-4 font-medium">Stone Count</td>
+                    <td className="py-2">{product.stoneCount || 0}</td>
+                  </tr>
+
                   <tr className="border-b">
                     <td className="py-2 pr-4 font-medium">Metal Type</td>
                     <td className="py-2">{product.metalType || "N/A"}</td>
@@ -146,7 +144,7 @@ export default function JewelleryTabs({ product }: JewelleryTabsProps) {
                 Product Description
               </h3>
               <img
-                src={product.thumbnail?.location   || "/assets/images/price-image.png" }
+                src={product.thumbnail?.location || "/assets/images/price-image.png"}
                 alt="Brand Logo"
                 className="mb-4 max-h-[320px] rounded-lg object-cover"
               />
@@ -171,12 +169,12 @@ export default function JewelleryTabs({ product }: JewelleryTabsProps) {
                     <td className="py-2 pr-4 font-medium">Making Charges</td>
                     <td className="py-2">₹ {formatCurrency(product.makingCharges)}</td>
                   </tr>
-                
-                    <tr className="border-b">
-                      <td className="py-2 pr-4 font-medium">Stone Price</td>
-                      <td className="py-2">₹ {formatCurrency(product.stonePrice || 0)}</td>
-                    </tr>
-      
+
+                  <tr className="border-b">
+                    <td className="py-2 pr-4 font-medium">Stone Price</td>
+                    <td className="py-2">₹ {formatCurrency(product.stonePrice || 0)}</td>
+                  </tr>
+
                   <tr className="border-b">
                     <td className="py-2 pr-4 font-medium">GST ({product.gst}%)</td>
                     <td className="py-2">₹ {formatCurrency(gstAmount)}</td>
@@ -192,7 +190,7 @@ export default function JewelleryTabs({ product }: JewelleryTabsProps) {
             {/* Right-side Image */}
             <div className="flex-1">
               <img
-              src={product.thumbnail?.location  || "/assets/images/price-image.png"}
+                src={product.thumbnail?.location || "/assets/images/price-image.png"}
                 alt="Jewellery"
                 className=" max-h-[320px] rounded-lg object-cover"
               />
