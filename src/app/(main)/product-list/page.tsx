@@ -55,7 +55,7 @@ export type ApiProduct = {
   stoneWeight?: string;
   stoneCount?: number;
   variantItems: VariantItem[];
- createdAt:Date
+  createdAt: Date
 };
 
 type Category = {
@@ -172,23 +172,23 @@ function CollectionsContent() {
       [id]: !prev[id],
     }));
   };
-const [pendingPrice, setPendingPrice] = useState({
-  minPrice: filters.minPrice,
-  maxPrice: filters.maxPrice,
-});
+  const [pendingPrice, setPendingPrice] = useState({
+    minPrice: filters.minPrice,
+    maxPrice: filters.maxPrice,
+  });
 
-// Debounce timer
-useEffect(() => {
-  const timeout = setTimeout(() => {
-    setFilters((prev) => ({
-      ...prev,
-      minPrice: pendingPrice.minPrice,
-      maxPrice: pendingPrice.maxPrice,
-    }));
-  }, 500); // ⏱ debounce delay 500ms
+  // Debounce timer
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setFilters((prev) => ({
+        ...prev,
+        minPrice: pendingPrice.minPrice,
+        maxPrice: pendingPrice.maxPrice,
+      }));
+    }, 500); // ⏱ debounce delay 500ms
 
-  return () => clearTimeout(timeout);
-}, [pendingPrice]);
+    return () => clearTimeout(timeout);
+  }, [pendingPrice]);
   // Fetch categories
   useEffect(() => {
     const fetchCategories = async () => {
@@ -205,87 +205,87 @@ useEffect(() => {
 
     fetchCategories();
   }, []);
-// Fetch products with filters
-useEffect(() => {
-  const fetchProducts = async () => {
-    try {
-      setLoading(true);
+  // Fetch products with filters
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
 
-      const params: ProductQueryParams = {
-        page: currentPage,
-        entries: productsPerPage,
-      };
+        const params: ProductQueryParams = {
+          page: currentPage,
+          entries: productsPerPage,
+        };
 
-      if (filters.category.length > 0) {
-        params.category = filters.category.join(",");
-      }
-
-      if (filters.goldPurity.length > 0) {
-        params.purity = filters.goldPurity.join(",");
-      }
-
-      if (filters.minPrice > 0) params.minPrice = filters.minPrice;
-      if (filters.maxPrice < 150000) params.maxPrice = filters.maxPrice;
-
-      // ✅ Updated weight filter - pass the exact values as shown in UI
-      if (filters.productWeight.length > 0) {
-        // Use the exact values that will match against grossWeight/netWeight fields
-        const weightValues = filters.productWeight.map(weight => {
-          switch (weight) {
-            case "<5g":
-              return "5"; // or whatever value is stored in your database for <5g products
-            case "5-10g":
-              return "5-10"; // exact string that exists in grossWeight/netWeight fields
-            case "10-20g":
-              return "10-20"; // exact string that exists in grossWeight/netWeight fields
-            case "20g+":
-              return "20+"; // or "20+" depending on what's in your database
-            default:
-              return weight;
-          }
-        }).filter(Boolean);
-        
-        if (weightValues.length > 0) {
-          params.weight = weightValues.join(",");
+        if (filters.category.length > 0) {
+          params.category = filters.category.join(",");
         }
+
+        if (filters.goldPurity.length > 0) {
+          params.purity = filters.goldPurity.join(",");
+        }
+
+        if (filters.minPrice > 0) params.minPrice = filters.minPrice;
+        if (filters.maxPrice < 150000) params.maxPrice = filters.maxPrice;
+
+        // ✅ Updated weight filter - pass the exact values as shown in UI
+        if (filters.productWeight.length > 0) {
+          // Use the exact values that will match against grossWeight/netWeight fields
+          const weightValues = filters.productWeight.map(weight => {
+            switch (weight) {
+              case "<5g":
+                return "5"; // or whatever value is stored in your database for <5g products
+              case "5-10g":
+                return "5-10"; // exact string that exists in grossWeight/netWeight fields
+              case "10-20g":
+                return "10-20"; // exact string that exists in grossWeight/netWeight fields
+              case "20g+":
+                return "20+"; // or "20+" depending on what's in your database
+              default:
+                return weight;
+            }
+          }).filter(Boolean);
+
+          if (weightValues.length > 0) {
+            params.weight = weightValues.join(",");
+          }
+        }
+
+        if (filters.stoneType.length > 0) {
+          params.tag = filters.stoneType.map((s) => s.toLowerCase()).join(",");
+        }
+
+
+        const res = await GetAllProducts(params);
+        const apiProducts = res?.result || [];
+        const total = res?.pagination?.total || 0;
+        console.log(apiProducts, "data api")
+        const normalized: Product[] = apiProducts.map((p: ApiProduct) => ({
+          id: p._id,
+          name: p.name,
+          purity: p.purity,
+          metalType: p.metalType,
+          grossWeight: p.grossWeight,
+          price: p.price,
+          tags: p.tags,
+          stoneWeight: p.stoneWeight,
+          stoneCount: p.stoneCount,
+          description: p.description,
+          image: p.images?.[0]?.location,
+          hoverImg: p.thumbnail?.location,
+          variantItems: p.variantItems || [],
+        }));
+
+        setProducts(normalized);
+        setTotalProducts(total);
+      } catch (err) {
+        console.error("Failed to fetch products", err);
+      } finally {
+        setLoading(false);
       }
+    };
 
-      if (filters.stoneType.length > 0) {
-        params.tag = filters.stoneType.map((s) => s.toLowerCase()).join(",");
-      }
-
-
-      const res = await GetAllProducts(params);
-      const apiProducts = res?.result || [];
-      const total = res?.pagination?.total || 0;
-        console.log(apiProducts,"data api")
-      const normalized: Product[] = apiProducts.map((p: ApiProduct) => ({
-        id: p._id,
-        name: p.name,
-        purity: p.purity,
-        metalType: p.metalType,
-        grossWeight: p.grossWeight,
-        price: p.price,
-        tags: p.tags,
-        stoneWeight: p.stoneWeight,
-        stoneCount: p.stoneCount,
-        description: p.description,
-        image:   p.images?.[0]?.location ,
-          hoverImg: p.thumbnail?.location ,
-        variantItems: p.variantItems || [],
-      }));
-
-      setProducts(normalized);
-      setTotalProducts(total);
-    } catch (err) {
-      console.error("Failed to fetch products", err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  fetchProducts();
-}, [currentPage, filters, categories]);
+    fetchProducts();
+  }, [currentPage, filters, categories]);
 
   const totalPages = Math.ceil(totalProducts / productsPerPage);
 
@@ -298,10 +298,10 @@ useEffect(() => {
     setCurrentPage(1);
   };
 
-const handlePriceChange = (type: "minPrice" | "maxPrice", value: number) => {
-  setPendingPrice((prev) => ({ ...prev, [type]: value }));
-  setCurrentPage(1);
-};
+  const handlePriceChange = (type: "minPrice" | "maxPrice", value: number) => {
+    setPendingPrice((prev) => ({ ...prev, [type]: value }));
+    setCurrentPage(1);
+  };
   const parentCategories = categories.filter((cat) => cat.parent === null);
   const childCategories = categories.filter((cat) => cat.parent !== null);
 
@@ -512,7 +512,7 @@ const handlePriceChange = (type: "minPrice" | "maxPrice", value: number) => {
                     type="range"
                     min={0}
                     max={150000}
-                     value={pendingPrice.minPrice}
+                    value={pendingPrice.minPrice}
                     onChange={(e) =>
                       handlePriceChange("minPrice", Number(e.target.value))
                     }
@@ -527,7 +527,7 @@ const handlePriceChange = (type: "minPrice" | "maxPrice", value: number) => {
                     type="range"
                     min={0}
                     max={150000}
-                   value={pendingPrice.maxPrice}
+                    value={pendingPrice.maxPrice}
                     onChange={(e) =>
                       handlePriceChange("maxPrice", Number(e.target.value))
                     }
@@ -602,21 +602,21 @@ const handlePriceChange = (type: "minPrice" | "maxPrice", value: number) => {
               </div>
             )} */}
 
-                <div className="w-full bg-white py-4 flex justify-center absolute bottom-0 left-0">
+            <div className="w-full bg-white py-4 flex justify-center absolute bottom-0 left-0">
 
-          <Pagination
-            totalPages={totalPages}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-          />
+              <Pagination
+                totalPages={totalPages}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+              />
 
-        </div>
+            </div>
           </main>
 
         </div>
-   
+
       </div>
- 
+
     </>
   );
 }
