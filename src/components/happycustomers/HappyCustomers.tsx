@@ -8,22 +8,22 @@ import { Pagination, Autoplay } from "swiper/modules";
 export default function HappyCustomers() {
   const customers = [
     {
-      img: "/assets/images/customer1.jpg",
+      img: "/assets/images/no-pic01.jpg",
       name: "Anjali D.",
       text: "Beautiful jewelry and friendly staff! My experience with Bindu Jewellery was wonderful.",
     },
     {
-      img: "/assets/images/customer2.jpg",
+      img: "/assets/images/no-pic01.jpg",
       name: "Rahul K.",
       text: "Excellent craftsmanship and unique designs. Totally satisfied with my purchase!",
     },
     {
-      img: "/assets/images/customer3.jpg",
+      img: "/assets/images/no-pic01.jpg",
       name: "Priya S.",
       text: "Great customer service and elegant diamond collection. Highly recommend!",
     },
     {
-      img: "/assets/images/customer4.jpg",
+      img: "/assets/images/no-pic01.jpg",
       name: "Vivek M.",
       text: "Superb quality and timely delivery. Bindu Jewellery never disappoints!",
     },
