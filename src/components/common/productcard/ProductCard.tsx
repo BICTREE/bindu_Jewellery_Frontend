@@ -131,11 +131,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
 
   return (
-    <div className="w-full sm:w-60 mx-auto">
+    <div className="w-60 mx-auto bg-white rounded-lg overflow-hidden">
       <div className="group pb">
         {/* Card Image */}
         <Link href={`/products/${id}`}>
-          <div className="relative w-full aspect-[13/17] overflow-hidden bg-white transition-all duration-500 rounded-lg group-hover:rounded-t-[120px]">
+          <div className="relative w-full aspect-[4/5] sm:aspect-[13/17]  overflow-hidden bg-white transition-all duration-500 rounded-lg group-hover:rounded-t-[120px] ">
             <img
               src={image}
               alt={name}
