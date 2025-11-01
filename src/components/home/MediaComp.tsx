@@ -45,7 +45,7 @@ type MediaGroup = {
 // Loading Skeleton Component
 const MediaSkeleton = () => {
   return (
-    <section className="container mx-auto py-15">
+    <section className="container mx-auto px-4 py-8 sm:px-6 lg:py-15">
       <div className="animate-pulse">
         {/* Title Skeleton */}
         <div className="text-center mb-8">
@@ -88,7 +88,7 @@ const MediaSkeleton = () => {
 // Enhanced Loading Skeleton with Shimmer Effect
 const MediaSkeletonWithShimmer = () => {
   return (
-    <section className="container mx-auto py-15">
+    <section className="container mx-auto px-4 py-10 sm:py-12 md:py-16 lg:py-20">
       {/* Title Skeleton */}
       <div className="text-center mb-8">
         <div className="h-8 bg-gray-200 rounded w-48 mx-auto mb-2 animate-pulse"></div>
@@ -447,7 +447,7 @@ export default function MediaComp() {
 
   if (error) {
     return (
-      <section className="container mx-auto py-15">
+      <section className="container mx-auto px-4 py-10 sm:py-12 md:py-16 lg:py-20">
         <h2 className="font-prata text-2xl sm:text-3xl md:text-4xl font-bold text-center">
           Media
         </h2>
@@ -463,7 +463,7 @@ export default function MediaComp() {
 
   if (mediaItems.length === 0) {
     return (
-      <section className="container mx-auto py-15">
+      <section className="container mx-auto px-4 py-10 sm:py-12 md:py-16 lg:py-20">
         <h2 className="font-prata text-2xl sm:text-3xl md:text-4xl font-bold text-center">
           Media
         </h2>
@@ -478,7 +478,8 @@ export default function MediaComp() {
   }
 
   return (
-    <section className="container mx-auto py-15">
+    <section className=" mx-auto px-4 py-10 sm:py-12 md:py-16 lg:py-20">
+      <div className="container">
       <h2 className="font-prata text-2xl sm:text-3xl md:text-4xl font-bold text-center">
         Media
       </h2>
@@ -572,6 +573,7 @@ export default function MediaComp() {
       </div>
 
       {renderLightbox()}
+      </div>
     </section>
   );
 }

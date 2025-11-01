@@ -8,7 +8,7 @@ type MediaCardProps = {
 
 const MediaCard: React.FC<MediaCardProps> = ({ image, link = "#" }) => {
   return (
-    <section className=" container mx-auto px-4 flex justify-center">
+    <section className=" container mx-auto px-4 flex justify-center py-15">
       <div className="relative group overflow-hidden rounded-lg shadow-md ">
         {/* Product Image */}
         <img
