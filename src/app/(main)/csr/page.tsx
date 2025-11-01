@@ -1,62 +1,162 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import Banner from "@/components/common/Banner/Banner";
+import CsrBanner from "@/components/common/Banner/CsrBanner";
+import StoriesOfChange from "@/components/storychange/StoryChange";
 const CSRPage = () => {
   return (
    
-      <><Banner Title="CSR" />
+      <><CsrBanner/>
       
-      <section className="py-16 px-4 md:px-16 bg-white text-gray-800">
-          <div className="container mx-auto">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch">
-                  {/* Left Side - Contact Info + Image */}
-                  <div className="lg:col-span-5 order-1 lg:order-1 flex flex-col justify-between">
+    <section className="bg-white text-center pt-15 px-10">
+      {/* 🖼️ Row 1: Banner Image */}
+      <div className="w-full">
+        <img
+          src="/assets/images/csr-logo-new.jpg"
+          alt="Swarna Bindu Banner"
+          className="w-full h-[400px] object-cover"
+        />
+      </div>
 
-                      {/* CSR Image */}
-                      <div className="w-full h-56 sm:h-72 md:h-80 lg:h-auto relative shadow-md rounded-md overflow-hidden flex-1">
-                          <Image
-                              src="/assets/images/csr-img.png"
-                              alt="CSR Initiatives"
-                              fill
-                              className="object-cover rounded-md" />
-                      </div>
-                  </div>
+      {/* ✨ Row 2: Description */}
+      <div className="max-w-5xl mx-auto py-10 px-6">
+        <p className="text-[#111111] text-base md:text-lg leading-relaxed font-serif">
+          At the heart of Bindu Jewellery lies a strong belief that true
+          prosperity is shared prosperity. As a brand that has grown from
+          community roots, we remain deeply committed to giving back through
+          meaningful social impact. Our flagship CSR initiative,{" "}
+          <span className="font-semibold text-[#5b0000]">“Swarna Bindu,”</span>{" "}
+          is dedicated to empowering women through skill development, education,
+          and entrepreneurship — helping them transform their potential into
+          power.
+        </p>
+      </div>
+    </section>
 
-                  {/* Right Side - Text Content */}
-                  <div className="lg:col-span-7 order-1 lg:order-1 flex">
-                      <div className="flex flex-col justify-center p-4 lg:p-6 flex-1">
-                          <p className="text-xs sm:text-sm text-[#d4b262] font-semibold uppercase mb-3">
-                              Corporate Social Responsibility
-                          </p>
+  <section className=" bg-white text-center">
+      {/* Title */}
+      <h2 className="text-2xl md:text-3xl font-serif font-semibold text-[#143a76] mb-10">
+        Our Programs
+      </h2>
 
-                          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-900 mb-6 leading-snug">
-                         Swarna Bindu: Empowering Women, Enriching Futures
-                          </h2>
-
-                          <p className="leading-relaxed mb-6 text-sm sm:text-base font-semibold text-gray-700">
-                             At the heart of Bindu Jewellery lies a strong belief that true prosperity is shared prosperity. As a brand that has grown from community roots, we remain deeply committed to giving back through meaningful social impact. Our flagship CSR initiative, “Swarna Bindu”, is dedicated to empowering women through skill development, education, and entrepreneurship — helping them transform their potential into power.
-
-                          </p>
-
-                          <p className="font-normal mb-4 text-sm sm:text-base text-gray-500">
-                             Through Swarna Bindu, we create opportunities for women from all backgrounds to learn jewellery-making skills, engage in creative workshops, and build confidence in financial independence. We also extend mentorship programs that help aspiring entrepreneurs start small businesses, fostering a new generation of self-reliant women. Education sponsorships and awareness drives further strengthen our commitment to social upliftment.
-
-                          </p>
-
-                          <p className="font-normal mb-4 text-sm sm:text-base text-gray-500">
-                             Bindu Jewellery believes that when women are empowered, families and communities thrive. Swarna Bindu is not just a CSR initiative — it is a heartfelt movement that celebrates resilience, self-worth, and ambition. Just like gold, every woman has an inner shine waiting to be polished; through Swarna Bindu, we promise to keep nurturing that light and creating a society where every woman can achieve her dreams and stand tall with pride.
-
-                          </p>
-
-                          {/* <button className="mt-4 w-fit px-6 py-3 bg-[#d4b262] text-white font-semibold rounded-md shadow hover:bg-[#c2a251] transition-all">
-      Learn More
-    </button> */}
-                      </div>
-                  </div>
-              </div>
+      {/* 3 Column Image Strip */}
+      <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-0 px-0  rounded-lg shadow-md">
+        {/* Card 1 */}
+        <div className="relative group overflow-hidden">
+          <img
+            src="/assets/images/skill.jpg"
+            alt="Skills & Employability"
+            className="w-full h-[300px] object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+            <h3 className="text-white text-xl font-medium">
+              Skills & Employability
+            </h3>
           </div>
-      </section></>
+        </div>
+
+        {/* Card 2 */}
+        <div className="relative group overflow-hidden">
+          <img
+            src="/assets/images/education.jpg"
+            alt="Education"
+            className="w-full h-[300px] object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+            <h3 className="text-white text-xl font-medium">Education</h3>
+          </div>
+        </div>
+
+        {/* Card 3 */}
+        <div className="relative group overflow-hidden">
+          <img
+            src="/assets/images/livelihood.jpg"
+            alt="Livelihood"
+            className="w-full h-[300px] object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+            <h3 className="text-white text-xl font-medium">Livelihood</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+        <section className="bg-white text-center">
+    
+      {/* ✨ Row 2: Description */}
+      <div className="max-w-5xl mx-auto py-10">
+        <p className="text-[#111111] text-base md:text-lg leading-relaxed font-serif">
+          At the heart of Bindu Jewellery lies a strong belief that true
+          prosperity is shared prosperity. As a brand that has grown from
+          community roots, we remain deeply committed to giving back through
+          meaningful social impact. Our flagship CSR initiative,{" "}
+          <span className="font-semibold text-[#5b0000]">“Swarna Bindu,”</span>{" "}
+          is dedicated to empowering women through skill development, education,
+          and entrepreneurship — helping them transform their potential into
+          power.
+        </p>
+      </div>
+    </section>
+
+
+      <section className="py-16 bg-white">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-8 px-6">
+        
+        {/* Right Side (Now comes first on mobile) */}
+        <div className="order-1 md:order-2 grid grid-cols-2 grid-rows-2">
+          <div className="bg-[#6a9300] text-white flex flex-col items-center justify-center p-8">
+            <h3 className="text-4xl font-bold">300+</h3>
+            <p className="text-lg mt-1">Workshops</p>
+          </div>
+
+          <div className="bg-[#fff6d9] text-black flex flex-col items-center justify-center p-8">
+            <h3 className="text-4xl font-extrabold">6000+</h3>
+            <p className="text-lg mt-1 text-center">
+              Educate <br /> women & children
+            </p>
+          </div>
+
+          <div className="bg-[#fff6d9]"></div>
+
+          <div className="bg-[#6a9300] text-white flex flex-col items-center justify-center p-8">
+            <h3 className="text-4xl font-bold">100+</h3>
+            <p className="text-lg mt-1 text-center">Mentorship Programmes</p>
+          </div>
+        </div>
+
+        {/* Left Side (Now comes second on mobile) */}
+        <div className="order-2 md:order-1 space-y-6 text-center md:text-left">
+          <h2 className="text-[42px] md:text-[48px] font-serif font-semibold text-[#1a1a1a] leading-tight">
+            Our Impact
+          </h2>
+
+          <p className="text-[20px] md:text-[22px] font-serif text-gray-800 leading-relaxed max-w-xl mx-auto md:mx-0">
+            Discover the lasting change brings to{" "}
+            <span className="font-semibold text-[#1a1a1a]">SWARNA BINDU CSR</span> initiatives.
+          </p>
+
+          <button className="inline-flex items-center gap-2 bg-[#6a9300] hover:bg-[#557800] text-white text-lg font-medium px-8 py-3 rounded-sm transition-all shadow-sm">
+            View
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="2"
+              stroke="currentColor"
+              className="w-5 h-5"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
+              />
+            </svg>
+          </button>
+        </div>
+
+      </div>
+    </section>
+<StoriesOfChange/>
+      </>
   );
 };
 
