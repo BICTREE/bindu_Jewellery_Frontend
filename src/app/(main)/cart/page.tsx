@@ -41,7 +41,7 @@ const CartPage = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [wishlistLoading, setWishlistLoading] = useState<string | null>(null);
- const { data: session, status } = useSession()
+  const { data: session, status } = useSession()
   const dispatch = useDispatch<AppDispatch>();
   const [showPromo, setShowPromo] = useState(false);
   const { _id: userId, wishlist } = useSelector(
@@ -49,31 +49,31 @@ const CartPage = () => {
   );
 
   // 🔹 Fetch cart from API
- useEffect(() => {
-  const fetchCart = async () => {
-    try {
-      const cart = await getMyCart();
-      setCartItems(cart || []);
-    } catch (error) {
-      console.error("Error fetching cart:", error);
-      toast.error("Failed to load cart. Please try again.");
-    } finally {
+  useEffect(() => {
+    const fetchCart = async () => {
+      try {
+        const cart = await getMyCart();
+        setCartItems(cart || []);
+      } catch (error) {
+        console.error("Error fetching cart:", error);
+        toast.error("Failed to load cart. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    // Wait until session is fully loaded
+    if (status === "loading") return; // ⏳ wait for session to load
+
+    if (status === "unauthenticated") {
       setLoading(false);
+      return;
     }
-  };
 
-  // Wait until session is fully loaded
-  if (status === "loading") return; // ⏳ wait for session to load
-
-  if (status === "unauthenticated") {
-    setLoading(false);
-    return;
-  }
-
-  if (status === "authenticated") {
-    fetchCart();
-  }
-}, [status]);
+    if (status === "authenticated") {
+      fetchCart();
+    }
+  }, [status]);
 
 
   // 🔹 Check if product is in wishlist
@@ -186,9 +186,9 @@ const CartPage = () => {
     };
   }, [cartItems, discount, appliedCoupon]);
 
-if (status === "loading" || loading) {
-  return <Loader />;
-}
+  if (status === "loading" || loading) {
+    return <Loader />;
+  }
 
   return (
     <div className="bg-white">
