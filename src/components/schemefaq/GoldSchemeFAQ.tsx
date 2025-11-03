@@ -28,6 +28,7 @@ const faqs = [
 
 const GoldSchemeFAQ = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [showTerms, setShowTerms] = useState(false);
 
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -39,11 +40,12 @@ const GoldSchemeFAQ = () => {
         Ask Us Your Easy Gold Scheme Related Questions
       </h2>
 
-      <div className=" max-w-3xl mx-auto">
+      {/* FAQ Section */}
+      <div className="max-w-3xl mx-auto">
         {faqs.map((faq, index) => (
           <div
             key={index}
-            className="border border-gray-300  overflow-hidden bg-white "
+            className="border border-gray-300 overflow-hidden bg-white "
           >
             <button
               onClick={() => toggleFAQ(index)}
@@ -73,14 +75,50 @@ const GoldSchemeFAQ = () => {
         either Gold, Silver, Diamond studded jewellery or plain gold jewellery.
       </p>
 
-      {/* Terms link */}
+      {/* Terms & Conditions Accordion */}
       <div className="text-center mt-6">
-        <a
-          href="#"
-          className="text-[#7c0f0f] font-medium hover:underline text-sm sm:text-base"
+        <button
+          onClick={() => setShowTerms(!showTerms)}
+          className="text-[#7c0f0f] font-medium hover:underline text-sm sm:text-base focus:outline-none"
         >
-          View all Terms & Conditions &gt;&gt;
-        </a>
+          {showTerms
+            ? "Hide all Terms & Conditions <<"
+            : "View all Terms & Conditions >>"}
+        </button>
+
+        <div
+          className={`transition-all duration-500 overflow-hidden ${
+            showTerms ? "max-h-[1000px] opacity-100 mt-4" : "max-h-0 opacity-0"
+          }`}
+        >
+          <div className="p-5 max-w-3xl mx-auto text-left text-gray-700 ">
+            <h3 className="font-semibold text-lg mb-2 text-[#7c0f0f]">
+              Terms & Conditions
+            </h3>
+            <ul className="list-disc list-inside space-y-2 text-sm sm:text-base leading-relaxed">
+              <li>
+                The scheme duration and benefits are subject to change as per
+                company policy.
+              </li>
+              <li>
+                Monthly installments must be paid on or before the due date to
+                continue enjoying benefits.
+              </li>
+              <li>
+                In case of missed payments, benefits may be adjusted or forfeited
+                as per terms.
+              </li>
+              <li>
+                The company reserves the right to modify, suspend, or withdraw
+                the scheme without prior notice.
+              </li>
+              <li>
+                Redemption is allowed only after successful completion of all
+                installments.
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
   );

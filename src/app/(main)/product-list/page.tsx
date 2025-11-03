@@ -547,6 +547,7 @@ function CollectionsContent() {
               <>
                 <div className="mt-10 text-gray-600 px-4">
                   Showing {products.length} of {totalProducts} products
+                  
                 </div>
                 <ProductListComp
                   products={products.map((p) => ({
