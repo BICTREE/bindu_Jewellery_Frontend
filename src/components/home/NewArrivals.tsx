@@ -137,11 +137,11 @@ export default function NewArrivals() {
             </button>
       <Swiper
         modules={[Navigation]}
-        spaceBetween={30}
+        spaceBetween={15}
         slidesPerView={4}
         breakpoints={{
-          320: { slidesPerView: 1, centeredSlides: true },
-          640: { slidesPerView: 2, centeredSlides: false },
+          320: { slidesPerView: 1,spaceBetween: 20, centeredSlides: true },
+          640: { slidesPerView: 3,spaceBetween: 15, centeredSlides: false },
           1024: { slidesPerView: 4 },
         }}
           onSwiper={(swiper) => setSwiperInstance(swiper)}

@@ -313,8 +313,8 @@ function CollectionsContent() {
     <>
       <Banner Title="Collections" />
 
-      <div className="container mx-auto relative ">
-        <div className="flex items-center md:hidden justify-between w-full">
+      <div className="container mx-auto relative bg-white ">
+        <div className="flex items-center md:hidden justify-between w-full bg-white">
           <h2 className="block md:hidden px-4 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 pt-0">
             Our Collections
           </h2>
@@ -337,7 +337,7 @@ function CollectionsContent() {
         </div>
 
 
-        <div className="flex flex-col md:flex-row gap-2 md:gap-6 h-full ">
+        <div className="flex flex-col md:flex-row gap-2 md:gap-6 h-full bg-white ">
           {/* LEFT FILTER SIDEBAR */}
           <aside
             className={`${mobileFilterOpen ? "block" : "hidden"
@@ -540,7 +540,7 @@ function CollectionsContent() {
 
 
           {/* MAIN CONTENT */}
-          <main className="flex-2 relative ">
+          <main className="flex-2 relative  bg-white">
             {loading ? (
               <Loader />
             ) : (

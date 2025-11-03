@@ -135,7 +135,7 @@ const ProductPage = () => {
       {/* Thumbnails - scrollable on mobile */}
 {/* Thumbnails - equal spacing */}
 
-<div className="grid grid-cols-3 gap-4 mt-4 col-auto">
+<div className="grid grid-cols-3 gap-4 mt-4 col-auto ">
   {images.map((img, i) => (
     <img
       key={i}
