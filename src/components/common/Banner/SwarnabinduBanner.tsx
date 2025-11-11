@@ -30,7 +30,7 @@ const SwarnaBanner = () => {
         {/* Login/Register Box */}
         <div className="rounded-lg max-w-xs sm:max-w-sm md:max-w-md mx-auto md:mx-0">
           {/* Logo Area */}
-          <div className="relative bg-[#7c0f0f] rounded-t-lg overflow-hidden w-full h-24 sm:h-28 md:h-32">
+          <div className="relative bg-[#6d0201] pt-5 rounded-t-lg overflow-hidden w-full h-[100px] sm:h-28 md:h-32">
             <Image
               src="/assets/images/swarna-logo.png"
               alt="Swarna Bindu Logo"
