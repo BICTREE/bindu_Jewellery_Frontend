@@ -11,7 +11,6 @@ import {
 export default function Register() {
   const [step, setStep] = useState<"register" | "otp">("register");
   const [loading, setLoading] = useState(false);
-
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -21,20 +20,12 @@ export default function Register() {
     gender: "",
     birthday: "",
   });
-
   const [otp, setOtp] = useState("");
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const handleOtpChange = (e: React.ChangeEvent<HTMLInputElement>) => setOtp(e.target.value);
 
-  const handleOtpChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setOtp(e.target.value);
-  };
-
-  // Send OTP
   const handleSendOtp = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -42,222 +33,175 @@ export default function Register() {
       const res = await SendOTP({ email: formData.email });
       toast.success(res?.message || "OTP sent successfully!");
       setStep("otp");
-    } catch (err: unknown) {
-      const error = err as { response?: { data?: { message?: string } } };
-      toast.error(error?.response?.data?.message || "Failed to send OTP");
+    } catch (err: any) {
+      toast.error(err?.response?.data?.message || "Failed to send OTP");
     } finally {
       setLoading(false);
     }
   };
 
-  // Verify OTP + Register
   const handleVerifyOtp = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     try {
       await VerifyOTP({ email: formData.email, otp });
-      const body = {
-        ...formData,
-        credType: "email",
-        otp,
-      };
-      const res = await RegisterUser(body);
+      const res = await RegisterUser({ ...formData, credType: "email", otp });
       toast.success(res?.message || "Registration successful!");
-      setTimeout(() => {
-        window.location.href = "/login";
-      }, 1500);
-    } catch (err: unknown) {
-      const error = err as { response?: { data?: { message?: string } } };
-      toast.error(error?.response?.data?.message || "Failed to verify OTP");
+      setTimeout(() => (window.location.href = "/login"), 1500);
+    } catch (err: any) {
+      toast.error(err?.response?.data?.message || "Failed to verify OTP");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row">
-      {/* Left Side Image */}
-      <div className="hidden md:flex md:w-1/2 bg-cover bg-center bg-no-repeat" 
+    <div className="min-h-screen flex flex-col md:flex-row ">
+      {/* Left side - Image only visible on desktop */}
+      <div
+        className="hidden md:flex md:w-1/2 bg-cover bg-center "
         style={{
           backgroundImage: "url('/assets/images/login-bg.jpg')",
-        }}>
-     
-      </div>
+        }}
+      ></div>
 
-      {/* Right Side Form */}
-      <div className="w-full md:w-1/2 bg-white flex items-center justify-center py-12 px-6">
-        <div className="relative w-full max-w-md bg-white/20 backdrop-blur-md rounded-lg shadow-lg p-8 flex flex-col justify-center min-h-[50vh] ">
-        
+      {/* Right side - Form (white bg on desktop, background image on mobile) */}
+   <div
+  className="w-full md:w-1/2 flex items-center justify-center py-12 px-6 
+bg-cover bg-center bg-no-repeat md:bg-white register-bg h-[100vh] md:h-auto"
+>
+        <div
+          className="relative w-full max-w-md rounded-2xl shadow-lg p-8 flex flex-col justify-center
+                     bg-white/20 md:bg-white backdrop-blur-md md:backdrop-blur-none"
+        >
+          {/* Mobile Logo */}
+          <div className="md:hidden mb-6 text-center">
+            <img
+              src="/assets/images/footer-icon.png"
+              alt="Logo"
+              className="w-[70px] mx-auto"
+            />
+          </div>
+
+          <h2 className="text-center text-2xl font-semibold text-white md:text-gray-800 mb-6">
+            {step === "register" ? "Create Your Account" : "Verify OTP"}
+          </h2>
 
           {step === "register" ? (
-            <>
-              <h2 className="text-center text-2xl font-semibold text-gray-800 mb-6">
-                Create Your Account
-              </h2>
-              <form className="space-y-5" onSubmit={handleSendOtp}>
-                {/* First Name */}
-                <div>
-                  <label className="flex items-center gap-2 border border-[#cfcfcf] rounded-lg p-2">
-                    <User size={18} />
+            <form className="space-y-5" onSubmit={handleSendOtp}>
+              {[
+                { name: "firstName", icon: User, placeholder: "First Name" },
+                { name: "lastName", icon: User, placeholder: "Last Name" },
+                { name: "email", icon: Mail, placeholder: "Email" },
+                { name: "mobile", icon: Phone, placeholder: "Mobile No" },
+                { name: "password", icon: Lock, placeholder: "Password", type: "password" },
+              ].map(({ name, icon: Icon, placeholder, type = "text" }) => (
+                <div key={name}>
+                  <label className="flex items-center gap-2 border border-gray-300 rounded-lg p-2">
+                    <Icon size={18} className="text-white md:text-gray-700" />
                     <input
-                      type="text"
-                      name="firstName"
-                      placeholder="First Name"
-                      value={formData.firstName}
+                      type={type}
+                      name={name}
+                      placeholder={placeholder}
+                      value={(formData as any)[name]}
                       onChange={handleChange}
-                      className="w-full bg-transparent focus:outline-none"
+                      className="w-full bg-transparent focus:outline-none 
+                                 placeholder-white md:placeholder-gray-500
+                                 text-white md:text-gray-800"
                       required
                     />
                   </label>
                 </div>
+              ))}
 
-                {/* Last Name */}
-                <div>
-                  <label className="flex items-center gap-2 border border-[#cfcfcf] rounded-lg p-2">
-                    <User size={18} />
-                    <input
-                      type="text"
-                      name="lastName"
-                      placeholder="Last Name"
-                      value={formData.lastName}
-                      onChange={handleChange}
-                      className="w-full bg-transparent focus:outline-none"
-                      required
-                    />
-                  </label>
-                </div>
+              {/* Gender */}
+              <div>
+                <label className="flex items-center gap-2 border border-gray-300 rounded-lg p-2 text-white md:text-gray-800">
+                  <span>Gender</span>
+                  <select
+                    name="gender"
+                    value={formData.gender}
+                    onChange={handleChange}
+                    className="w-full bg-transparent focus:outline-none 
+                               text-white md:text-gray-800"
+                    required
+                  >
+                    <option value="" disabled className="text-gray-400">
+                      Select Gender
+                    </option>
+                    <option value="Male" className="text-black">
+                      Male
+                    </option>
+                    <option value="Female" className="text-black">
+                      Female
+                    </option>
+                    <option value="Other" className="text-black">
+                      Other
+                    </option>
+                  </select>
+                </label>
+              </div>
 
-                {/* Email */}
-                <div>
-                  <label className="flex items-center gap-2 border border-[#cfcfcf] rounded-lg p-2">
-                    <Mail size={18} />
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="Email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      className="w-full bg-transparent focus:outline-none"
-                      required
-                    />
-                  </label>
-                </div>
+              {/* Birthday */}
+              <div>
+                <label className="flex items-center gap-2 border border-gray-300 rounded-lg p-2">
+                  <Calendar size={18} className="text-white md:text-gray-700" />
+                  <input
+                    type="date"
+                    name="birthday"
+                    value={formData.birthday}
+                    onChange={handleChange}
+                    className="w-full bg-transparent focus:outline-none 
+                               text-white md:text-gray-800"
+                    required
+                  />
+                </label>
+              </div>
 
-                {/* Mobile */}
-                <div>
-                  <label className="flex items-center gap-2 border border-[#cfcfcf] rounded-lg p-2">
-                    <Phone size={18} />
-                    <input
-                      type="tel"
-                      name="mobile"
-                      placeholder="Mobile No"
-                      value={formData.mobile}
-                      onChange={handleChange}
-                      className="w-full bg-transparent focus:outline-none"
-                      required
-                    />
-                  </label>
-                </div>
+              {/* Submit */}
+              <button
+                type="submit"
+                disabled={loading}
+                className="bg-[#05808f] hover:bg-[#016b78] text-white 
+                           w-[150px] py-3 rounded-full font-semibold tracking-wide transition"
+              >
+                {loading ? "Sending..." : "Send OTP"}
+              </button>
 
-                {/* Password */}
-                <div>
-                  <label className="flex items-center gap-2 border border-[#cfcfcf] rounded-lg p-2">
-                    <Lock size={18} />
-                    <input
-                      type="password"
-                      name="password"
-                      placeholder="Password"
-                      value={formData.password}
-                      onChange={handleChange}
-                      className="w-full bg-transparent focus:outline-none"
-                      required
-                    />
-                  </label>
-                </div>
-
-                {/* Gender */}
-                <div>
-                  <label className="flex items-center gap-2 border border-[#cfcfcf] rounded-lg p-2">
-                    <span>Gender</span>
-                    <select
-                      name="gender"
-                      value={formData.gender}
-                      onChange={handleChange}
-                      className="w-full bg-transparent focus:outline-none"
-                      required
-                    >
-                      <option value="" disabled>
-                        Select Gender
-                      </option>
-                      <option value="Male">Male</option>
-                      <option value="Female">Female</option>
-                      <option value="Other">Other</option>
-                    </select>
-                  </label>
-                </div>
-
-                {/* Birthday */}
-                <div>
-                  <label className="flex items-center gap-2 border border-[#cfcfcf] rounded-lg p-2">
-                    <Calendar size={18} />
-                    <input
-                      type="date"
-                      name="birthday"
-                      value={formData.birthday}
-                      onChange={handleChange}
-                      className="w-full bg-transparent focus:outline-none"
-                      required
-                    />
-                  </label>
-                </div>
-
-                {/* Send OTP Button */}
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="bg-[#05808f] hover:bg-[#016b78] text-white w-[150px] py-3 rounded-full font-semibold tracking-wide transition"
-                >
-                  {loading ? "Sending..." : "Send OTP"}
-                </button>
-
-                {/* Login Link */}
-                <p className="text-center text-sm text-gray-700 mt-4">
-                  Already have an account?{" "}
-                  <a href="/login" className="text-[#d4b262] hover:underline">
-                    Login
-                  </a>
-                </p>
-              </form>
-            </>
+              <p className="text-center text-sm text-gray-100 md:text-gray-700 mt-4">
+                Already have an account?{" "}
+                <a href="/login" className="text-[#d4b262] hover:underline">
+                  Login
+                </a>
+              </p>
+            </form>
           ) : (
-            <>
-              <h2 className="text-center text-2xl font-semibold text-gray-800 mb-6">
-                Verify OTP
-              </h2>
-              <form className="space-y-5" onSubmit={handleVerifyOtp}>
-                <div>
-                  <label className="flex items-center gap-2 border border-[#cfcfcf] rounded-lg p-2">
-                    <Key size={18} />
-                    <input
-                      type="text"
-                      placeholder="Enter OTP"
-                      value={otp}
-                      onChange={handleOtpChange}
-                      className="w-full bg-transparent focus:outline-none"
-                      required
-                    />
-                  </label>
-                </div>
+            <form className="space-y-5" onSubmit={handleVerifyOtp}>
+              <div>
+                <label className="flex items-center gap-2 border border-gray-300 rounded-lg p-2">
+                  <Key size={18} className="text-white md:text-gray-700" />
+                  <input
+                    type="text"
+                    placeholder="Enter OTP"
+                    value={otp}
+                    onChange={handleOtpChange}
+                    className="w-full bg-transparent focus:outline-none 
+                               placeholder-white md:placeholder-gray-500 
+                               text-white md:text-gray-800"
+                    required
+                  />
+                </label>
+              </div>
 
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="bg-[#05808f] hover:bg-[#016b78] text-white w-[150px] py-3 rounded-full font-semibold tracking-wide transition"
-                >
-                  {loading ? "Verifying..." : "Verify OTP"}
-                </button>
-              </form>
-            </>
+              <button
+                type="submit"
+                disabled={loading}
+                className="bg-[#05808f] hover:bg-[#016b78] text-white 
+                           w-[150px] py-3 rounded-full font-semibold tracking-wide transition"
+              >
+                {loading ? "Verifying..." : "Verify OTP"}
+              </button>
+            </form>
           )}
         </div>
       </div>

@@ -121,3 +121,14 @@
 .blog-content a:hover {
   color: #b8943a;
 }
+
+.register-bg {
+  background-image: url('/assets/images/login-bg.jpg');
+}
+
+/* Desktop and up: remove it */
+@media (min-width: 768px) {
+  .register-bg {
+    background-image: none !important;
+  }
+}
