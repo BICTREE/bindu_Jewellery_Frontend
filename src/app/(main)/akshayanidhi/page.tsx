@@ -27,9 +27,7 @@ const AkshayaNidhiPage = () => {
                   <div className="lg:col-span-7 order-1 lg:order-1 flex">
                       <div className="flex flex-col justify-center p-4 lg:p-6 flex-1">
                           
-
-                          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-900 mb-6 leading-snug">
-                       Akshaya Nidhi
+ <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-900 mb-6 leading-snug"> Akshaya Nidhi
                           </h2>
 
                           <p className="leading-relaxed mb-6 text-sm sm:text-base font-semibold text-gray-700">
