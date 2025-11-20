@@ -60,9 +60,17 @@ const SwarnaBanner = () => {
               <button className="bg-[#b8292f] hover:bg-[#991f25] text-white px-6 py-2 rounded-md font-semibold text-sm sm:text-base">
                 Log In
               </button>
-              <button className="bg-[#e53935] hover:bg-[#c62828] text-white px-6 py-2 rounded-md font-semibold text-sm sm:text-base">
-                Register Now
-              </button>
+            <button
+  onClick={() => {
+    const section = document.getElementById("goldPurchasePlan");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }}
+  className="bg-[#e53935] hover:bg-[#c62828] text-white px-6 py-2 rounded-md font-semibold text-sm sm:text-base"
+>
+  Register Now
+</button>
             </div>
           </div>
         </div>

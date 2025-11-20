@@ -9,8 +9,8 @@ type BannerProps = {
 };
 
 const Banner: React.FC<BannerProps> = ({
-  Title = "CSR",
-  Image = "/assets/images/csr-banner.jpg", // default image
+  Title = "Mission And Vision",
+  Image = "/assets/images/mission-and-vision-banner.png", // default image
 }) => {
   return (
     <section className="relative w-full">
