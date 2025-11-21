@@ -10,6 +10,7 @@ import SubscribeNewsletter from "@/components/home/SubscribeNewsletter";
 import GiftMore from "@/components/home/GiftMore";
 import MediaComp from "@/components/home/MediaComp";
 import OfferPopup from "@/components/common/offerpopup/OfferPopup";
+import BackToTop from "@/components/common/backtotop/BackToTop";
 export default function Home() {
   return (
     <div className=" ">
@@ -25,6 +26,7 @@ export default function Home() {
      <GiftMore/>
      <MediaComp/>
       <FreeshipingComp/>
+      <BackToTop/>
     </div>
   );
 }

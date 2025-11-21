@@ -184,8 +184,9 @@ export default function MobileHeader() {
         label: "ABOUT US",
         children: [
           { label: "Our Story", href: "/ourstory" },
-          { label: "Mission & Vision", href: "/mission-vision" },
+          { label: "Mission & Vision", href: "/missionandvision" },
           { label: "MD Message", href: "/md-message" },
+          { label: "Our Branches", href: "/ourbranches" },
         ],
       },
       {
@@ -396,13 +397,15 @@ export default function MobileHeader() {
         </div>
 
         <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 ">
-          <div className="flex items-center gap-3">
-            <img
-              src="/assets/logo/icon-only.png"
-              alt="Brand Logo"
-              className="h-8"
-            />
-          </div>
+       <div className="flex items-center gap-3">
+  <Link href="/">
+    <img
+      src="/assets/logo/icon-only.png"
+      alt="Brand Logo"
+      className="h-8 cursor-pointer"
+    />
+  </Link>
+</div>
           <button onClick={() => setIsOpen(false)} className="p-2">
             <X className="w-6 h-6 text-gray-700" />
           </button>

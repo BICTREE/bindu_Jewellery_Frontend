@@ -10,13 +10,22 @@ const CSRPage = () => {
       
     <section className="bg-white text-center pt-15 px-10">
       {/* 🖼️ Row 1: Banner Image */}
-      <div className="w-full">
-        <img
-          src="/assets/images/csr-logo-new.jpg"
-          alt="Swarna Bindu Banner"
-          className="w-full h-[400px] object-cover"
-        />
-      </div>
+ <div className="w-full">
+  {/* Mobile Image */}
+  <img
+    src="/assets/images/csr-logo-mobile.png"
+    alt="CSR Mobile Banner"
+    className="w-full h-[300px] object-cover block sm:hidden"
+  />
+
+  {/* Desktop / Tablet Image */}
+  <img
+    src="/assets/images/csr-logo-new.jpg"
+    alt="CSR Desktop Banner"
+    className="w-full h-[400px] object-cover hidden sm:block"
+  />
+</div>
+
 
       {/* ✨ Row 2: Description */}
       <div className="max-w-5xl mx-auto py-10 px-6">

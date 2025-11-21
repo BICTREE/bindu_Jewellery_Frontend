@@ -7,6 +7,7 @@ import GoldSchemeFAQ from "@/components/schemefaq/GoldSchemeFAQ";
 import SchemeCalculator from "@/components/schemecalculator/SchemeCalculator";
 import ProcessToLogin from "@/components/processtologin/ProcessToLogin";
 import HappyCustomers from "@/components/happycustomers/HappyCustomers";
+import GoldPurchasePlan from "@/components/registerscheme/GoldPurchasePlan";
 const SwarnaBinduPage = () => {
   return (
       <><SwarnabinduBanner />
@@ -60,6 +61,7 @@ const SwarnaBinduPage = () => {
       </div>
     </section>
       <ProcessToLogin/>
+      <GoldPurchasePlan/>
       <GoldSchemeFAQ/>
        <SchemeCalculator />
        <HappyCustomers/>

@@ -114,6 +114,16 @@ export default function Login() {
 
     {/* ✅ Form Card */}
     <div className="relative w-full max-w-md bg-white/20 backdrop-blur-md rounded-lg shadow-lg p-8 flex flex-col justify-center min-h-[60vh]">
+     
+       {/* Mobile Logo */}
+          <div className="md:hidden mb-6 text-center">
+            <img
+              src="/assets/images/footer-icon.png"
+              alt="Logo"
+              className="w-[50px] mx-auto"
+            />
+          </div>
+     
       <h2 className="text-left text-2xl font-semibold text-[#010000]">
         User Login
       </h2>
