@@ -31,8 +31,10 @@ export default function MissionVision() {
     {/* RIGHT SIDE – MISSION + VISION TEXT */}
     <div>
       {/* Mission */}
-      <h2 className="text-3xl font-semibold mb-4">Our Mission</h2>
-      <p className="text-gray-700 leading-relaxed mb-6">
+     <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-900 mb-6 leading-snug">
+  Our Mission
+</h2>
+      <p className="font-normal  mb-4 text-sm sm:text-base text-gray-500 ">
         At Bindu Jewellery, our mission is to create jewellery that goes beyond
         aesthetics — pieces that carry emotion, meaning, and memories. Each creation
         we design is a tribute to the artistry of our ancestors and the evolving
@@ -43,7 +45,7 @@ export default function MissionVision() {
         innovation of modern craftsmanship.
       </p>
 
-      <p className="text-gray-700 leading-relaxed mb-10">
+      <p className="font-normal  mb-4 text-sm sm:text-base text-gray-500 ">
         We are dedicated to building an experience rooted in trust, transparency,
         and heartfelt connection. From the purity of every metal to the intricacy
         of every design, our mission is to uphold the highest standards of quality
@@ -54,8 +56,8 @@ export default function MissionVision() {
       </p>
 
       {/* Vision */}
-      <h2 className="text-3xl font-semibold mb-4">Our Vision</h2>
-      <p className="text-gray-700 leading-relaxed mb-6">
+      <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-900 mb-6 leading-snug">Our Vision</h2>
+      <p className="font-normal  mb-4 text-sm sm:text-base text-gray-500 ">
         Bindu Jewellery envisions becoming Southern India’s most trusted family
         jeweller, known for both its traditional excellence and innovative spirit.
         We aspire to preserve our timeless artistry while expanding our reach —
@@ -63,7 +65,7 @@ export default function MissionVision() {
         and continuously raising the bar in purity and design.
       </p>
 
-      <p className="text-gray-700 leading-relaxed">
+      <p className="font-normal  mb-4 text-sm sm:text-base text-gray-500 ">
         Our vision extends beyond commerce — we see jewellery as a bridge between
         generations, a keepsake that carries emotions and blessings. As we step
         into the future, we aim to blend classic craftsmanship with contemporary

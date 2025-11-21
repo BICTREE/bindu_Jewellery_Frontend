@@ -27,7 +27,7 @@ const Banner: React.FC<BannerProps> = ({
       {/* ✅ Content */}
       <div className="absolute inset-0 flex flex-col justify-between container mx-auto px-4 py-4 z-20">
         {/* Breadcrumb */}
-        <div className="text-white text-xs sm:text-sm md:text-base">
+        <div className="text-white text-xs sm:text-sm md:text-base hidden sm:block">
           <Link href="/" className="hover:underline hover:text-yellow-400 transition-colors">
             Home
           </Link>{" "}

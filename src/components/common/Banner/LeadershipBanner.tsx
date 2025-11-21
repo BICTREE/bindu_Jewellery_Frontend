@@ -5,42 +5,39 @@ import Link from "next/link";
 
 type BannerProps = {
   Title?: string;
-  Image?: string; // optional custom image prop
+  Image?: string;
 };
 
 const Banner: React.FC<BannerProps> = ({
   Title = "Page Title",
-  Image = "/assets/images/banner-leadership.jpg", // default image
+  Image = "/assets/images/banner-leadership.jpg",
 }) => {
   return (
     <section className="relative w-full">
-      {/* ✅ Banner Image */}
+      {/* Banner Image */}
       <img
         src={Image}
         alt={Title}
-        className="w-full h-[100%]  object-cover transition-opacity duration-500"
+        className="w-full h-full object-cover transition-opacity duration-500"
       />
 
-      {/* ✅ Overlay */}
-      <div className="absolute top-0 left-0 w-full h-full bg-black/10"></div>
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/10"></div>
 
-      {/* ✅ Content */}
-      <div className="absolute inset-0 flex flex-col justify-between container mx-auto px-4 py-4 z-20">
-        {/* Breadcrumb */}
-        <div className="text-white text-xs sm:text-sm md:text-base">
-          <Link href="/" className="hover:underline hover:text-yellow-400 transition-colors">
-            Home
-          </Link>{" "}
-          / <span className="text-gray-200 capitalize">{Title}</span>
-        </div>
-
-        {/* Title */}
-        <div className="flex-1 flex items-center">
-          {/* <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white capitalize">
-            {Title}
-          </h1> */}
-        </div>
+      {/* Breadcrumb (Top + hidden on mobile) */}
+      <div className="absolute top-4 left-4 sm:left-8 z-20 hidden sm:block text-white text-sm md:text-base">
+        <Link
+          href="/"
+          className="hover:underline hover:text-yellow-400 transition-colors"
+        >
+          Home
+        </Link>
+        {" / "}
+        <span className="text-gray-200 capitalize">{Title}</span>
       </div>
+
+      {/* Title area (blank for now) */}
+      <div className="absolute inset-0 flex items-center justify-center z-10"></div>
     </section>
   );
 };

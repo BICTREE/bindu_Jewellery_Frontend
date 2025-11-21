@@ -8,7 +8,7 @@ export default function OurBranchesPage() {
       <OurBranchBanner />
 
     <section className="w-full py-16 bg-white text-center">
-  <h2 className="text-4xl font-bold mb-12 text-[#3b0b0b]">Our Branches</h2>
+  <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold  mb-6 leading-snug text-[#3b0b0b]">Our Branches</h2>
 
   <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
 
