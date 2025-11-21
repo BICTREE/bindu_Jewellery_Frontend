@@ -61,17 +61,17 @@ export default function OfferPopup() {
   if (!showPopup) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 z-50 flex items-end justify-center">
+    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
       <div
         ref={popupRef}
-        className={`bg-white shadow-lg p-1 w-[90%] sm:w-[450px] md:w-[550px] rounded-t-lg relative mb-6 transition-transform duration-500 ${
+        className={`bg-white shadow-lg p-1 w-[90%] sm:w-[450px] md:w-[550px] rounded-lg relative transition-transform duration-500 ${
           shake ? "animate-shake" : ""
         }`}
       >
         {/* Close Button */}
         <button
           onClick={() => setShowPopup(false)}
-          className="absolute top-0 right-0 text-gray-500 hover:text-gray-800 text-xl bg-white p-1 rounded-full"
+          className="absolute top-2 right-2 text-gray-500 hover:text-gray-800 text-xl bg-white p-1 rounded-full"
         >
           ✕
         </button>

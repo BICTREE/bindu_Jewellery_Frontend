@@ -9,11 +9,12 @@ type BannerProps = {
 };
 
 const Banner: React.FC<BannerProps> = ({
-  Title = "Page Title",
-  Image = "/assets/images/banner-leadership.jpg",
+  Title = "Mission And Vision",
+  Image = "/assets/images/mission-and-vision-banner.png",
 }) => {
   return (
     <section className="relative w-full">
+
       {/* Banner Image */}
       <img
         src={Image}
@@ -24,8 +25,8 @@ const Banner: React.FC<BannerProps> = ({
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/10"></div>
 
-      {/* Breadcrumb (Top + hidden on mobile) */}
-      <div className="absolute top-4 left-4 sm:left-8 z-20 hidden sm:block text-white text-sm md:text-base">
+      {/* Breadcrumb on TOP of banner */}
+      <div className="absolute top-4 left-4 sm:left-8 z-20 hidden sm:block text-white text-xs sm:text-sm md:text-base">
         <Link
           href="/"
           className="hover:underline hover:text-yellow-400 transition-colors"
@@ -36,8 +37,6 @@ const Banner: React.FC<BannerProps> = ({
         <span className="text-gray-200 capitalize">{Title}</span>
       </div>
 
-      {/* Title area (blank for now) */}
-      <div className="absolute inset-0 flex items-center justify-center z-10"></div>
     </section>
   );
 };

@@ -327,51 +327,52 @@ useEffect(() => {
                   </button>
 
                   {userOpen && (
-                    <div className="absolute left-0 top-[80px] mt-1 -translate-y-1/2 w-44 bg-white rounded-lg shadow-lg p-2 z-80">
-                      <ul className="text-[16px]">
-                        {!session?.user && (
-                          <>
-                            <li>
-                              <Link
-                                href="/login"
-                                className="block px-3 py-2 hover:bg-gray-100"
-                              >
-                                Login
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                href="/register"
-                                className="block px-3 py-2 hover:bg-gray-100 rounded"
-                              >
-                                Register
-                              </Link>
-                            </li>
-                          </>
-                        )}
+                 <div className="absolute left-0 top-[60px] mt-1 -translate-y-1/2 w-44 bg-white rounded-lg shadow-xl p-2 z-80 border-[1px] border-[#dededf]">
+  <ul className="text-[15px] font-medium">
+    {!session?.user && (
+      <>
+        <li>
+          <Link
+            href="/login"
+            className="block px-3 py-2 rounded hover:bg-gray-100 transition-colors capitalize"
+          >
+            Login
+          </Link>
+        </li>
+        <li>
+          <Link
+            href="/register"
+            className="block px-3 py-2 rounded hover:bg-gray-100 transition-colors capitalize"
+          >
+            Register
+          </Link>
+        </li>
+      </>
+    )}
 
-                        {session?.user && (
-                          <>
-                            <li>
-                              <Link
-                                href="/profile"
-                                className="block px-3 py-2 hover:bg-gray-100 rounded"
-                              >
-                                My Profile
-                              </Link>
-                            </li>
-                            <li>
-                              <button
-                                onClick={() => signOut({ callbackUrl: "/login" })}
-                                className="block w-full text-left px-3 py-2 hover:bg-gray-100 rounded text-red-600"
-                              >
-                                Logout
-                              </button>
-                            </li>
-                          </>
-                        )}
-                      </ul>
-                    </div>
+    {session?.user && (
+      <>
+        <li>
+          <Link
+            href="/profile"
+            className="block px-3 py-2 rounded hover:bg-gray-100 transition-colors capitalize"
+          >
+            My Profile
+          </Link>
+        </li>
+        <li>
+          <button
+            onClick={() => signOut({ callbackUrl: "/login" })}
+            className="block w-full text-left px-3 py-2 rounded hover:bg-gray-100 text-red-600 transition-colors capitalize"
+          >
+            Logout
+          </button>
+        </li>
+      </>
+    )}
+  </ul>
+</div>
+
                   )}
                 </li>
 
@@ -456,7 +457,19 @@ useEffect(() => {
                         >
                           Our Leadership
                         </Link>
+                    
                       </li>
+
+                  <li>
+                        <a
+                          href="/ourbranches"
+                          className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-[#d4b262] font-medium"
+                        >
+                          Our Branches
+                        </a>
+                   </li>
+
+
                     </ul>
                   )}
                 </li>
