@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-export default function ProcessToLogin() {
+export default function ProcessToLogin({ downloadLink = "#", buttonText = "Download Now" }) {
   const steps = [
     { img: "/assets/images/app icon-01.png" },
     { img: "/assets/images/app icon-02.png" },
@@ -30,9 +30,11 @@ export default function ProcessToLogin() {
         </div>
       </div>
 
-      <button className="mt-10 bg-[#d2691e] hover:bg-[#b85d1a] text-white font-medium px-6 py-2 rounded-md transition-all">
-        Download Now
-      </button>
+      <a href={downloadLink} target="_blank" rel="noopener noreferrer">
+        <button className="mt-10 bg-[#d2691e] hover:bg-[#b85d1a] text-white font-medium px-6 py-2 rounded-md transition-all">
+          {buttonText}
+        </button>
+      </a>
     </section>
   );
 }

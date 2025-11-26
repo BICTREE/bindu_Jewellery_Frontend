@@ -1,57 +1,131 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import Banner from "@/components/common/Banner/Banner";
+
+import AkshayanidhiBanner from "@/components/common/Banner/AkshayanidhiBanner";
+import ProcessToLogin from "@/components/processtologin/ProcessToLogin";
+import GoldSchemeFAQ from "@/components/schemefaq/GoldSchemeFAQ";
+import HappyCustomers from "@/components/happycustomers/HappyCustomers";
+
+const akshayaNidhiFaqs = [
+
+  { question: "WHAT IS AKSHAYA NIDHI?", 
+    answer: "It is a special savings scheme..." 
+  },
+
+  { question: "HOW TO PAY INSTALLMENTS?", 
+    answer: "Installments can be paid online..." 
+  },
+
+  { question: "IS IT POSSIBLE TO CHANGE MY INSTALLMENT AMOUNT AFTER ENROLLMENT?",
+    answer: "Yes, you can modify your installment amount by contacting our customer service or visiting a nearby showroom before your next due date.",
+  },
+  {
+    question: "WHO IS A NOMINEE? WHAT ARE THE CRITERIA FOR NOMINATING SOMEONE?",
+    answer: "A nominee is the person you authorize to receive the scheme benefits in your absence. You can nominate any trusted family member or relative.",
+  },
+];
+
+const akshayaNidhiTerms = [
+  "Akshaya Nidhi terms vary based on duration.",
+  "Installments must be maintained to get the benefits.",
+];
+
+
+const akshayaCustomers = [
+  {
+    img: "/assets/images/no-pic01.jpg",
+    name: "Priya S.",
+    text: "Akshayanidhi scheme is perfect for long-term gold saving.",
+  },
+  {
+    img: "/assets/images/no-pic01.jpg",
+    name: "Vivek M.",
+    text: "Good returns and secure savings plan. Highly satisfied!",
+  },
+
+
+  {
+    img: "/assets/images/no-pic01.jpg",
+    name: "Meera M.",
+    text: "Good returns and secure savings plan. Highly satisfied!",
+  },
+
+  {
+    img: "/assets/images/no-pic01.jpg",
+    name: "kunal M.",
+    text: "Good returns and secure savings plan. Highly satisfied!",
+  },
+
+  {
+    img: "/assets/images/no-pic01.jpg",
+    name: "Aishwarya.",
+    text: "Good returns and secure savings plan. Highly satisfied!",
+  },
+
+];
+
+
+
+
+
 const AkshayaNidhiPage = () => {
-  return (
-   
-      <><Banner Title="Akshaya Nidhi" />
+  return ( 
+    <>
+      {/* Banner Section */}
+      <AkshayanidhiBanner />
+
+      {/* Content Section */}
+      <section className="w-full bg-white py-10 px-4 md:px-20">
       
-      <section className="py-16 px-4 md:px-16 bg-white text-gray-800">
-          <div className="container mx-auto">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch">
-                  {/* Left Side - Contact Info + Image */}
-                  <div className="lg:col-span-5 order-1 lg:order-1 flex flex-col justify-between">
+      {/* Top Contact Line */}
+      <p className="text-center text-lg md:text-xl font-medium text-gray-800 mb-10">
+        For Akshayanidhi Investment Scheme help:{" "}
+        <span className="font-semibold">+919847020400</span>
+      </p>
 
-                      {/* CSR Image */}
-                      <div className="w-full h-56 sm:h-72 md:h-80 lg:h-auto relative shadow-md rounded-md overflow-hidden flex-1">
-                          <Image
-                              src="/assets/images/akshaya-nidhi.png"
-                              alt="Akshaya Nidhi"
-                              fill
-                              className="object-cover rounded-md" />
-                      </div>
-                  </div>
+      {/* Title */}
+      <h2 className="text-2xl sm:text-3xl font-serif  font-semibold mb-10 text-center md:text-left">
+    Akshaya Nidhi
+      </h2>
 
-                  {/* Right Side - Text Content */}
-                  <div className="lg:col-span-7 order-1 lg:order-1 flex">
-                      <div className="flex flex-col justify-center p-4 lg:p-6 flex-1">
-                          
- <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-900 mb-6 leading-snug"> Akshaya Nidhi
-                          </h2>
+      {/* Paragraph 1 */}
+      <p className="font-normal  mb-4 text-sm sm:text-base text-gray-500 ">
+        The Akshaya Nidhi Scheme is Bindu Jewellery’s way of helping you turn
+        your savings into something precious and enduring. With flexible
+        monthly payments starting from ₹500 or more, customers can steadily
+        accumulate gold in their account, with each month’s value determined
+        by that day’s gold rate. This transparent, fair, and smart approach
+        ensures your investment grows with time.
+      </p>
 
-                          <p className="leading-relaxed mb-6 text-sm sm:text-base font-semibold text-gray-700">
-         The Akshaya Nidhi Scheme is Bindu Jewellery’s way of helping you turn your savings into something precious and enduring. With flexible monthly payments starting from ₹500 or more, customers can steadily accumulate gold in their account, with each month’s value determined by that day’s gold rate. This transparent, fair, and smart approach ensures your investment grows with time.
+      {/* Paragraph 2 */}
+      <p className="font-normal  mb-4 text-sm sm:text-base text-gray-500 ">
+        After one year, you are rewarded with a 6% bonus on your total savings —
+        an added sparkle for your dedication. You can then redeem your accumulated
+        gold for jewellery of your choice. This scheme combines the security of
+        saving with the joy of owning fine jewellery, allowing families to plan
+        for special occasions or future needs in a way that’s practical yet deeply
+        rewarding.
+      </p>
+    </section>
+<ProcessToLogin 
+  downloadLink="https://play.google.com/store/apps/details?id=akshaya.nidhi.app"
+  buttonText="Download Now"
+/>
 
+ <GoldSchemeFAQ
+      title="Akshaya Nidhi Scheme FAQ"
+      faqs={akshayaNidhiFaqs}
+      note="Benefits apply only to Akshaya Nidhi redemption rules."
+      terms={akshayaNidhiTerms}
+    />
 
-                          </p>
-
-                          <p className="font-normal mb-4 text-sm sm:text-base text-gray-500">
-                  After one year, you are rewarded with a 6% bonus on your total savings — an added sparkle for your dedication. You can then redeem your accumulated gold for jewellery of your choice. This scheme combines the security of saving with the joy of owning fine jewellery, allowing families to plan for special occasions or future needs in a way that’s practical yet deeply rewarding.
-
-
-                          </p>
-
-                        
-
-                          {/* <button className="mt-4 w-fit px-6 py-3 bg-[#d4b262] text-white font-semibold rounded-md shadow hover:bg-[#c2a251] transition-all">
-      Learn More
-    </button> */}
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </section></>
+     <HappyCustomers
+        title="Happy  Customers"
+        customers={akshayaCustomers}
+      />
+    </>
   );
 };
 
