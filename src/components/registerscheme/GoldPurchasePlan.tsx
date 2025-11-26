@@ -66,8 +66,8 @@ export default function GoldPurchasePlan() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2">
         
         {/* LEFT FORM SECTION */}
-        <div className="p-10 md:p-20 flex flex-col justify-center">
-          <h2 className="text-4xl font-bold text-gray-900">
+        <div className="p-10 md:p-20 flex flex-col ">
+          <h2 className="text-2xl sm:text-3xl font-serif  font-semibold">
             Join the Gold Purchase Plan
           </h2>
 
