@@ -113,7 +113,7 @@ export default function SwarnaBinduPage() {
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-10">
           {/* Left */}
           <div className="md:w-2/3 space-y-5 text-justify">
-            <h2 className="text-2xl sm:text-3xl font-serif text-left font-semibold mb-10">
+            <h2 className="text-2xl sm:text-3xl font-serif text-left font-semibold ">
               Swarna Bindu
             </h2>
 
