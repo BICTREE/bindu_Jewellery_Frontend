@@ -28,7 +28,7 @@ export default function SchemeCalculator() {
   ];
 
   return (
-    <div className="bg-[#f8f2c2] min-h-screen flex flex-col items-center justify-center px-4 py-5">
+    <div className="bg-[#f8f2c2] min-h-screen flex flex-col items-center justify-center px-4 py-15">
       <h1 className="text-3xl font-semibold text-[#5a2e00] mb-6">
         Scheme Calculator
       </h1>
