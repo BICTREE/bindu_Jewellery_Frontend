@@ -83,7 +83,7 @@ const Banner: React.FC<BannerProps> = ({ Title }) => {
       <img
         src={bannerImage}
         alt={Title || productName || "Banner"}
-        className="w-full h-[115px] sm:h-[250px] md:h-[320px] lg:h-[280px] object-cover transition-opacity duration-500"
+        className="w-full object-cover transition-opacity duration-500 h-[50vh] md:h-[40vh] lg:h-[50vh]"
       />
       <div className="absolute top-0 left-0 w-full h-full bg-black/10"></div>
 
@@ -111,11 +111,11 @@ const Banner: React.FC<BannerProps> = ({ Title }) => {
         </div>
 
         {/* Title */}
-        <div className="flex-1 flex items-center">
+        {/* <div className="flex-1 flex items-center">
           <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white capitalize">
             {Title || productName || breadcrumbs.at(-1)?.label || "Page"}
           </h1>
-        </div>
+        </div> */}
       </div>
     </section>
   );

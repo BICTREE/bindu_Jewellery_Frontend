@@ -44,7 +44,7 @@ const ExperienceSection = () => {
                       py-10 md:py-10 flex flex-col md:flex-row items-center 
                       justify-between gap-10 md:gap-16">
         <div className="w-full sm:w-4/5 md:w-3/5 lg:w-1/1 max-w-2xl text-center md:text-left space-y-5 md:px-8 lg:px-16">
-          <h2 className="text-2xl sm:text-3xl md:text-5xl font-semibold text-[#3c1e1e] leading-snug">
+          <h2 className="font-prata text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-left">
             Our Experience Allows <br className="hidden sm:block" /> To Bring{" "}
             <span className="font-bold">Disruptive</span>
           </h2>

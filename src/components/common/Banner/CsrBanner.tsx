@@ -2,37 +2,70 @@
 
 import React from "react";
 import Image from "next/image";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Navigation, Autoplay, EffectFade } from "swiper/modules";
 
-export default function HeroBanner() {
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/effect-fade";
+
+export default function HeroSlider() {
+  const slides = [
+    {
+      img: "/assets/images/csr-banner01.jpg",
+      title: "Timeless Craftsmanship",
+      subtitle: "Discover beautiful jewellery crafted with perfection.",
+    },
+    {
+      img: "/assets/images/csr-banner02.jpg",
+      title: "Elegance Redefined",
+      subtitle: "Celebrate your special moments with us.",
+    },
+  ];
+
   return (
-    <section className="relative w-full h-[350px] sm:h-[450px] md:h-[550px] lg:h-[650px] overflow-hidden">
+    <section className="relative w-full h-[50vh] md:h-[40vh] lg:h-[45vh]">
+      <Swiper
+        modules={[Pagination, Navigation, Autoplay, EffectFade]}
+        effect="fade"
+        loop={true}
+        autoplay={{
+          delay: 3500,
+          disableOnInteraction: false,
+        }}
+        pagination={{ clickable: true }}
+        navigation={true}
+        className="w-full h-full"
+      >
+        {slides.map((slide, index) => (
+          <SwiperSlide key={index}>
+            <div className="relative w-full h-full">
+              <Image
+                src={slide.img}
+                alt={slide.title}
+                fill
+                className="object-cover"
+                priority
+              />
 
-      {/* Background Image */}
-      <Image
-        src="/assets/images/hero.jpg"
-        alt="Hero Banner"
-        fill
-        priority
-        className="object-cover"
-      />
+              {/* Overlay */}
+              <div className="absolute inset-0"></div>
 
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+              {/* Text Content */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+                {/* <h2 className="text-white text-xl sm:text-3xl md:text-4xl font-serif font-bold tracking-wide drop-shadow-lg">
+                  {slide.title}
+                </h2>
 
-      {/* Text Content */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
-        <h1 className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold tracking-wide">
-          Discover Timeless Elegance
-        </h1>
-
-        <p className="text-white text-base sm:text-lg md:text-xl mt-3 max-w-xl">
-          Experience craftsmanship and luxury that define every moment.
-        </p>
-
-        <button className="mt-6 px-6 py-3 bg-[#d4b262] text-black rounded-md text-sm sm:text-base font-semibold hover:bg-[#c3a050] transition-all">
-          Explore Collection
-        </button>
-      </div>
+                <p className="text-white text-sm sm:text-lg md:text-xl mt-2 max-w-xl drop-shadow-md">
+                  {slide.subtitle}
+                </p> */}
+              </div>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </section>
   );
 }

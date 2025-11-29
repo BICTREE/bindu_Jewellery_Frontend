@@ -232,7 +232,7 @@ export default function MobileHeader() {
       {
         label: "DIAMOND",
         children: [
-          { label: "Kisna", href: "/kisnadiamond" },
+         { label: "Kisna", href: "https://www.kisna.com",},
           { label: "My blue Diamond", href: "/mybluediamond" },
         ],
       },
