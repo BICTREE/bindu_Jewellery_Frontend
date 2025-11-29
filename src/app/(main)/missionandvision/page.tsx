@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 
-import MissionVishonBanner from "@/components/common/Banner/MissionVishonBanner";
+import Banner from "@/components/common/Banner/Banner";
 import FreeshipingComp from "@/components/home/FreeshipingComp";
 import SubscribeNewsletter from "@/components/home/SubscribeNewsletter";
 import React from "react";
@@ -10,7 +10,7 @@ export default function MissionVision() {
   return (
   
         <>
-      <MissionVishonBanner/>
+    <Banner Title=" " />
 
 
   

@@ -186,7 +186,7 @@ export default function MobileHeader() {
           { label: "Our Story", href: "/ourstory" },
           { label: "Mission & Vision", href: "/missionandvision" },
           { label: "MD Message", href: "/md-message" },
-          { label: "Our Branches", href: "/ourbranches" },
+         
         ],
       },
       {

@@ -1,48 +1,38 @@
 "use client";
-import Image from "next/image";
+
 import React from "react";
-import Link from "next/link";
+import Image from "next/image";
 
-type BannerProps = {
-  Title?: string;
-  Image?: string; // optional custom image prop
-};
-
-const Banner: React.FC<BannerProps> = ({
-  Title = "CSR",
-  Image = "/assets/images/csr-banner.jpg", // default image
-}) => {
+export default function HeroBanner() {
   return (
-    <section className="relative w-full">
-      {/* ✅ Banner Image */}
-      <img
-        src={Image}
-        alt={Title}
-        className="w-full h-[100%]  object-cover transition-opacity duration-500"
+    <section className="relative w-full h-[350px] sm:h-[450px] md:h-[550px] lg:h-[650px] overflow-hidden">
+
+      {/* Background Image */}
+      <Image
+        src="/assets/images/hero.jpg"
+        alt="Hero Banner"
+        fill
+        priority
+        className="object-cover"
       />
 
-      {/* ✅ Overlay */}
-      <div className="absolute top-0 left-0 w-full h-full bg-black/10"></div>
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-black bg-opacity-40"></div>
 
-      {/* ✅ Content */}
-      <div className="absolute inset-0 flex flex-col justify-between container mx-auto px-4 py-4 z-20">
-        {/* Breadcrumb */}
-        <div className="text-white text-xs sm:text-sm md:text-base hidden sm:block">
-          <Link href="/" className="hover:underline hover:text-yellow-400 transition-colors">
-            Home
-          </Link>{" "}
-          / <span className="text-gray-200 capitalize">{Title}</span>
-        </div>
+      {/* Text Content */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+        <h1 className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold tracking-wide">
+          Discover Timeless Elegance
+        </h1>
 
-        {/* Title */}
-        <div className="flex-1 flex items-center">
-          {/* <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white capitalize">
-            {Title}
-          </h1> */}
-        </div>
+        <p className="text-white text-base sm:text-lg md:text-xl mt-3 max-w-xl">
+          Experience craftsmanship and luxury that define every moment.
+        </p>
+
+        <button className="mt-6 px-6 py-3 bg-[#d4b262] text-black rounded-md text-sm sm:text-base font-semibold hover:bg-[#c3a050] transition-all">
+          Explore Collection
+        </button>
       </div>
     </section>
   );
-};
-
-export default Banner;
+}
