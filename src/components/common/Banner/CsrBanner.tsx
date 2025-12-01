@@ -13,59 +13,71 @@ import "swiper/css/effect-fade";
 export default function HeroSlider() {
   const slides = [
     {
-      img: "/assets/images/csr-banner01.jpg",
-      title: "Timeless Craftsmanship",
-      subtitle: "Discover beautiful jewellery crafted with perfection.",
+      img: "/assets/images/csr-banner01.jpg",       // Desktop / Tablet
+      mobileImg: "/assets/images/csr-banner-mob.jpg", // Mobile Image
     },
     {
       img: "/assets/images/csr-banner02.jpg",
-      title: "Elegance Redefined",
-      subtitle: "Celebrate your special moments with us.",
+      mobileImg: "/assets/images/csr-banner02-mob.jpg",
     },
   ];
 
   return (
-    <section className="relative w-full h-[50vh] md:h-[40vh] lg:h-[45vh]">
+    <section className="w-full transition-opacity duration-500 
+      h-[50vh] md:h-[40vh] lg:h-[50vh] relative">
+
       <Swiper
         modules={[Pagination, Navigation, Autoplay, EffectFade]}
         effect="fade"
         loop={true}
-        autoplay={{
-          delay: 3500,
-          disableOnInteraction: false,
-        }}
+        autoplay={{ delay: 3500, disableOnInteraction: false }}
         pagination={{ clickable: true }}
-        navigation={true}
+        navigation={{
+          nextEl: ".custom-next",
+          prevEl: ".custom-prev",
+        }}
         className="w-full h-full"
       >
         {slides.map((slide, index) => (
           <SwiperSlide key={index}>
             <div className="relative w-full h-full">
+
+              {/* Desktop / Tablet Image */}
               <Image
                 src={slide.img}
-                alt={slide.title}
+                alt="desktop-banner"
                 fill
-                className="object-cover"
+                className="object-cover hidden sm:block"
                 priority
               />
 
-              {/* Overlay */}
-              <div className="absolute inset-0"></div>
+              {/* Mobile Image */}
+              <Image
+                src={slide.mobileImg}
+                alt="mobile-banner"
+                fill
+                className="object-cover block sm:hidden"
+                priority
+              />
 
-              {/* Text Content */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
-                {/* <h2 className="text-white text-xl sm:text-3xl md:text-4xl font-serif font-bold tracking-wide drop-shadow-lg">
-                  {slide.title}
-                </h2>
-
-                <p className="text-white text-sm sm:text-lg md:text-xl mt-2 max-w-xl drop-shadow-md">
-                  {slide.subtitle}
-                </p> */}
-              </div>
             </div>
           </SwiperSlide>
         ))}
       </Swiper>
+
+      {/* Custom Navigation Buttons */}
+      <button className="custom-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 
+        bg-white/30 hover:bg-white text-black 
+        p-3 rounded-full shadow-lg transition">
+        ❮
+      </button>
+
+      <button className="custom-next absolute right-4 top-1/2 -translate-y-1/2 z-20 
+        bg-white/30 hover:bg-white text-black 
+        p-3 rounded-full shadow-lg transition">
+        ❯
+      </button>
+
     </section>
   );
 }

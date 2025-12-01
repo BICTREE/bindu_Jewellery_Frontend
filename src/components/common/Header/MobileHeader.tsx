@@ -185,7 +185,7 @@ export default function MobileHeader() {
         children: [
           { label: "Our Story", href: "/ourstory" },
           { label: "Mission & Vision", href: "/missionandvision" },
-          { label: "MD Message", href: "/md-message" },
+          { label: "Our Leadership", href: "/ourleadership" },
          
         ],
       },

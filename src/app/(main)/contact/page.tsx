@@ -246,6 +246,7 @@ const Page = () => {
         +91 4994256888
       </a>
     </p>
+     
   </div>
 
   {/* Branches + Images Section */}
@@ -272,6 +273,16 @@ const Page = () => {
             bindujewellerymangalore@gmail.com
           </a>
         </p>
+        <p> 
+         <a
+      href="https://www.google.com/maps/place/Bindu+Jewellery/@12.5562227,75.3928205,17z/data=!3m1!4b1!4m6!3m5!1s0x3ba4f333278f6ef3:0x2117b4bb08dc43e1!8m2!3d12.5562227!4d75.3928205!16s%2Fg%2F11vz00v1s8?entry=ttu&g_ep=EgoyMDI1MTEyMy4xIKXMDSoASAFQAw%3D%3D"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-[#d4b262] font-medium hover:underline"
+    >
+      View Map
+    </a>  
+</p>
       </div>
 
   
@@ -297,6 +308,17 @@ const Page = () => {
             bindujewellerymangalore@gmail.com
           </a>
         </p>
+          <p> 
+             <a
+      href="https://www.google.com/maps/place/Bindu+Jewellery+Mangaluru/@12.8747612,74.8548526,3a,75y,263.36h,90t/data=!3m7!1e1!3m5!1sLP1kLAN6tdO9l3WLd6JzoQ!2e0!6shttps:%252F%252Fstreetviewpixels-pa.googleapis.com%252Fv1%252Fthumbnail%253Fcb_client%253Dmaps_sv.tactile%2526w%253D900%2526h%253D600%2526pitch%253D0%2526panoid%253DLP1kLAN6tdO9l3WLd6JzoQ%2526yaw%253D263.35613022300447!7i16384!8i8192!4m7!3m6!1s0x3ba35b4f3450977d:0x2363edbc45cc65f8!8m2!3d12.8743557!4d74.8552663!10e5!16s%252Fg%252F11xst4p8fr?entry=ttu"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-[#d4b262] font-medium hover:underline"
+    >
+      View Map
+    </a>  
+</p>
+
       </div>
 
     </div>
@@ -319,6 +341,16 @@ const Page = () => {
         <p className="text-gray-700 text-sm sm:text-base">
           Mob: <a href="tel:+919847020400" className="hover:underline">+91 98 470 20 400</a>
         </p>
+               <p> 
+         <a
+      href="https://www.google.com/maps/place/Bindu+Jewellery+Kasaragod/@12.5074775,74.9872164,17z/data=!3m1!4b1!4m6!3m5!1s0x3ba482679f7c5add:0x6b6cc6fbf2733c18!8m2!3d12.5074723!4d74.9897913!16s%2Fg%2F1tjt0c6v?entry=ttu&g_ep=EgoyMDI1MTEyMy4xIKXMDSoASAFQAw%3D%3D"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-[#d4b262] font-medium hover:underline"
+    >
+      View Map
+    </a>  
+</p>
       </div>
 
    
