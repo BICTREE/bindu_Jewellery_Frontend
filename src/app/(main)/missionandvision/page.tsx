@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 
-import MissionVishonBanner from "@/components/common/Banner/MissionVishonBanner";
+import Banner from "@/components/common/Banner/Banner";
 import FreeshipingComp from "@/components/home/FreeshipingComp";
 import SubscribeNewsletter from "@/components/home/SubscribeNewsletter";
 import React from "react";
@@ -10,7 +10,7 @@ export default function MissionVision() {
   return (
   
         <>
-      <MissionVishonBanner/>
+    <Banner Title=" " />
 
 
   
@@ -31,7 +31,7 @@ export default function MissionVision() {
     {/* RIGHT SIDE – MISSION + VISION TEXT */}
     <div>
       {/* Mission */}
-     <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-900 mb-6 leading-snug">
+     <h2 className="font-prata text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-left">
   Our Mission
 </h2>
       <p className="font-normal  mb-4 text-sm sm:text-base text-gray-500 ">
@@ -56,7 +56,7 @@ export default function MissionVision() {
       </p>
 
       {/* Vision */}
-      <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-900 mb-6 leading-snug">Our Vision</h2>
+      <h2 className="font-prata text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-left">Our Vision</h2>
       <p className="font-normal  mb-4 text-sm sm:text-base text-gray-500 ">
         Bindu Jewellery envisions becoming Southern India’s most trusted family
         jeweller, known for both its traditional excellence and innovative spirit.

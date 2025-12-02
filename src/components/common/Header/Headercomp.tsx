@@ -460,14 +460,14 @@ useEffect(() => {
                     
                       </li>
 
-                  <li>
+                  {/* <li>
                         <a
                           href="/ourbranches"
                           className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-[#d4b262] font-medium"
                         >
                           Our Branches
                         </a>
-                   </li>
+                   </li> */}
 
 
                     </ul>
@@ -506,12 +506,14 @@ useEffect(() => {
                   {diamondOpen && (
                     <ul className="absolute left-0 bg-white shadow-lg rounded-md w-48 top-full py-2 z-50">
                       <li>
-                        <Link
-                          href="/kisnadiamond"
-                          className="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#d4b262] font-medium"
-                        >
-                          Kisna
-                        </Link>
+    <Link
+    href="https://www.kisna.com/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#d4b262] font-medium"
+  >
+    Kisna
+  </Link>
                       </li>
                       <li>
                         <Link

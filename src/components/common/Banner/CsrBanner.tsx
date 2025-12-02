@@ -1,48 +1,83 @@
 "use client";
-import Image from "next/image";
+
 import React from "react";
-import Link from "next/link";
+import Image from "next/image";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Navigation, Autoplay, EffectFade } from "swiper/modules";
 
-type BannerProps = {
-  Title?: string;
-  Image?: string; // optional custom image prop
-};
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/effect-fade";
 
-const Banner: React.FC<BannerProps> = ({
-  Title = "CSR",
-  Image = "/assets/images/csr-banner.jpg", // default image
-}) => {
+export default function HeroSlider() {
+  const slides = [
+    {
+      img: "/assets/images/csr-banner01.jpg",       // Desktop / Tablet
+      mobileImg: "/assets/images/csr-banner-mob.jpg", // Mobile Image
+    },
+    {
+      img: "/assets/images/csr-banner02.jpg",
+      mobileImg: "/assets/images/csr-banner02-mob.jpg",
+    },
+  ];
+
   return (
-    <section className="relative w-full">
-      {/* ✅ Banner Image */}
-      <img
-        src={Image}
-        alt={Title}
-        className="w-full h-[100%]  object-cover transition-opacity duration-500"
-      />
+    <section className="w-full transition-opacity duration-500 
+      h-[50vh] md:h-[40vh] lg:h-[50vh] relative">
 
-      {/* ✅ Overlay */}
-      <div className="absolute top-0 left-0 w-full h-full bg-black/10"></div>
+      <Swiper
+        modules={[Pagination, Navigation, Autoplay, EffectFade]}
+        effect="fade"
+        loop={true}
+        autoplay={{ delay: 3500, disableOnInteraction: false }}
+        pagination={{ clickable: true }}
+        navigation={{
+          nextEl: ".custom-next",
+          prevEl: ".custom-prev",
+        }}
+        className="w-full h-full"
+      >
+        {slides.map((slide, index) => (
+          <SwiperSlide key={index}>
+            <div className="relative w-full h-full">
 
-      {/* ✅ Content */}
-      <div className="absolute inset-0 flex flex-col justify-between container mx-auto px-4 py-4 z-20">
-        {/* Breadcrumb */}
-        <div className="text-white text-xs sm:text-sm md:text-base hidden sm:block">
-          <Link href="/" className="hover:underline hover:text-yellow-400 transition-colors">
-            Home
-          </Link>{" "}
-          / <span className="text-gray-200 capitalize">{Title}</span>
-        </div>
+              {/* Desktop / Tablet Image */}
+              <Image
+                src={slide.img}
+                alt="desktop-banner"
+                fill
+                className="object-cover hidden sm:block"
+                priority
+              />
 
-        {/* Title */}
-        <div className="flex-1 flex items-center">
-          {/* <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white capitalize">
-            {Title}
-          </h1> */}
-        </div>
-      </div>
+              {/* Mobile Image */}
+              <Image
+                src={slide.mobileImg}
+                alt="mobile-banner"
+                fill
+                className="object-cover block sm:hidden"
+                priority
+              />
+
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+
+      {/* Custom Navigation Buttons */}
+      <button className="custom-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 
+        bg-white/30 hover:bg-white text-black 
+        p-3 rounded-full shadow-lg transition">
+        ❮
+      </button>
+
+      <button className="custom-next absolute right-4 top-1/2 -translate-y-1/2 z-20 
+        bg-white/30 hover:bg-white text-black 
+        p-3 rounded-full shadow-lg transition">
+        ❯
+      </button>
+
     </section>
   );
-};
-
-export default Banner;
+}

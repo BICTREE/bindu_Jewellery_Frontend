@@ -132,3 +132,28 @@
     background-image: none !important;
   }
 }
+
+
+/* Custom Swiper Navigation Arrows */
+.custom-swiper .swiper-button-next,
+.custom-swiper .swiper-button-prev {
+  width: 45px;
+  height: 45px;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(6px);
+  border-radius: 9999px; /* full round */
+  color: #000 !important;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.custom-swiper .swiper-button-next:hover,
+.custom-swiper .swiper-button-prev:hover {
+  background: #ffffff;
+}
+
+/* Make arrow icon size bigger */
+.custom-swiper .swiper-button-next:after,
+.custom-swiper .swiper-button-prev:after {
+  font-size: 20px;
+}

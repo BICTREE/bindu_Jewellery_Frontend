@@ -41,7 +41,9 @@ export default function StoriesOfChange() {
 
   return (
     <section className="py-12 bg-white text-center relative">
-      <h2 className="text-[36px] md:text-[44px] font-serif text-[#6a9300] mb-8">
+      <h2 className="font-prata text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-center text-[#6a9300] mb-8">
+
+
         Stories of Change
       </h2>
 
