@@ -13,7 +13,7 @@ export default function OurStory() {
 
     <>
     <>
-      <Banner Title="Our Story"/>
+      <Banner Title=""/>
 
 
     </>
@@ -35,7 +35,7 @@ export default function OurStory() {
     Our Story
         </p>
 
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-900 mb-6 leading-snug">
+        <h2 className="font-prata text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-left">
        Bindu Jewellery – A Promise of Lifetime
         </h2>
 <h3 className="text-[22px] sm:text-sm md:text-base lg:text-lg text-[#d4b262] font-semibold">Celebrating 40 Years of Legacy, Trust, and Timeless Craftsmanship

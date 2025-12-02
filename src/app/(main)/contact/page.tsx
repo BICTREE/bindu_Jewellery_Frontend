@@ -1,7 +1,7 @@
 "use client"; // ✅ Needed for hooks in Next.js App Router
 
 import React, { useState } from "react";
-import Banner from "@/components/common/Banner/ContactBanner";
+import Banner from "@/components/common/Banner/Banner";
 import FreeshipingComp from "@/components/home/FreeshipingComp";
 import SubscribeNewsletter from "@/components/home/SubscribeNewsletter";
 import { SendEnquriy } from "@/services/enquriySerice/enquriySerice";
@@ -98,7 +98,7 @@ const Page = () => {
 
   return (
     <>
-      <Banner Title="Contact Us" />
+      <Banner Title=" " />
 
       {/* Form Section */}
       <section className="container mx-auto px-4 sm:px-6 lg:px-20 py-16 text-center">
@@ -220,7 +220,10 @@ const Page = () => {
           </div>
         </form>
       </section>
-<section className="bg-white py-12 px-4 sm:px-6 md:px-12 lg:px-20 text-center">
+ 
+
+<section className="bg-white  px-4 sm:px-6 md:px-12 lg:px-20 text-center">
+
   {/* Customer Care Section */}
   <div className="mb-12">
     <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-semibold text-[#0f0f0f] tracking-wide mb-4">
@@ -243,83 +246,119 @@ const Page = () => {
         +91 4994256888
       </a>
     </p>
+     
   </div>
 
-  {/* Branches Section */}
-  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 text-left max-w-5xl mx-auto">
+  {/* Branches + Images Section */}
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto text-left">
+
     {/* SULLIA */}
-    <div className="space-y-2">
-      <h3 className="text-[#d4b262] font-semibold text-lg sm:text-xl mb-2">
-        SULLIA
-      </h3>
-      <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
-        Opposite Police Station, Sullia-574239
-      </p>
-      <p className="text-gray-700 text-sm sm:text-base">
-        Tel:{" "}
-        <a href="tel:+914994256888" className="hover:underline">
-          +91 4994256888
-        </a>
-      </p>
-      <p className="text-gray-700 text-sm sm:text-base">
-        Email:{" "}
-        <a
-          href="mailto:bindujewellerymangalore@gmail.com"
-          className="hover:underline"
-        >
-          bindujewellerymangalore@gmail.com
-        </a>
-      </p>
+    <div className="space-y-4">
+    {/* Image */}
+      <img
+        src="/assets/images/showroom-sullia.jpg"
+        alt="Sullia Showroom"
+        className="w-full h-56 object-cover rounded-lg shadow-md"
+      />
+      {/* Address */}
+      <div className="space-y-1">
+        <h3 className="text-[#d4b262] font-semibold text-lg sm:text-xl">SULLIA</h3>
+        <p className="text-gray-700 text-sm sm:text-base">Opposite Police Station, Sullia-574239</p>
+        <p className="text-gray-700 text-sm sm:text-base">
+          Tel: <a href="tel:+914994256888" className="hover:underline">+91 4994256888</a>
+        </p>
+        <p className="text-gray-700 text-sm sm:text-base">
+          Email:{" "}
+          <a href="mailto:bindujewellerymangalore@gmail.com" className="hover:underline">
+            bindujewellerymangalore@gmail.com
+          </a>
+        </p>
+        <p> 
+         <a
+      href="https://www.google.com/maps/place/Bindu+Jewellery/@12.5562227,75.3928205,17z/data=!3m1!4b1!4m6!3m5!1s0x3ba4f333278f6ef3:0x2117b4bb08dc43e1!8m2!3d12.5562227!4d75.3928205!16s%2Fg%2F11vz00v1s8?entry=ttu&g_ep=EgoyMDI1MTEyMy4xIKXMDSoASAFQAw%3D%3D"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-[#d4b262] font-medium hover:underline"
+    >
+      View Map
+    </a>  
+</p>
+      </div>
+
+  
     </div>
 
     {/* MANGALURU */}
-    <div className="space-y-2">
-      <h3 className="text-[#d4b262] font-semibold text-lg sm:text-xl mb-2">
-        MANGALURU
-      </h3>
-      <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
-        Near SCS Hospital, Bendore
-      </p>
-      <p className="text-gray-700 text-sm sm:text-base">
-        Tel:{" "}
-        <a href="tel:+914994256888" className="hover:underline">
-          +91 499 4256 888
-        </a>
-      </p>
-      <p className="text-gray-700 text-sm sm:text-base">
-        Email:{" "}
-        <a
-          href="mailto:bindujewellerymangalore@gmail.com"
-          className="hover:underline"
-        >
-          bindujewellerymangalore@gmail.com
-        </a>
-      </p>
+    <div className="space-y-4">
+
+      <img
+        src="/assets/images/showrooms-mangalore.jpg"
+        alt="Mangaluru Showroom"
+        className="w-full h-56 object-cover rounded-lg shadow-md"
+      />
+<div className="space-y-1">
+        <h3 className="text-[#d4b262] font-semibold text-lg sm:text-xl">MANGALURU</h3>
+        <p className="text-gray-700 text-sm sm:text-base">Near SCS Hospital, Bendore</p>
+        <p className="text-gray-700 text-sm sm:text-base">
+          Tel: <a href="tel:+914994256888" className="hover:underline">+91 499 4256 888</a>
+        </p>
+        <p className="text-gray-700 text-sm sm:text-base">
+          Email:{" "}
+          <a href="mailto:bindujewellerymangalore@gmail.com" className="hover:underline">
+            bindujewellerymangalore@gmail.com
+          </a>
+        </p>
+          <p> 
+             <a
+      href="https://www.google.com/maps/place/Bindu+Jewellery+Mangaluru/@12.8747612,74.8548526,3a,75y,263.36h,90t/data=!3m7!1e1!3m5!1sLP1kLAN6tdO9l3WLd6JzoQ!2e0!6shttps:%252F%252Fstreetviewpixels-pa.googleapis.com%252Fv1%252Fthumbnail%253Fcb_client%253Dmaps_sv.tactile%2526w%253D900%2526h%253D600%2526pitch%253D0%2526panoid%253DLP1kLAN6tdO9l3WLd6JzoQ%2526yaw%253D263.35613022300447!7i16384!8i8192!4m7!3m6!1s0x3ba35b4f3450977d:0x2363edbc45cc65f8!8m2!3d12.8743557!4d74.8552663!10e5!16s%252Fg%252F11xst4p8fr?entry=ttu"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-[#d4b262] font-medium hover:underline"
+    >
+      View Map
+    </a>  
+</p>
+
+      </div>
+
     </div>
 
     {/* KASARAGOD */}
-    <div className="space-y-2">
-      <h3 className="text-[#d4b262] font-semibold text-lg sm:text-xl mb-2">
-        KASARAGOD
-      </h3>
-      <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
-        NH-17, Ashwini Nagar, Kasaragod 671121
-      </p>
-      <p className="text-gray-700 text-sm sm:text-base">
-        Tel:{" "}
-        <a href="tel:+914994256888" className="hover:underline">
-          +91 499 4256 888
-        </a>
-      </p>
-      <p className="text-gray-700 text-sm sm:text-base">
-        Mob:{" "}
-        <a href="tel:+919847020400" className="hover:underline">
-          +91 98 470 20 400
-        </a>
-      </p>
+    <div className="space-y-4">
+
+
+         <img
+        src="/assets/images/showroom-kasaragod.jpg"
+        alt="Kasaragod Showroom"
+        className="w-full h-56 object-cover rounded-lg shadow-md"
+      />
+      <div className="space-y-1">
+        <h3 className="text-[#d4b262] font-semibold text-lg sm:text-xl">KASARAGOD</h3>
+        <p className="text-gray-700 text-sm sm:text-base">NH-17, Ashwini Nagar, Kasaragod 671121</p>
+        <p className="text-gray-700 text-sm sm:text-base">
+          Tel: <a href="tel:+914994256888" className="hover:underline">+91 499 4256 888</a>
+        </p>
+        <p className="text-gray-700 text-sm sm:text-base">
+          Mob: <a href="tel:+919847020400" className="hover:underline">+91 98 470 20 400</a>
+        </p>
+               <p> 
+         <a
+      href="https://www.google.com/maps/place/Bindu+Jewellery+Kasaragod/@12.5074775,74.9872164,17z/data=!3m1!4b1!4m6!3m5!1s0x3ba482679f7c5add:0x6b6cc6fbf2733c18!8m2!3d12.5074723!4d74.9897913!16s%2Fg%2F1tjt0c6v?entry=ttu&g_ep=EgoyMDI1MTEyMy4xIKXMDSoASAFQAw%3D%3D"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-[#d4b262] font-medium hover:underline"
+    >
+      View Map
+    </a>  
+</p>
+      </div>
+
+   
     </div>
+
   </div>
 </section>
+
 
 
       <SubscribeNewsletter />

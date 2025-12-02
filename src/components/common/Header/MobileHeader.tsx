@@ -185,8 +185,8 @@ export default function MobileHeader() {
         children: [
           { label: "Our Story", href: "/ourstory" },
           { label: "Mission & Vision", href: "/missionandvision" },
-          { label: "MD Message", href: "/md-message" },
-          { label: "Our Branches", href: "/ourbranches" },
+          { label: "Our Leadership", href: "/ourleadership" },
+         
         ],
       },
       {
@@ -232,7 +232,7 @@ export default function MobileHeader() {
       {
         label: "DIAMOND",
         children: [
-          { label: "Kisna", href: "/kisnadiamond" },
+         { label: "Kisna", href: "https://www.kisna.com",},
           { label: "My blue Diamond", href: "/mybluediamond" },
         ],
       },
