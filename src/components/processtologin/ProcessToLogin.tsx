@@ -10,7 +10,7 @@ export default function ProcessToLogin({ downloadLink = "#", buttonText = "Downl
   ];
 
   return (
-    <section className="bg-[#ffffff] py-12 text-center">
+    <section className="bg-[#ffffff]  py-10 md:py-15 px-10 m-0  text-center">
       <h2 className="text-2xl md:text-3xl font-semibold text-[#6a1a0b] mb-10 uppercase tracking-wide">
         Process to Login
       </h2>

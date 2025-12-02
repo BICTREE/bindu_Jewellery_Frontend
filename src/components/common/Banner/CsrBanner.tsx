@@ -13,8 +13,8 @@ import "swiper/css/effect-fade";
 export default function HeroSlider() {
   const slides = [
     {
-      img: "/assets/images/csr-banner01.jpg",       // Desktop / Tablet
-      mobileImg: "/assets/images/csr-banner-mob.jpg", // Mobile Image
+      img: "/assets/images/csr-banner01.jpg",
+      mobileImg: "/assets/images/csr-banner-mob.jpg",
     },
     {
       img: "/assets/images/csr-banner02.jpg",
@@ -23,8 +23,7 @@ export default function HeroSlider() {
   ];
 
   return (
-    <section className="w-full transition-opacity duration-500 
-      h-[50vh] md:h-[40vh] lg:h-[50vh] relative">
+    <section className="w-full relative">
 
       <Swiper
         modules={[Pagination, Navigation, Autoplay, EffectFade]}
@@ -36,27 +35,31 @@ export default function HeroSlider() {
           nextEl: ".custom-next",
           prevEl: ".custom-prev",
         }}
-        className="w-full h-full"
+          autoHeight={true} 
+        className="w-full"
       >
         {slides.map((slide, index) => (
           <SwiperSlide key={index}>
-            <div className="relative w-full h-full">
+            {/* DIV height auto */}
+            <div className="w-full">
 
-              {/* Desktop / Tablet Image */}
+              {/* Desktop / Tablet */}
               <Image
                 src={slide.img}
                 alt="desktop-banner"
-                fill
-                className="object-cover hidden sm:block"
+                width={2000}
+                height={900}
+                className="hidden sm:block w-full h-auto"
                 priority
               />
 
-              {/* Mobile Image */}
+              {/* Mobile */}
               <Image
                 src={slide.mobileImg}
                 alt="mobile-banner"
-                fill
-                className="object-cover block sm:hidden"
+                width={900}
+                height={1200}
+                className="block sm:hidden w-full h-auto"
                 priority
               />
 
@@ -65,7 +68,7 @@ export default function HeroSlider() {
         ))}
       </Swiper>
 
-      {/* Custom Navigation Buttons */}
+      {/* Navigation Buttons */}
       <button className="custom-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 
         bg-white/30 hover:bg-white text-black 
         p-3 rounded-full shadow-lg transition">

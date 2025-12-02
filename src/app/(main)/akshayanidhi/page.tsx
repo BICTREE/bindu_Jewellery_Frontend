@@ -76,8 +76,8 @@ const AkshayaNidhiPage = () => {
       <AkshayanidhiBanner />
 
       {/* Content Section */}
-      <section className="w-full bg-white py-10 px-4 md:px-20">
-      
+      <section className="w-full bg-white pt-10 md:pt-15  m-0 py-0">
+      <div className="container  px-4">
       {/* Top Contact Line */}
       <p className="text-center text-lg md:text-xl font-medium text-gray-800 mb-10">
         For Akshayanidhi Investment Scheme help:{" "}
@@ -85,7 +85,7 @@ const AkshayaNidhiPage = () => {
       </p>
 
       {/* Title */}
-      <h2 className="text-2xl sm:text-3xl font-serif  font-semibold mb-10 text-center md:text-left">
+      <h2 className="text-2xl sm:text-3xl font-serif  font-semibold  text-center md:text-left">
     Akshaya Nidhi
       </h2>
 
@@ -108,6 +108,7 @@ const AkshayaNidhiPage = () => {
         for special occasions or future needs in a way that’s practical yet deeply
         rewarding.
       </p>
+      </div>
     </section>
 <ProcessToLogin 
   downloadLink="https://play.google.com/store/apps/details?id=akshaya.nidhi.app"

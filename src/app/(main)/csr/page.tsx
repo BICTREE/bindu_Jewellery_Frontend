@@ -20,7 +20,7 @@ const CSRPage = () => {
 
       {/* ✨ Row 2: Description */}
       <div className="max-w-5xl mx-auto ">
-        <p className="font-normal  mb-4 text-sm sm:text-base text-gray-500">
+        <p className="font-normal mb-4 text-sm sm:text-base text-gray-500 text-justify sm:text-center">
           At the heart of Bindu Jewellery lies a strong belief that true
           prosperity is shared prosperity. As a brand that has grown from
           community roots, we remain deeply committed to giving back through
@@ -83,7 +83,7 @@ const CSRPage = () => {
 
         {/* ✨ Row 2: Description */}
         <div className="max-w-5xl mx-auto  px-5">
-          <p className="font-normal  mb-4 text-sm sm:text-base text-gray-500">
+          <p className="ffont-normal mb-4 text-sm sm:text-base text-gray-500 text-justify sm:text-center">
             At the heart of Bindu Jewellery lies a strong belief that true
             prosperity is shared prosperity. As a brand that has grown from
             community roots, we remain deeply committed to giving back through

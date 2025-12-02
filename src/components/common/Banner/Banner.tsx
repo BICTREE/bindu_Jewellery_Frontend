@@ -15,39 +15,103 @@ const Banner: React.FC<BannerProps> = ({ Title }) => {
 
   const [productName, setProductName] = useState<string>("");
   const [bannerImage, setBannerImage] = useState<string>("/assets/images/collections-banner.png");
+  const [isMobile, setIsMobile] = useState(false);
 
-  // ✅ Define banner images per route
-  const bannerMap: Record<string, string> = {
-    home: "/assets/images/home-banner.jpg",
-    ourstory: "/assets/images/ourstory.png",
-    missionandvision: "/assets/images/mission-banner.jpg",
-    ourleadership: "/assets/images/collections-banner.png",
-    "product-list": "/assets/images/collections-banner.png",
-    products: "/assets/images/collections-banner.png",
-    kisnadiamond: "/assets/images/collections-banner.png",
-    mybluediamond: "/assets/images/mybluebanner.jpg",
-    csr: "/assets/images/collections-banner.png",
-    akshayanidhi: "/assets/images/akshaya-nidhi-banner.jpg",
-    swarnabindu: "/assets/images/collections-banner.png",
-    gallery: "/assets/images/collections-banner.png",
-    contact: "/assets/images/contact-us-banner.jpg",
-    blog: "/assets/images/collections-banner.png",
-    faq: "/assets/images/collections-banner.png",
+  // -------------------------------
+  // ✅ Banner Images – Desktop + Mobile
+  // -------------------------------
+  const bannerMap: Record<string, { desktop: string; mobile: string }> = {
+    missionandvision: {
+      desktop: "/assets/images/mission-banner.jpg",
+      mobile: "/assets/images/mission-banner-mobile.jpg", // 👉 Your mobile-friendly banner
+    },
+    ourstory: {
+      desktop: "/assets/images/ourstory.png",
+      mobile: "/assets/images/ourstory.png",
+    },
+    home: {
+      desktop: "/assets/images/home-banner.jpg",
+      mobile: "/assets/images/home-banner.jpg",
+    },
+    ourleadership: {
+      desktop: "/assets/images/collections-banner.png",
+      mobile: "/assets/images/collections-banner.png",
+    },
+    "product-list": {
+      desktop: "/assets/images/collections-banner.png",
+      mobile: "/assets/images/collections-banner.png",
+    },
+    products: {
+      desktop: "/assets/images/collections-banner.png",
+      mobile: "/assets/images/collections-banner.png",
+    },
+    kisnadiamond: {
+      desktop: "/assets/images/collections-banner.png",
+      mobile: "/assets/images/collections-banner.png",
+    },
+    mybluediamond: {
+      desktop: "/assets/images/mybluebanner.jpg",
+      mobile: "/assets/images/mybluebanner.jpg",
+    },
+    csr: {
+      desktop: "/assets/images/collections-banner.png",
+      mobile: "/assets/images/collections-banner.png",
+    },
+    akshayanidhi: {
+      desktop: "/assets/images/akshaya-nidhi-banner.jpg",
+      mobile: "/assets/images/akshaya-nidhi-banner.jpg",
+    },
+    swarnabindu: {
+      desktop: "/assets/images/collections-banner.png",
+      mobile: "/assets/images/collections-banner.png",
+    },
+    gallery: {
+      desktop: "/assets/images/collections-banner.png",
+      mobile: "/assets/images/collections-banner.png",
+    },
+    contact: {
+      desktop: "/assets/images/contact-us-banner.jpg",
+      mobile: "/assets/images/contact-us-banner.jpg",
+    },
+    blog: {
+      desktop: "/assets/images/collections-banner.png",
+      mobile: "/assets/images/collections-banner.png",
+    },
+    faq: {
+      desktop: "/assets/images/collections-banner.png",
+      mobile: "/assets/images/collections-banner.png",
+    },
   };
 
   const defaultBanner = "/assets/images/collections-banner.png";
 
-  // ✅ Single useEffect for banner logic
+  // -------------------------------
+  // ✅ Detect Mobile Screen
+  // -------------------------------
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 640);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // -------------------------------
+  // ✅ Set Banner Image Based on Route + Device
+  // -------------------------------
   useEffect(() => {
     const key = segments[0]?.toLowerCase() || "home";
+
     if (bannerMap[key]) {
-      setBannerImage(bannerMap[key]);
+      const img = bannerMap[key];
+      setBannerImage(isMobile ? img.mobile : img.desktop);
     } else {
       setBannerImage(defaultBanner);
     }
-  }, [segments]);
+  }, [segments, isMobile]);
 
-  // ✅ Fetch product name dynamically
+  // -------------------------------
+  // ✅ Fetch Product Name Dynamically
+  // -------------------------------
   useEffect(() => {
     const fetchProductName = async () => {
       if (segments[0] === "products" && segments[1]) {
@@ -62,7 +126,9 @@ const Banner: React.FC<BannerProps> = ({ Title }) => {
     fetchProductName();
   }, [segments]);
 
-  // ✅ Breadcrumb logic
+  // -------------------------------
+  // ✅ Breadcrumbs
+  // -------------------------------
   const breadcrumbs = segments.map((segment, index) => {
     if (segment === "products") {
       return { href: "/product-list", label: "Product" };
@@ -78,13 +144,17 @@ const Banner: React.FC<BannerProps> = ({ Title }) => {
     };
   });
 
+  // -------------------------------
+  // ✅ UI Render
+  // -------------------------------
   return (
     <section className="relative w-full">
       <img
         src={bannerImage}
         alt={Title || productName || "Banner"}
-        className="w-full object-cover transition-opacity duration-500 h-[50vh] md:h-[40vh] lg:h-[50vh]"
+        className="w-full object-contain transition-opacity duration-500"
       />
+
       <div className="absolute top-0 left-0 w-full h-full bg-black/10"></div>
 
       <div className="absolute inset-0 flex flex-col justify-between container mx-auto px-4 py-4 z-20">
@@ -109,13 +179,6 @@ const Banner: React.FC<BannerProps> = ({ Title }) => {
             </React.Fragment>
           ))}
         </div>
-
-        {/* Title */}
-        {/* <div className="flex-1 flex items-center">
-          <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white capitalize">
-            {Title || productName || breadcrumbs.at(-1)?.label || "Page"}
-          </h1>
-        </div> */}
       </div>
     </section>
   );
