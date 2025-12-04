@@ -110,9 +110,9 @@ export default function StoriesOfChange() {
                     <h3 className="text-base font-semibold text-gray-900">
                       {story.name}
                     </h3>
-                    <p className="text-sm text-gray-600 mt-1 leading-relaxed line-clamp-4">
-                      {story.description}
-                    </p>
+                   <p className="text-sm text-gray-600 mt-1 leading-relaxed line-clamp-3">
+  {story.description}
+</p>
                     <button className="mt-3 bg-[#a4c639] text-white text-xs font-medium px-3 py-1.5 rounded-sm hover:bg-[#8aad2f] transition-all">
                       READ MORE
                     </button>

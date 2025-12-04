@@ -101,8 +101,9 @@ const Page = () => {
       <Banner Title=" " />
 
       {/* Form Section */}
-      <section className="container mx-auto px-4 sm:px-6 lg:px-20 py-16 text-center">
-        <p className="text-gray-500 max-w-3xl mx-auto text-base sm:text-lg leading-relaxed">
+      <section className=" bg-white text-center pt-10 md:pt-15 px-10 m-0 py-0">
+        <div className="container">
+        <p className="font-normal mb-4 text-sm sm:text-base text-gray-500 text-justify sm:text-center">
           Please do not hesitate to reach out to us for any queries or feedback. We are here to
           create effective solutions for any of your concerns. Kindly fill out the form below, and
           one of our representatives will get back to you.
@@ -219,6 +220,7 @@ const Page = () => {
             </button>
           </div>
         </form>
+        </div>
       </section>
  
 

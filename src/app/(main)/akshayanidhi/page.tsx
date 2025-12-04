@@ -76,8 +76,8 @@ const AkshayaNidhiPage = () => {
       <AkshayanidhiBanner />
 
       {/* Content Section */}
-      <section className="w-full bg-white pt-10 md:pt-15  m-0 py-0">
-      <div className="container  px-4">
+      <section className="w-full bg-white pt-10 md:pt-15 px-6 ">
+      <div className="container ">
       {/* Top Contact Line */}
       <p className="text-center text-lg md:text-xl font-medium text-gray-800 mb-10">
         For Akshayanidhi Investment Scheme help:{" "}

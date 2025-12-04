@@ -71,7 +71,7 @@ const Banner: React.FC<BannerProps> = ({ Title }) => {
     },
     contact: {
       desktop: "/assets/images/contact-us-banner.jpg",
-      mobile: "/assets/images/contact-us-banner.jpg",
+      mobile: "/assets/images/contact-us-banner-mobile.jpg",
     },
     blog: {
       desktop: "/assets/images/collections-banner.png",
