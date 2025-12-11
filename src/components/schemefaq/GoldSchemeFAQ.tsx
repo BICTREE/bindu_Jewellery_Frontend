@@ -23,7 +23,7 @@ const GoldSchemeFAQ: React.FC<FAQProps> = ({ title, faqs, note, terms }) => {
   };
 
   return (
-    <section className="bg-[#fff8f4] text-[#111] py-16 px-6 sm:px-10 md:px-20 lg:px-32">
+    <section className="bg-[#fff8f4] text-[#111]  py-10 md:py-15 px-10 m-0">
       <h2 className="text-2xl sm:text-3xl font-serif text-center font-semibold mb-10">
         {title}
       </h2>

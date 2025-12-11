@@ -12,10 +12,8 @@ export default function MissionVision() {
         <>
     <Banner Title=" " />
 
-
-  
-<section className="w-full pt-15 bg-white">
-  <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 px-6">
+<section className="bg-white text-center pt-10 md:pt-15 px-10 m-0 py-0">
+  <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 ">
 
     {/* LEFT SIDE – ONE FULL IMAGE */}
     <div className="flex justify-center md:justify-start">
@@ -31,10 +29,11 @@ export default function MissionVision() {
     {/* RIGHT SIDE – MISSION + VISION TEXT */}
     <div>
       {/* Mission */}
-     <h2 className="font-prata text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-left">
+<h2 className="font-prata text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-bold 
+       text-center sm:text-left">
   Our Mission
 </h2>
-      <p className="font-normal  mb-4 text-sm sm:text-base text-gray-500 ">
+      <p className="font-normal mb-4 text-sm sm:text-base text-gray-500 text-justify sm:text-left">
         At Bindu Jewellery, our mission is to create jewellery that goes beyond
         aesthetics — pieces that carry emotion, meaning, and memories. Each creation
         we design is a tribute to the artistry of our ancestors and the evolving
@@ -45,7 +44,7 @@ export default function MissionVision() {
         innovation of modern craftsmanship.
       </p>
 
-      <p className="font-normal  mb-4 text-sm sm:text-base text-gray-500 ">
+      <p className="font-normal mb-4 text-sm sm:text-base text-gray-500 text-justify sm:text-left">
         We are dedicated to building an experience rooted in trust, transparency,
         and heartfelt connection. From the purity of every metal to the intricacy
         of every design, our mission is to uphold the highest standards of quality
@@ -56,8 +55,9 @@ export default function MissionVision() {
       </p>
 
       {/* Vision */}
-      <h2 className="font-prata text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-left">Our Vision</h2>
-      <p className="font-normal  mb-4 text-sm sm:text-base text-gray-500 ">
+      <h2 className="font-prata text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-bold 
+       text-center sm:text-left py-5">Our Vision</h2>
+      <p className="font-normal mb-4 text-sm sm:text-base text-gray-500 text-justify sm:text-left">
         Bindu Jewellery envisions becoming Southern India’s most trusted family
         jeweller, known for both its traditional excellence and innovative spirit.
         We aspire to preserve our timeless artistry while expanding our reach —
@@ -65,7 +65,7 @@ export default function MissionVision() {
         and continuously raising the bar in purity and design.
       </p>
 
-      <p className="font-normal  mb-4 text-sm sm:text-base text-gray-500 ">
+      <p className="font-normal mb-4 text-sm sm:text-base text-gray-500 text-justify sm:text-left">
         Our vision extends beyond commerce — we see jewellery as a bridge between
         generations, a keepsake that carries emotions and blessings. As we step
         into the future, we aim to blend classic craftsmanship with contemporary
@@ -76,9 +76,7 @@ export default function MissionVision() {
     </div>
   </div>
 </section>
-
-
-      <SubscribeNewsletter />
+    <SubscribeNewsletter />
       <FreeshipingComp />
       </>
       
