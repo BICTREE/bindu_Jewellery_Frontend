@@ -15,7 +15,7 @@ export default function OfferPopup() {
     // Auto-hide after 10 seconds
     const autoClose = setTimeout(() => {
       setShowPopup(false);
-    }, 10000);
+    }, 15000);
 
     return () => {
       clearTimeout(timer);
@@ -61,7 +61,7 @@ export default function OfferPopup() {
   if (!showPopup) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
+    <div className="fixed inset-0 bg-black/90 z-100 flex items-center justify-center pt-15">
       <div
         ref={popupRef}
         className={`bg-white shadow-lg p-1 w-[90%] sm:w-[450px] md:w-[550px] rounded-lg relative transition-transform duration-500 ${
@@ -69,12 +69,16 @@ export default function OfferPopup() {
         }`}
       >
         {/* Close Button */}
-        <button
-          onClick={() => setShowPopup(false)}
-          className="absolute top-2 right-2 text-gray-500 hover:text-gray-800 text-xl bg-white p-1 rounded-full"
-        >
-          ✕
-        </button>
+<button
+  onClick={() => setShowPopup(false)}
+  className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center 
+             rounded-full bg-black/60 text-white hover:bg-black 
+             transition shadow-md"
+>
+  ✕
+</button>
+
+
 
         {/* Banner Image */}
         <img

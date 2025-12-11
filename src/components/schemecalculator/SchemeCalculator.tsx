@@ -28,8 +28,8 @@ export default function SchemeCalculator() {
   ];
 
   return (
-    <div className="bg-[#f8f2c2] min-h-screen flex flex-col items-center justify-center px-4 py-15">
-      <h1 className="text-3xl font-semibold text-[#5a2e00] mb-6">
+    <div className="bg-[#f8f2c2] min-h-screen flex flex-col items-center justify-center  py-10 md:py-15 px-6">
+      <h1 className="text-[#5a2e00]  text-2xl sm:text-3xl font-serif text-center font-semibold mb-10">
         Scheme Calculator
       </h1>
 
@@ -43,8 +43,7 @@ export default function SchemeCalculator() {
                 size={18}
                 className={isDiamond ? "text-sky-500" : "text-gray-400"}
               />
-              <span
-                className={`cursor-pointer ${
+              <span className={`cursor-pointer ${
                   isDiamond ? "text-sky-600 font-semibold" : "text-gray-400"
                 }`}
                 onClick={() => setIsDiamond(true)}

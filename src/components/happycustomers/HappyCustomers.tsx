@@ -27,8 +27,8 @@ export default function HappyCustomers(
 
 
   return (
-    <section className="bg-[#fdf3ee]  py-15 text-center">
-      <h2 className="text-2xl md:text-3xl font-semibold text-[#6a1a0b] mb-8">
+    <section className="bg-[#fdf3ee] text-center  py-10 md:py-15 px-10 m-0">
+      <h2 className="text-2xl sm:text-3xl font-serif text-center font-semibold mb-10 text-[#6a1a0b] ">
         {title}
       </h2>
 

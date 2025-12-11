@@ -99,7 +99,9 @@ export default function SwarnaBinduPage() {
       <SwarnabinduBanner />
 
       {/* Helpline + Description */}
-      <section className="bg-white text-[#111] py-12 px-6 sm:px-10 md:px-20 lg:px-32">
+      <section className="bg-white text-[#111] pt-10 md:pt-15 ">
+<div className="container">
+
         <p className="text-center text-sm sm:text-base md:text-lg mb-10 font-medium">
           For Gold Investment Scheme help:{" "}
           <a
@@ -113,9 +115,9 @@ export default function SwarnaBinduPage() {
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-10">
           {/* Left */}
           <div className="md:w-2/3 space-y-5 text-justify">
-            <h2 className="text-2xl sm:text-3xl font-serif text-left font-semibold ">
-              Swarna Bindu
-            </h2>
+     <h2 className="text-2xl sm:text-3xl font-serif font-semibold text-center sm:text-left">
+  Swarna Bindu
+</h2>
 
             <p className="font-normal  mb-4 text-sm sm:text-base text-gray-500 ">
               The Swarna Bindu Scheme offers yet another golden opportunity to
@@ -129,15 +131,17 @@ export default function SwarnaBinduPage() {
           </div>
 
           {/* Right Image */}
-          <div className="md:w-1/3 flex justify-center md:justify-end">
-            <Image
-              src="/assets/images/swarnabindhu01.png"
-              alt="Swarna Bindu Logo"
-              width={260}
-              height={300}
-              className="rounded-md shadow-md object-contain"
-            />
-          </div>
+       <div className="w-full md:w-1/3 flex justify-center md:justify-end">
+  <Image
+    src="/assets/images/swarnabindhu01.png"
+    alt="Swarna Bindu Logo"
+    width={260}
+    height={300}
+    className="rounded-md shadow-md object-contain"
+  />
+</div>
+
+        </div>
         </div>
       </section>
 
