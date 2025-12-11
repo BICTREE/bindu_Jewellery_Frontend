@@ -47,7 +47,7 @@ export default function StoriesOfChange() {
         Stories of Change
       </h2>
 
-      <div className="max-w-6xl mx-auto px-4 relative">
+      <div className="max-w-6xl mx-auto px-4  relative">
         {/* Custom navigation buttons (hidden on mobile) */}
         <div className="absolute top-1/2 -left-5 z-10 transform -translate-y-1/2 hidden md:block">
           <button
@@ -55,10 +55,10 @@ export default function StoriesOfChange() {
             aria-label="Previous"
           >
             ❮
-          </button>
+          </button> 
         </div>
 
-        <div className="absolute top-1/2 -right-5 z-10 transform -translate-y-1/2 hidden md:block">
+        <div className=" absolute top-1/2 -right-5 z-10 transform -translate-y-1/2 hidden md:block">
           <button
             className="custom-next bg-[#6a9300] text-white rounded-full w-10 h-10 flex items-center justify-center shadow-md hover:bg-[#8aad2f] transition"
             aria-label="Next"
@@ -99,14 +99,14 @@ export default function StoriesOfChange() {
                 <div
                   className={`transition-all duration-500 transform ${
                     isActive ? "scale-105 shadow-xl" : "scale-90 opacity-70"
-                  } bg-white border border-gray-100 rounded-lg w-full max-w-[300px] mx-auto`}
+                  } bg-white border border-gray-100 rounded-lg w-full max-w-[300px] mx-auto mb-10`}
                 >
                   <img
                     src={story.image}
                     alt={story.name}
                     className="w-full h-[180px] object-cover"
                   />
-                  <div className="p-4 text-left">
+                  <div className="p-4 text-left mt-5">
                     <h3 className="text-base font-semibold text-gray-900">
                       {story.name}
                     </h3>
