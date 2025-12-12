@@ -224,7 +224,7 @@ const Page = () => {
       </section>
  
 
-<section className="bg-white  px-4 sm:px-6 md:px-12 lg:px-20 text-center">
+<section className="bg-white  px-4 sm:px-6 md:px-12 lg:px-20 text-center  pt-10 md:pt-15">
 
   {/* Customer Care Section */}
   <div className="mb-12">
