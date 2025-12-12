@@ -68,7 +68,7 @@ export default function OfferPopup() {
           shake ? "animate-shake" : ""
         }`}
       >
-        {/* Close Button */}
+        {/* Close Button */} 
 <button
   onClick={() => setShowPopup(false)}
   className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center 

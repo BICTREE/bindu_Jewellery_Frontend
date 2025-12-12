@@ -26,8 +26,8 @@ const Banner: React.FC<BannerProps> = ({ Title }) => {
       mobile: "/assets/images/mission-banner-mobile.jpg", // 👉 Your mobile-friendly banner
     },
     ourstory: {
-      desktop: "/assets/images/ourstory.png",
-      mobile: "/assets/images/ourstory.png",
+      desktop: "/assets/images/our-story01.jpg",
+      mobile: "/assets/images/ourstory-bgimage-mob.png",
     },
     home: {
       desktop: "/assets/images/home-banner.jpg",
